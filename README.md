@@ -17,7 +17,7 @@ Temat: Bolid F1 na torze
 
 | Etap projektu         			| Przewidywany czas | Faktyczny czas | Wykonano                             |
 |-----------------------------------|-------------------|----------------|--------------------------------------|
-|1. Modelowanie bolidu				| 	   				|                |  <input type="checkbox" enabled />   |
+|1. Modelowanie bolidu				| 	   				|                |  <input type="checkbox" disabled/>   |
 |2. Tekstury bolidu					|                   |                |  <input type="checkbox" enabled />   |
 |3. Model fragmentu toru			|                   |                |  <input type="checkbox" enabled />   |
 |4. Tekstury toru					|	                |                |  <input type="checkbox" enabled />   |
