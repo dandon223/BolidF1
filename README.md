@@ -17,15 +17,15 @@ Temat: Bolid F1 na torze
 
 | Etap projektu         			| Przewidywany czas | Faktyczny czas | Wykonano |
 |-----------------------------------|-------------------|----------------|----------|
-|1. Modelowanie bolidu				| 	   				|                |    [ ]   |
-|2. Tekstury bolidu					|                   |                |    [ ]   |
-|3. Model fragmentu toru			|                   |                |    [ ]   |
-|4. Tekstury toru					|	                |                |    [ ]   |
-|5. Kamera śledząca bolid      		|                   |                |    [ ]   |
-|6. Oświetlenie 					|                   |                |    [ ]   |
-|7. Interaktywne oświetlenie sceny	|                   |                |    [ ]   |
-|8. Animacja                       	|                   |                |    [ ]   |
-|9. Interakcja z użytkownikiem		|                   |                |    [ ]   |
+|1. Modelowanie bolidu				| 	   				|                |  - [ ]   |
+|2. Tekstury bolidu					|                   |                |  - [ ]   |
+|3. Model fragmentu toru			|                   |                |  - [ ]   |
+|4. Tekstury toru					|	                |                |  - [ ]   |
+|5. Kamera śledząca bolid      		|                   |                |  - [ ]   |
+|6. Oświetlenie 					|                   |                |  - [ ]   |
+|7. Interaktywne oświetlenie sceny	|                   |                |  - [ ]   |
+|8. Animacja                       	|                   |                |  - [ ]   |
+|9. Interakcja z użytkownikiem		|                   |                |  - [ ]   |
 
 # **Schemat modeli**
 
@@ -66,11 +66,11 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
 
 # **Etapy projektowe**
 
-  1. Modelowanie bolidu   
-    - [ ] Model kół  
+ 1. Modelowanie bolidu
+    - [ ] Model kół
     - [ ] Modele spoilerów  
 	- [ ] Model nadwozia  
-	- [ ] Połączenie elementów  
+	- [ ] Połączenie elementów
  2. Tekstury bolidu
     - [ ] Tekstury kół
     - [ ] Tekstura nadwozia
