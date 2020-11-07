@@ -15,17 +15,17 @@ Temat: Bolid F1 na torze
 
 # **Postępy**
 
-| Etap projektu         			| Przewidywany czas | Faktyczny czas | Wykonano |
-|-----------------------------------|-------------------|----------------|----------|
-|1. Modelowanie bolidu				| 	   				|                |  - [ ]   |
-|2. Tekstury bolidu					|                   |                |  - [ ]   |
-|3. Model fragmentu toru			|                   |                |  - [ ]   |
-|4. Tekstury toru					|	                |                |  - [ ]   |
-|5. Kamera śledząca bolid      		|                   |                |  - [ ]   |
-|6. Oświetlenie 					|                   |                |  - [ ]   |
-|7. Interaktywne oświetlenie sceny	|                   |                |  - [ ]   |
-|8. Animacja                       	|                   |                |  - [ ]   |
-|9. Interakcja z użytkownikiem		|                   |                |  - [ ]   |
+| Etap projektu         			| Przewidywany czas | Faktyczny czas | Wykonano                             |
+|-----------------------------------|-------------------|----------------|--------------------------------------|
+|1. Modelowanie bolidu				| 	   				|                |  <input type="checkbox" enabled />   |
+|2. Tekstury bolidu					|                   |                |  <input type="checkbox" enabled />   |
+|3. Model fragmentu toru			|                   |                |  <input type="checkbox" enabled />   |
+|4. Tekstury toru					|	                |                |  <input type="checkbox" enabled />   |
+|5. Kamera śledząca bolid      		|                   |                |  <input type="checkbox" enabled />   |
+|6. Oświetlenie 					|                   |                |  <input type="checkbox" enabled />   |
+|7. Interaktywne oświetlenie sceny	|                   |                |  <input type="checkbox" enabled />   |
+|8. Animacja                       	|                   |                |  <input type="checkbox" enabled />   |
+|9. Interakcja z użytkownikiem		|                   |                |  <input type="checkbox" enabled />   |
 
 # **Schemat modeli**
 
