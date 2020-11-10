@@ -95,5 +95,6 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
 
 # **Materiały dydaktyczne**
 1. https://learnopengl.com/ 
-2. http://cpp0x.pl/kursy/Kurs-OpenGL-C++/101 
+2. https://www.opengl-tutorial.org/
 3. https://open.gl/
+4. https://www.songho.ca/opengl/index.html
