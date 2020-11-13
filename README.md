@@ -1,10 +1,10 @@
 # Autorzy
 
-| Imię i Nazwisko   | Funkcja |
-|-------------------|---------|
+| Imię i Nazwisko    | Funkcja |
+|--------------------|---------|
 |Daniel Górniak		|         |
 |Jakub Marczuk 		|         |
-|Konrad Bratosiewicz|         |
+|Konrad Bratosiewicz |         |
 |Bartosz Świrta		|         |
 
 
@@ -15,17 +15,19 @@ Temat: Bolid F1 na torze
 
 # **Postępy**
 
-| Etap projektu         			| Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
-|-----------------------------------|-------------------|----------------|--------|---------------------------------|
-|1. Modelowanie bolidu				| 	   				|                |        |                                 |
-|2. Tekstury bolidu					|                   |                |        |                                 |
-|3. Model fragmentu toru			|                   |                |        |                                 |
-|4. Tekstury toru					|	                |                |        |                                 |
-|5. Kamera śledząca bolid      		|                   |                |        |                                 |
-|6. Oświetlenie 					|                   |                |        |                                 |
-|7. Interaktywne oświetlenie sceny	|                   |                |        |                                 |
-|8. Animacja                       	|                   |                |        |                                 |
-|9. Interakcja z użytkownikiem		|                   |                |        |                                 |
+| Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
+|--------------------------------------------|--------------------|----------------|--------|---------------------------------|
+|0. Konfiguracja środowiska i repozystorium	| 	   				   |                |        |                                 |
+|1. Utworzenie środowiska roboczego	         | 	   				   |                |        |                                 |
+|2. Modelowanie bolidu				            | 	   				   |                |        |                                 |
+|3. Tekstury bolidu					            |                    |                |        |                                 |
+|4. Model fragmentu toru			            |                    |                |        |                                 |
+|5. Tekstury toru					               |	                  |                |        |                                 |
+|6. Kamera śledząca bolid      		         |                    |                |        |                                 |
+|7. Oświetlenie 					               |                    |                |        |                                 |
+|8. Interaktywne oświetlenie sceny	         |                    |                |        |                                 |
+|9. Animacja                       	         |                    |                |        |                                 |
+|10. Interakcja z użytkownikiem		         |                    |                |        |                                 |
 
 # **Schemat modeli**
 
@@ -49,48 +51,58 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
 
 
 # **Milestones**
-1. Implementacja modelu bolidu   
-	>a. Przygotowanie poszczególnych elementów modelu  
-	b. Scalenie pełnego modelu  
-    c. Przygotowanie tekstur  
-    d. Teksturowanie modelu  
-2. Implementacja sceny  
-	>a. Utworzenie toru  
-	b. Utworzenie otoczenia toru    
-	c. Dodanie oświetlenia toru (lampy)  
-3. Implementacja kamery
+0. Konfiguracja środowiska i repozytorium GitLab
+1. Utworzenie środowiska roboczego
+   >a. Implementacja roboczej kamery  
+    b. Implementacja roboczego otoczenia
+    c. Implementacja prostego obiektu
+2. Implementacja modelu bolidu   
+	>a. Przygotowanie poszczególnych elementów modelu   
+    b. Przygotowanie tekstur  
+    c. Teksturowanie modelu 
+    d. Scalenie pełnego modelu  
+3. Implementacja sceny  
+	>a. Implementacja toru  
+	 b. Implementacja otoczenia toru    
+	 c. Dodanie oświetlenia toru (lampy)  
 4. Implementacja regulowanego oświetlenia (interaktywne) 
 5. Animacja
-6. Implementacja interakcji z użytownikiem (praca kamery)
+6. Implementacja interakcji z użytownikiem
 7. Prezentacja gotowego projektu 
 
 # **Etapy projektowe**
-
- 1. Modelowanie bolidu
+ 0. Konfiguracja środowiska i repozystorium
+ 1. Utworzenie środowiska roboczego
+    - [ ] Implementacja roboczej kamery
+    - [ ] Implementacja roboczego otoczenia  
+	 - [ ] Implementacja prostego obiektu  
+ 2. Modelowanie bolidu
     - [ ] Model kół
     - [ ] Modele spoilerów  
-	- [ ] Model nadwozia  
-	- [ ] Połączenie elementów
- 2. Tekstury bolidu
+	 - [ ] Model nadwozia  
+ 3. Tekstury bolidu
     - [ ] Tekstury kół
     - [ ] Tekstura nadwozia
- 3. Model fragmentu toru 
+    - [ ] Tekstury elementów aerodynamicznych
+ 4. Model fragmentu toru 
     - [ ] Jezdnia
+    - [ ] Trybuny
     - [ ] Bandy (opcjonalnie)
     - [ ] Elementy dekoracyjne (opcjonalnie)
- 4. Tekstury toru
+ 5. Tekstury toru
     - [ ] Tekstura jezdni
     - [ ] Tekstury elementów dekoracyjnych (opcjonalnie)
- 5. Kamera śledząca bolid 
- 6. Oświetlenie
+ 6. Kamera śledząca bolid 
+    - [ ] Ruch kamery zgodnie z ruchem myszy
+	 - [ ] Przybliżanie i oddalanie kamery 
+ 7. Oświetlenie
     - [ ] Oświetlenie globalne 
     - [ ] Oświetlenie punktowe (lampy)
- 7. Interaktywne oświetlenie sceny
- 8. Animacja
+ 8. Interaktywne oświetlenie sceny
+ 9. Animacja
     - [ ] Animacja kół 
- 9. Interakcja z użytkownikiem 
-	- [ ] Ruch kamery zgodnie z ruchem myszy
-	- [ ] Przybliżanie i oddalanie kamery 
+ 10. Interakcja z użytkownikiem 
+	
 
 
 # **Materiały dydaktyczne**
