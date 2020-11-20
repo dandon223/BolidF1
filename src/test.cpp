@@ -55,37 +55,6 @@ void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) {
 	camera.processMouseScroll(y_offset);
 }
 
-GLuint LoadMipmapTexture(GLuint texId, const char* fname)
-{
-	int width, height;
-	unsigned char* image = SOIL_load_image(fname, &width, &height, 0, SOIL_LOAD_RGB);
-	if (image == nullptr)
-		throw exception("Failed to load texture file");
-
-	GLuint texture;
-	glGenTextures(1, &texture);
-
-	glActiveTexture(texId);
-	glBindTexture(GL_TEXTURE_2D, texture);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	SOIL_free_image_data(image);
-	glBindTexture(GL_TEXTURE_2D, 0);
-	return texture;
-}
-
-// KB: potrzebujemy tego?
-ostream& operator<<(ostream& os, const glm::mat4& mx)
-{
-	for (int row = 0; row < 4; ++row)
-	{
-		for (int col = 0; col < 4; ++col)
-			cout << mx[row][col] << ' ';
-		cout << endl;
-	}
-	return os;
-}
-
 int main()
 {
 	if (glfwInit() != GL_TRUE)
@@ -183,6 +152,7 @@ int main()
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 
 			// setup transformation matrix
+			//ToDo add to object3d
 			glm::mat4 trans = glm::mat4(1.0f);
 			static GLfloat rot_angle = 0.0f;
 			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -5.0f));
@@ -202,9 +172,11 @@ int main()
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
+			shader_program.Use();
+
 			glBindVertexArray(VAO);
 			box.draw();
-			//glDrawElements(GL_TRIANGLES, box.indices.size(), GL_UNSIGNED_INT, 0);
+			//glDrawElements(GL_TRIANGLES, box.indices_.size(), GL_UNSIGNED_INT, 0);
 			glBindVertexArray(0);
 
 			// Swap the screen buffers
