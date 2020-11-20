@@ -1,23 +1,55 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include "shprogram.h"
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
-
-using namespace std;
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+// KB: TODO - header przechowuj¹cy wszystkie u¿ywane biblioteki?
+// ¿eby ka¿dy plik .h nie pod³¹cza³ ich osobno
+
+#include "shprogram.h"
+#include "camera.h"
+
+using namespace std;
+
 const GLuint WIDTH = 1200, HEIGHT = 800;
 
-void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
-{
+Camera camera;
+
+double mouse_prev_x;
+double mouse_prev_y;
+bool first_use = true;
+
+	// keyboard interaction: close the program
+void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
 	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
+}
+
+	// mouse movement interaction: rotate camera according to user's input
+void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
+	double x_offset, y_offset;
+	if (first_use == true) {
+		x_offset = y_offset = 0.0f;
+		first_use = false;
+	}
+	else {
+		x_offset = x_pos - mouse_prev_x;
+		y_offset = mouse_prev_y - y_pos;
+	}
+	mouse_prev_x = x_pos;
+	mouse_prev_y = y_pos;
+	camera.processMouseMovement(x_offset, y_offset);
+}
+
+	// mouse scroll interaction: change FOV, effectively - zoom in/out
+void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) {
+	camera.processMouseScroll(y_offset);
 }
 
 GLuint LoadMipmapTexture(GLuint texId, const char* fname)
@@ -39,6 +71,7 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	return texture;
 }
 
+// KB: potrzebujemy tego?
 ostream& operator<<(ostream& os, const glm::mat4& mx)
 {
 	for (int row = 0; row < 4; ++row)
@@ -52,12 +85,6 @@ ostream& operator<<(ostream& os, const glm::mat4& mx)
 
 int main()
 {
-	{
-		glm::mat4 trans;
-		cout << trans << endl;
-		trans = glm::rotate(trans, glm::radians(90.0f), glm::vec3(0.0, 0.0, 1.0));
-		cout << trans << endl;
-	}
 	if (glfwInit() != GL_TRUE)
 	{
 		cout << "GLFW initialization failed" << endl;
@@ -73,14 +100,23 @@ int main()
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
-		glfwSetKeyCallback(window, key_callback);
+
+		// user interaction setup
+		glfwSetKeyCallback(window, keyCallback);			// keyboard
+		glfwSetCursorPosCallback(window, mouseCallback);	// mouse movement
+		glfwSetScrollCallback(window, scrollCallback);		// mouse scroll
+
+		// capture and hide mouse cursor 
+		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 		glewExperimental = GL_TRUE;
 		if (glewInit() != GLEW_OK)
 			throw exception("GLEW Initialization failed");
 
 		glViewport(0, 0, WIDTH, HEIGHT);
+
 		glEnable(GL_DEPTH_TEST);
+
 		// Let's check what are maximum parameters counts
 		GLint nrAttributes;
 		glGetIntegerv(GL_MAX_VERTEX_ATTRIBS, &nrAttributes);
@@ -89,9 +125,8 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 		// Build, compile and link shader program
-		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
+		ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
 
-		// Set up vertex data 
 		// Set up vertex data 
 		GLfloat vertices[] = {
 			// coordinates			// color			// texture
@@ -180,67 +215,55 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		// prepare textures
-		//GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "bricks.png");
 		GLuint texture0 = LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp");
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
-			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
-			glfwPollEvents();
+			// check for camera movement
+			camera.processKeyboardInput(window);
 
-			// Clear the colorbuffer
+			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture0);
-			glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture0"), 0);
-			//glActiveTexture(GL_TEXTURE1);
-			//glBindTexture(GL_TEXTURE_2D, texture1);
-			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
+			glUniform1i(glGetUniformLocation(shader_program.get_programID(), "Texture0"), 0);
 
-			glm::mat4 trans;
+			// use shader
+			shader_program.Use();
+
+			// setup transformation matrix
+			glm::mat4 trans = glm::mat4(1.0f);
 			static GLfloat rot_angle = 0.0f;
-			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, 0.0f));
+			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -5.0f));
 			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(0.5, 1.0, 0.0));
-			rot_angle += 0.4f;
-			if (rot_angle >= 360.0f)
-				rot_angle -= 360.0f;
-			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
+			rot_angle = fmod((rot_angle + 0.4f), 360.0f);
+			GLuint transformLoc = glGetUniformLocation(shader_program.get_programID(), "transform");
+				
+			// setup projection matrix
+			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			GLint projLoc = glGetUniformLocation(shader_program.get_programID(), "projection");
+
+			// setup view matrix - get it from camera object
+			glm::mat4 view = camera.getViewMatrix();
+			GLint viewLoc = glGetUniformLocation(shader_program.get_programID(), "view");
+
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-
-			//glm::mat4 view;
-			//glm::mat4 projection;
-			//view = glm::translate(view, glm::vec3(0.0f, 0.0f, -2.0f));
-			//projection = glm::perspective(glm::radians(45.0f),(GLfloat)WIDTH/ (GLfloat)HEIGHT,0.1f,100.0f);
-			//GLint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
-			//GLint projLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
-			//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-
-			glm::mat4 camRot;
-			//camRot = glm::rotate(camRot, glm::radians(rot_angle), glm::vec3(0.0f, 1.0f, 0.0f));
-			glm::vec3 cameraPos = glm::vec3(camRot * glm::vec4(0.0f, 0.0f, -3.0f, 1.0f));
-
-			glm::mat4 view;
-			glm::mat4 projection;
-			view = glm::lookAt(cameraPos , glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
-			projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-			GLint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
-			GLint projLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			// Draw our first triangle
-			theProgram.Use();
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+			glBindVertexArray(0);	
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
+
+			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
+			glfwPollEvents();
 		}
 		glDeleteVertexArrays(1, &VAO);
 		glDeleteBuffers(1, &VBO);
