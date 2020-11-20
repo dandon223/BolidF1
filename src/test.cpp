@@ -56,26 +56,27 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 		// Build, compile and link shader program
-		ShaderProgram theProgram("gl_05.vert", "gl_05.frag");
+		ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
 
 		// Set up vertex data 
 		// Set up vertex data 
 		
 		cube box;
-
+		
 		GLuint VBO, EBO, VAO;
+		
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glGenBuffers(1, &EBO);
 
 		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-		glBindVertexArray(VAO);
+		 glBindVertexArray(VAO);
 
 		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * box.vertices.size(), box.vertices.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * box.vertices_.size(), box.vertices_.data(), GL_STATIC_DRAW);
 
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * box.indices.size(), box.indices.data(), GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * box.indices_.size(), box.indices_.data(), GL_STATIC_DRAW);
 
 		// vertex geometry data
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
@@ -109,6 +110,7 @@ int main()
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 
+			
 			glm::mat4 trans;
 			static GLfloat rot_angle = 0.0f;
 			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, 0.0f));
@@ -116,7 +118,7 @@ int main()
 			rot_angle += 0.4f;
 			if (rot_angle >= 360.0f)
 				rot_angle -= 360.0f;
-			GLuint transformLoc = glGetUniformLocation(theProgram.get_programID(), "transform");
+			GLuint transformLoc = glGetUniformLocation(shader_program.get_programID(), "transform");
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
 			glm::mat4 camRot;
@@ -127,12 +129,12 @@ int main()
 			glm::mat4 projection;
 			view = glm::lookAt(cameraPos , glm::vec3(0.0f,0.0f,0.0f),glm::vec3(0.0f,1.0f,0.0f));
 			projection = glm::perspective(glm::radians(45.0f), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-			GLint viewLoc = glGetUniformLocation(theProgram.get_programID(), "view");
-			GLint projLoc = glGetUniformLocation(theProgram.get_programID(), "projection");
+			GLint viewLoc = glGetUniformLocation(shader_program.get_programID(), "view");
+			GLint projLoc = glGetUniformLocation(shader_program.get_programID(), "projection");
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			// Draw our first triangle
-			theProgram.Use();
+			shader_program.Use();
 
 			glBindVertexArray(VAO);
 			box.draw();

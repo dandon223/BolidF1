@@ -27,14 +27,18 @@ struct Vertex {
 
 class Object3D {
 public:
-	glm::vec3 centerPoint;
-	std::vector<GLfloat> vertices;
-	std::vector<GLuint> indices;
+	glm::vec3 centerPoint_;
+	std::vector<GLfloat> vertices_;
+	std::vector<GLuint> indices_;
+
+	//GLuint VBO, EBO, VAO;
 
 	Object3D();
 	~Object3D();
-	void set_centerPoint(glm::vec3);
-	void traslate(glm::vec3);
+	void bind_buffers();
+	void free_buffers();
+	void set_centerPoint(const glm::vec3 &);
+	void translate(const glm::vec3 &);
 	void rotate(glm::vec3);
 	void scale(float);
 	void draw();
