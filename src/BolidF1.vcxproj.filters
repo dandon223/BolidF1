@@ -47,7 +47,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="shprogram.h">
+    <ClInclude Include="include\shprogram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">

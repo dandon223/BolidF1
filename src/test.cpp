@@ -14,7 +14,7 @@
 // KB: TODO - header przechowuj¹cy wszystkie u¿ywane biblioteki?
 // ¿eby ka¿dy plik .h nie pod³¹cza³ ich osobno
 
-#include "shprogram.h"
+#include "include/shprogram.h"
 #include "camera.h"
 
 using namespace std;
@@ -97,44 +97,11 @@ int main()
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
 		// Build, compile and link shader program
-		ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
+		//ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
+		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 
-		// Set up vertex data 
-		// Set up vertex data 
-		
-		cube box;
-		
-		GLuint VBO, EBO, VAO;
-		
-		glGenVertexArrays(1, &VAO);
-		glGenBuffers(1, &VBO);
-		glGenBuffers(1, &EBO);
-
-		// Bind the Vertex Array Object first, then bind and set vertex buffer(s) and attribute pointer(s).
-		 glBindVertexArray(VAO);
-
-		glBindBuffer(GL_ARRAY_BUFFER, VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * box.vertices_.size(), box.vertices_.data(), GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * box.indices_.size(), box.indices_.data(), GL_STATIC_DRAW);
-
-		// vertex geometry data
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
-		glEnableVertexAttribArray(0);
-
-		// vertex color data
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(1);
-
-		// vertex texture coordinates
-		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-		glEnableVertexAttribArray(2);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0); // Note that this is allowed, the call to glVertexAttribPointer registered VBO as the currently bound vertex buffer object so afterwards we can safely unbind
-
-		glBindVertexArray(0); // Unbind VAO (it's always a good thing to unbind any buffer/array to prevent strange bugs)
-
+		Cube box1(CubeShader);
+		box1.bind_buffers();
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
@@ -158,26 +125,23 @@ int main()
 			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -5.0f));
 			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(0.5, 1.0, 0.0));
 			rot_angle = fmod((rot_angle + 0.4f), 360.0f);
-			GLuint transformLoc = glGetUniformLocation(shader_program.get_programID(), "transform");
-				
+			GLuint transformLoc = glGetUniformLocation(CubeShader.get_programID(), "transform");
 			// setup projection matrix
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-			GLint projLoc = glGetUniformLocation(shader_program.get_programID(), "projection");
+			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
 
 			// setup view matrix - get it from camera object
 			glm::mat4 view = camera.getViewMatrix();
-			GLint viewLoc = glGetUniformLocation(shader_program.get_programID(), "view");
+			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
 
 			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
-			shader_program.Use();
+			//shader_program.Use();
+			CubeShader.Use();
 
-			glBindVertexArray(VAO);
-			box.draw();
-			//glDrawElements(GL_TRIANGLES, box.indices_.size(), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);
+			box1.draw();
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
@@ -185,9 +149,6 @@ int main()
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 		}
-		glDeleteVertexArrays(1, &VAO);
-		glDeleteBuffers(1, &VBO);
-		glDeleteBuffers(1, &EBO);
 	}
 	catch (exception ex)
 	{

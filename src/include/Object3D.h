@@ -9,6 +9,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
+#include <memory>
+
+#include "include/shprogram.h"
 
 struct Vertex {
 	GLfloat x;
@@ -24,31 +27,36 @@ struct Vertex {
 		   GLfloat yColor_ = 0.0f, GLfloat zColor_ = 0.0f, 
 		   GLfloat xTex_ = 0.0f, GLfloat yTex_ = 0.0f) : x(x_), y(y_), z(z_), xColor(xColor_), yColor(yColor_), zColor(zColor_), xTex(xTex_), yTex(yTex_) {}
 };
-
 class Object3D {
+private:
+	GLuint VAO, VBO, EBO;
+	
+protected:
+
 public:
 	glm::vec3 centerPoint_;
 	std::vector<GLfloat> vertices_;
 	std::vector<GLuint> indices_;
 
-	//GLuint VBO, EBO, VAO;
-
 	Object3D();
-	~Object3D();
+	virtual ~Object3D();
 	void bind_buffers();
 	void free_buffers();
+	void draw();
+
 	void set_centerPoint(const glm::vec3 &);
 	void translate(const glm::vec3 &);
 	void rotate(glm::vec3);
 	void scale(float);
-	void draw();
+
+	//std::weak_ptr<ShaderProgram> shader_;
 };
 
-class cube : public Object3D {
+class Cube : public Object3D {
 public:
 
-	cube();
-	~cube();
+	Cube(const ShaderProgram& );
+	~Cube();
 };
 
 #endif // !OBJECT3D_H

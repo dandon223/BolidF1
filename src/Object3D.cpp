@@ -1,44 +1,58 @@
 #include "include/Object3D.h"
 
 
-Object3D::Object3D() {}
-Object3D::~Object3D() {}
-void Object3D::translate(const glm::vec3 &centerPoint) {
-	if (!this->vertices_.empty()) {
-		int i;
-		for (i = 0; i < 3; ++i) {
-			this->centerPoint_[i] = centerPoint[i];
-		}
-		i = 0;
-		while(i < this->vertices_.size()) {
-			this->vertices_[i] += this->centerPoint_[0];
-			this->vertices_[i + 1] += this->centerPoint_[1];
-			this->vertices_[i + 2] += this->centerPoint_[2];
-			i += 8;
-		}
-	}
+Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)) {}
+Object3D::~Object3D() {
+	glDeleteVertexArrays(1, &this->VAO);
+	glDeleteBuffers(1, &this->VBO);
+	glDeleteBuffers(1, &this->EBO);
 }
-void Object3D::scale(float newScale) {
-	if (!this->vertices_.empty()) {
-		int i = 0;
-		while (i < this->vertices_.size()) {
-			this->vertices_[i] *= newScale;
-			this->vertices_[i + 1] *= newScale;
-			this->vertices_[i + 2] *= newScale;
-			i += 8;
-		}
-	}
+void Object3D::bind_buffers() {
+	
+	glGenVertexArrays(1, &this->VAO);
+	glGenBuffers(1, &this->VBO);
+	glGenBuffers(1, &this->EBO);
+
+	glBindVertexArray(this->VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * this->vertices_.size(), this->vertices_.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->indices_.size(), this->indices_.data(), GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
+	glEnableVertexAttribArray(1);
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
+
+	glEnableVertexAttribArray(2);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
+void Object3D::free_buffers() {
+	glDeleteVertexArrays(1, &this->VAO);
+	glDeleteBuffers(1, &this->VBO);
+	glDeleteBuffers(1, &this->EBO);
 }
 void Object3D::draw() {
-	//glBindVertexArray(VAO);
+	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
-	//glBindVertexArray(0);
+	glBindVertexArray(0);
+}
+void Object3D::translate(const glm::vec3 &centerPoint) {
+	
+}
+void Object3D::scale(float newScale) {
+	
 }
 
-cube::cube() {
+Cube::Cube(const ShaderProgram& shader) {
 	centerPoint_[0] = 0.0f;
 	centerPoint_[1] = 0.0f;
 	centerPoint_[2] = 0.0f;
+	//this->shader_ = std::make_shared<ShaderProgram>(shader);
 
 	this->vertices_ = {
 		// coordinates			// color			// texture
@@ -67,4 +81,4 @@ cube::cube() {
 			5, 4, 7
 	};
 }
-cube::~cube() {};
+Cube::~Cube() {};
