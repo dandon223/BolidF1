@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
+#include "rearSpoiler.h"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -126,6 +127,8 @@ int main()
 
 		// Build, compile and link shader program
 		ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
+		ShaderProgram rearSpoilerProgram("rearSpoiler.vert", "rearSpoiler.frag");
+		RearSpoiler rearSpoiler = RearSpoiler("spoiler.png", "carbon.png", rearSpoilerProgram, camera);
 
 		// Set up vertex data 
 		GLfloat vertices[] = {
@@ -220,6 +223,7 @@ int main()
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
+
 			// check for camera movement
 			camera.processKeyboardInput(window);
 
@@ -227,19 +231,20 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			shader_program.Use();
 			// Bind Textures using texture units
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture0);
 			glUniform1i(glGetUniformLocation(shader_program.get_programID(), "Texture0"), 0);
 
 			// use shader
-			shader_program.Use();
+			
 
 			// setup transformation matrix
 			glm::mat4 trans = glm::mat4(1.0f);
 			static GLfloat rot_angle = 0.0f;
-			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -5.0f));
-			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(0.5, 1.0, 0.0));
+			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -3.0f));
+			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(0.0, 1.0, 0.0));
 			rot_angle = fmod((rot_angle + 0.4f), 360.0f);
 			GLuint transformLoc = glGetUniformLocation(shader_program.get_programID(), "transform");
 				
@@ -257,7 +262,14 @@ int main()
 
 			glBindVertexArray(VAO);
 			glDrawElements(GL_TRIANGLES, _countof(indices), GL_UNSIGNED_INT, 0);
-			glBindVertexArray(0);	
+			glBindVertexArray(0);
+
+			
+			rearSpoiler.SetTransVector(glm::vec3(0.4f, 1.0f, -3.0f));
+			rearSpoiler.SetRotPoint(glm::vec3(0.0f, 0.0f, -3.0f));
+			rearSpoiler.SetRotationAngleY(-rot_angle);
+			rearSpoiler.Draw();
+			
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

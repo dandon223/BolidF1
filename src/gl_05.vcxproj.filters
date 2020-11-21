@@ -24,10 +24,15 @@
     <ClCompile Include="camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rearSpoiler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="rearSpoiler.frag" />
+    <None Include="rearSpoiler.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
@@ -39,12 +44,21 @@
     <Image Include="bricks.bmp">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="carbon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="spoiler.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="shprogram.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rearSpoiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
