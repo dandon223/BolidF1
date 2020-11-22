@@ -32,9 +32,11 @@ private:
 	GLuint VAO, VBO, EBO;
 	
 protected:
+	ShaderProgram* shader_;
 
 public:
 	glm::vec3 centerPoint_;
+	glm::mat4 model_;
 	std::vector<GLfloat> vertices_;
 	std::vector<GLuint> indices_;
 
@@ -42,20 +44,19 @@ public:
 	virtual ~Object3D();
 	void bind_buffers();
 	void free_buffers();
-	void draw();
+	virtual void draw();
 
-	void set_centerPoint(const glm::vec3 &);
-	void translate(const glm::vec3 &);
-	void rotate(glm::vec3);
-	void scale(float);
-
-	//std::weak_ptr<ShaderProgram> shader_;
+	void set_centerPoint(const glm::vec3&);
+	void translate(const glm::vec3&);
+	void rotate(float, const glm::vec3&);
+	void rotate(float, const glm::vec3&, const glm::vec3&);
+	void scale(const glm::vec3&);
 };
 
 class Cube : public Object3D {
 public:
 
-	Cube(const ShaderProgram& );
+	Cube(const ShaderProgram* );
 	~Cube();
 };
 

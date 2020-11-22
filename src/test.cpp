@@ -100,8 +100,15 @@ int main()
 		//ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 
-		Cube box1(CubeShader);
+		Cube box1(&CubeShader);
+		Cube box2(&CubeShader);
 		box1.bind_buffers();
+		box2.bind_buffers();
+		int i = 0;
+
+		box2.translate(glm::vec3(2.0f, 0.0f, 0.0f));
+		box1.scale(glm::vec3(2.0f, 2.0f, 2.0f));
+		box2.scale(glm::vec3(3.0f, 3.0f, 3.0f));
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
@@ -113,35 +120,31 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+			// setup projection matrix
+			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
+			// setup view matrix - get it from camera object
+			glm::mat4 view = camera.getViewMatrix();
+			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
+			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			// Bind Textures using texture units
 			//glActiveTexture(GL_TEXTURE1);
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 
-			// setup transformation matrix
-			//ToDo add to object3d
-			glm::mat4 trans = glm::mat4(1.0f);
-			static GLfloat rot_angle = 0.0f;
-			trans = glm::translate(trans, glm::vec3(0.0f, 0.0f, -5.0f));
-			trans = glm::rotate(trans, -glm::radians(rot_angle), glm::vec3(0.5, 1.0, 0.0));
-			rot_angle = fmod((rot_angle + 0.4f), 360.0f);
-			GLuint transformLoc = glGetUniformLocation(CubeShader.get_programID(), "transform");
-			// setup projection matrix
-			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
-
-			// setup view matrix - get it from camera object
-			glm::mat4 view = camera.getViewMatrix();
-			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
-
-			glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			static GLfloat rotAngle = 0.1f;
+			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
+			
+			box1.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
+			box2.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), box1.centerPoint_);
 
 			//shader_program.Use();
 			CubeShader.Use();
 
 			box1.draw();
+			box2.draw();
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

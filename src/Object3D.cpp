@@ -1,7 +1,7 @@
 #include "include/Object3D.h"
 
 
-Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)) {}
+Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)), model_(glm::mat4(1.0)), shader_(nullptr) {}
 Object3D::~Object3D() {
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
@@ -37,22 +37,36 @@ void Object3D::free_buffers() {
 	glDeleteBuffers(1, &this->EBO);
 }
 void Object3D::draw() {
+	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(this->model_));
+
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
-void Object3D::translate(const glm::vec3 &centerPoint) {
-	
+void Object3D::translate(const glm::vec3 &translateVector) {
+	this->centerPoint_ += translateVector;
+	this->model_ = glm::translate(this->model_, translateVector);
 }
-void Object3D::scale(float newScale) {
-	
+void Object3D::rotate(float angle, const glm::vec3& rotationAxis) {
+	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
+}
+void Object3D::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
+	glm::vec3 translateVector = this->centerPoint_ - fixedPoint;
+	this->model_ = glm::translate(this->model_, -translateVector);
+	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
+	this->model_ = glm::translate(this->model_, translateVector);
+}
+void Object3D::scale(const glm::vec3& scaleVector) {
+	this->model_ = glm::translate(this->model_, -this->centerPoint_);
+	this->model_ = glm::scale(this->model_, scaleVector);
+	this->model_ = glm::translate(this->model_, this->centerPoint_);
 }
 
-Cube::Cube(const ShaderProgram& shader) {
+Cube::Cube(const ShaderProgram* shader) {
 	centerPoint_[0] = 0.0f;
 	centerPoint_[1] = 0.0f;
 	centerPoint_[2] = 0.0f;
-	//this->shader_ = std::make_shared<ShaderProgram>(shader);
+	shader_ = const_cast<ShaderProgram*>(shader);
 
 	this->vertices_ = {
 		// coordinates			// color			// texture
