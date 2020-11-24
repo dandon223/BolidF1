@@ -113,9 +113,9 @@ int main()
 		Cube* box1 = new Cube(&CubeShader);
 		Cube* box2 = new Cube(&CubeShader);
 
-		box2->translate(glm::vec3(2.0f, 0.0f, 0.0f));
-		//box1->scale(glm::vec3(1.0f, 1.0f, 1.0f));
-		//box2->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+		box2->translate(glm::vec3(0.0f, 2.0f, 0.0f));
+		box1->scale(glm::vec3(1.0f, 1.0f, 1.0f));
+		box2->scale(glm::vec3(1.0f, 1.0f, 1.0f));
 
 		Model testModel;
 		testModel.add(box1);
@@ -152,7 +152,7 @@ int main()
 			
 			//box1.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 			//box2.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), box1.centerPoint_);
-			testModel.translate(glm::vec3(0.0, 0.0, 0.01));
+			testModel.translate(glm::vec3(0.0, 0.0, 0.0005));
 			testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(3.0, 0.0, 0.0));
 
 			//shader_program.Use();

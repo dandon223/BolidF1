@@ -27,7 +27,14 @@ struct Vertex {
 		   GLfloat yColor_ = 0.0f, GLfloat zColor_ = 0.0f, 
 		   GLfloat xTex_ = 0.0f, GLfloat yTex_ = 0.0f) : x(x_), y(y_), z(z_), xColor(xColor_), yColor(yColor_), zColor(zColor_), xTex(xTex_), yTex(yTex_) {}
 };
+
+/*ToDo
+0) Konstruktory argumentowe
+1) Zaimplementuj pozostale metody
+2) Popraw wskazniki na smart_ptr
+3) wyczyœæ kod*/
 class BasicObject {
+
 public:
 	virtual ~BasicObject() {}
 	virtual void bind_buffers() = 0;
@@ -39,23 +46,26 @@ public:
 	virtual void rotate(float, const glm::vec3&) = 0;
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&) = 0;
 	virtual void scale(const glm::vec3&) = 0;
-	//virtual void change_color(const glm::vec3&) = 0;
 };
 
 class Object3D : public BasicObject {
 private:
 	GLuint VAO, VBO, EBO;
+	glm::mat4 model_;
 	
 protected:
 	ShaderProgram* shader_;
+	std::string texturePath_;
 
 public:
 	glm::vec3 centerPoint_;
-	glm::mat4 model_;
+	glm::vec3 translateVector_;
+	glm::vec3 scaleVector_;
 	std::vector<GLfloat> vertices_;
 	std::vector<GLuint> indices_;
 
 	Object3D();
+	Object3D(const glm::vec3&, const glm::vec3&, ShaderProgram*);
 	virtual ~Object3D();
 	virtual void bind_buffers();
 	virtual void free_buffers();
@@ -66,7 +76,12 @@ public:
 	virtual void rotate(float, const glm::vec3&);
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
 	virtual void scale(const glm::vec3&);
-	//virtual void change_color(const glm::vec3&);
+
+	void set_vertices(const std::vector<GLfloat>&);
+	void set_indices(const std::vector<GLuint>&);
+	void set_color(const glm::vec3&);
+	bool set_shader(ShaderProgram*);
+	bool set_texture(std::string);
 };
 
 class Model : public BasicObject {
@@ -91,7 +106,6 @@ public:
 	virtual void rotate(float, const glm::vec3&);
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
 	virtual void scale(const glm::vec3&);
-	//virtual void change_color(const glm::vec3&);
 };
 
 class Cube : public Object3D {

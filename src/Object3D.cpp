@@ -2,6 +2,7 @@
 
 
 Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)), model_(glm::mat4(1.0f)), shader_(nullptr) {}
+Object3D::Object3D(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* shader) {}
 Object3D::~Object3D() {
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
@@ -37,7 +38,11 @@ void Object3D::free_buffers() {
 	glDeleteBuffers(1, &this->EBO);
 }
 void Object3D::draw() {
-	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(this->model_));
+	glm::mat4 model;
+	model = glm::translate(this->model_, this->centerPoint_);
+	model = glm::scale(model, this->scaleVector_);
+
+	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
@@ -45,21 +50,17 @@ void Object3D::draw() {
 }
 void Object3D::translate(const glm::vec3 &translateVector) {
 	this->centerPoint_ += translateVector;
-	this->model_ = glm::translate(this->model_, translateVector);
 }
 void Object3D::rotate(float angle, const glm::vec3& rotationAxis) {
 	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
 }
 void Object3D::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	glm::vec3 translateVector = this->centerPoint_ - fixedPoint;
-	this->model_ = glm::translate(this->model_, -translateVector);
+	this->model_ = glm::translate(this->model_, fixedPoint);
 	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
-	this->model_ = glm::translate(this->model_, translateVector);
+	this->model_ = glm::translate(this->model_, -fixedPoint);
 }
 void Object3D::scale(const glm::vec3& scaleVector) {
-	this->model_ = glm::translate(this->model_, -this->centerPoint_);
-	this->model_ = glm::scale(this->model_, scaleVector);
-	this->model_ = glm::translate(this->model_, this->centerPoint_);
+	this->scaleVector_ += scaleVector;
 }
 
 
@@ -96,7 +97,6 @@ void Model::draw() {
 		object->draw();
 	}
 }
-
 void Model::translate(const glm::vec3& translateVector) {
 	this->centerPoint_ += translateVector;
 	for (auto& object : this->objectsVector_) {
@@ -109,10 +109,9 @@ void Model::rotate(float angle, const glm::vec3& rotationAxis) {
 	}
 }
 void Model::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	glm::vec3 translateVector = this->centerPoint_ - fixedPoint;
-	this->translate(-translateVector);
-	this->rotate(angle, rotationAxis);
-	this->translate(translateVector);
+	for (auto& object : this->objectsVector_) {
+		object->rotate(angle, rotationAxis, fixedPoint);
+	}
 }
 void Model::scale(const glm::vec3& scaleVector) {
 	for (auto& object : this->objectsVector_) {
@@ -126,6 +125,8 @@ Cube::Cube(const ShaderProgram* shader) {
 	centerPoint_[1] = 0.0f;
 	centerPoint_[2] = 0.0f;
 	shader_ = const_cast<ShaderProgram*>(shader);
+	translateVector_ = glm::vec3(0.0, 0.0, 0.0);
+	scaleVector_ = glm::vec3(1.0, 1.0, 1.0);
 
 	this->vertices_ = {
 		// coordinates			// color			// texture
