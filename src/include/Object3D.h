@@ -27,7 +27,22 @@ struct Vertex {
 		   GLfloat yColor_ = 0.0f, GLfloat zColor_ = 0.0f, 
 		   GLfloat xTex_ = 0.0f, GLfloat yTex_ = 0.0f) : x(x_), y(y_), z(z_), xColor(xColor_), yColor(yColor_), zColor(zColor_), xTex(xTex_), yTex(yTex_) {}
 };
-class Object3D {
+class BasicObject {
+public:
+	virtual ~BasicObject() {}
+	virtual void bind_buffers() = 0;
+	virtual void free_buffers() = 0;
+	virtual void draw() = 0;
+
+	//virtual void set_centerPoint(const glm::vec3&) = 0;
+	virtual void translate(const glm::vec3&) = 0;
+	virtual void rotate(float, const glm::vec3&) = 0;
+	virtual void rotate(float, const glm::vec3&, const glm::vec3&) = 0;
+	virtual void scale(const glm::vec3&) = 0;
+	//virtual void change_color(const glm::vec3&) = 0;
+};
+
+class Object3D : public BasicObject {
 private:
 	GLuint VAO, VBO, EBO;
 	
@@ -42,15 +57,41 @@ public:
 
 	Object3D();
 	virtual ~Object3D();
-	void bind_buffers();
-	void free_buffers();
+	virtual void bind_buffers();
+	virtual void free_buffers();
 	virtual void draw();
 
-	void set_centerPoint(const glm::vec3&);
-	void translate(const glm::vec3&);
-	void rotate(float, const glm::vec3&);
-	void rotate(float, const glm::vec3&, const glm::vec3&);
-	void scale(const glm::vec3&);
+	//virtual void set_centerPoint(const glm::vec3&);
+	virtual void translate(const glm::vec3&);
+	virtual void rotate(float, const glm::vec3&);
+	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
+	virtual void scale(const glm::vec3&);
+	//virtual void change_color(const glm::vec3&);
+};
+
+class Model : public BasicObject {
+private:
+	glm::vec3 centerPoint_;
+	std::vector<BasicObject *> objectsVector_;
+
+public:
+	Model();
+	virtual ~Model();
+
+	bool add(BasicObject *);
+	bool remove(unsigned int);
+	std::unique_ptr<BasicObject *> getChild(unsigned int);
+
+	virtual void bind_buffers();
+	virtual void free_buffers();
+	virtual void draw();
+
+	//virtual void set_centerPoint(const glm::vec3&);
+	virtual void translate(const glm::vec3&);
+	virtual void rotate(float, const glm::vec3&);
+	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
+	virtual void scale(const glm::vec3&);
+	//virtual void change_color(const glm::vec3&);
 };
 
 class Cube : public Object3D {

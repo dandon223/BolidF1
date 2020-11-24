@@ -1,7 +1,7 @@
 #include "include/Object3D.h"
 
 
-Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)), model_(glm::mat4(1.0)), shader_(nullptr) {}
+Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)), model_(glm::mat4(1.0f)), shader_(nullptr) {}
 Object3D::~Object3D() {
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
@@ -61,6 +61,65 @@ void Object3D::scale(const glm::vec3& scaleVector) {
 	this->model_ = glm::scale(this->model_, scaleVector);
 	this->model_ = glm::translate(this->model_, this->centerPoint_);
 }
+
+
+//ToDo
+//1. Ogarnij klase kompozytu
+Model::Model() : centerPoint_(glm::vec3(0.0, 0.0, 0.0)) {}
+Model::~Model() {
+	this->free_buffers();
+}
+bool Model::add(BasicObject* objectToAdd) {
+	//std::unique_ptr<BasicObject *> newObject = std::make_unique<BasicObject *>(objectToAdd);
+	this->objectsVector_.push_back(objectToAdd);
+	return true;
+}
+bool Model::remove(unsigned int index) {
+	if (index < this->objectsVector_.size()) {
+		this->objectsVector_.erase(this->objectsVector_.begin() + index);
+		return true;
+	}
+	else return false;
+}
+void Model::bind_buffers() {
+	for (auto& object : this->objectsVector_) {
+		object->bind_buffers();
+	}
+}
+void Model::free_buffers() {
+	for (auto& object : this->objectsVector_) {
+		object->free_buffers();
+	}
+}
+void Model::draw() {
+	for (auto& object : this->objectsVector_) {
+		object->draw();
+	}
+}
+
+void Model::translate(const glm::vec3& translateVector) {
+	this->centerPoint_ += translateVector;
+	for (auto& object : this->objectsVector_) {
+		object->translate(translateVector);
+	}
+}
+void Model::rotate(float angle, const glm::vec3& rotationAxis) {
+	for (auto& object : this->objectsVector_) {
+		object->rotate(angle, rotationAxis, this->centerPoint_);
+	}
+}
+void Model::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
+	glm::vec3 translateVector = this->centerPoint_ - fixedPoint;
+	this->translate(-translateVector);
+	this->rotate(angle, rotationAxis);
+	this->translate(translateVector);
+}
+void Model::scale(const glm::vec3& scaleVector) {
+	for (auto& object : this->objectsVector_) {
+		object->scale(scaleVector);
+	}
+}
+
 
 Cube::Cube(const ShaderProgram* shader) {
 	centerPoint_[0] = 0.0f;

@@ -15,7 +15,7 @@
 // ¿eby ka¿dy plik .h nie pod³¹cza³ ich osobno
 
 #include "include/shprogram.h"
-#include "camera.h"
+#include "include/camera.h"
 
 using namespace std;
 
@@ -68,7 +68,7 @@ int main()
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 	try
 	{
-		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "GKOM - OpenGL 05", nullptr, nullptr);
+		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Samochodzik robi wrum", nullptr, nullptr);
 		if (window == nullptr)
 			throw exception("GLFW window not created");
 		glfwMakeContextCurrent(window);
@@ -100,15 +100,28 @@ int main()
 		//ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 
-		Cube box1(&CubeShader);
+		/*Cube box1(&CubeShader);
 		Cube box2(&CubeShader);
 		box1.bind_buffers();
 		box2.bind_buffers();
 		int i = 0;
 
 		box2.translate(glm::vec3(2.0f, 0.0f, 0.0f));
-		box1.scale(glm::vec3(2.0f, 2.0f, 2.0f));
-		box2.scale(glm::vec3(3.0f, 3.0f, 3.0f));
+		box1.scale(glm::vec3(1.0f, 1.0f, 1.0f));
+		box2.scale(glm::vec3(3.0f, 3.0f, 3.0f));*/
+
+		Cube* box1 = new Cube(&CubeShader);
+		Cube* box2 = new Cube(&CubeShader);
+
+		box2->translate(glm::vec3(2.0f, 0.0f, 0.0f));
+		//box1->scale(glm::vec3(1.0f, 1.0f, 1.0f));
+		//box2->scale(glm::vec3(3.0f, 3.0f, 3.0f));
+
+		Model testModel;
+		testModel.add(box1);
+		testModel.add(box2);
+		testModel.bind_buffers();
+		int i = 0;
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
@@ -134,17 +147,23 @@ int main()
 			//glBindTexture(GL_TEXTURE_2D, texture1);
 			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
 
-			static GLfloat rotAngle = 0.1f;
+			static GLfloat rotAngle = 0.3f;
 			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 			
-			box1.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
-			box2.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), box1.centerPoint_);
+			//box1.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
+			//box2.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), box1.centerPoint_);
+			testModel.translate(glm::vec3(0.0, 0.0, 0.01));
+			testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(3.0, 0.0, 0.0));
 
 			//shader_program.Use();
 			CubeShader.Use();
 
-			box1.draw();
-			box2.draw();
+			//box1->translate(glm::vec3(0.0f, 0.0f, 0.001f));
+			//box2->translate(glm::vec3(0.0f, 0.0f, 0.001f));
+
+			//box1->draw();
+			//box2->draw();
+			testModel.draw();
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

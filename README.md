@@ -16,10 +16,10 @@ Temat: Bolid F1 na torze
 # **Postępy**
 
 | Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
-|--------------------------------------------|--------------------|----------------|--------|---------------------------------|
-|0. Konfiguracja środowiska i repozystorium	| 	   				   |                |        |                                 |
-|1. Utworzenie środowiska roboczego	         | 	   				   |                |        |                                 |
-|2. Modelowanie bolidu				            | 	   				   |                |        |                                 |
+|--------------------------------------------|:------------------:|:--------------:|:------:|:-------------------------------:|
+|0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
+|1. Utworzenie środowiska roboczego	         | 	   				   |                |  Doing |                                 |
+|2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
 |3. Tekstury bolidu					            |                    |                |        |                                 |
 |4. Model fragmentu toru			            |                    |                |        |                                 |
 |5. Tekstury toru					               |	                  |                |        |                                 |

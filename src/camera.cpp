@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "include/camera.h"
 
 glm::mat4 Camera::getViewMatrix() {
 	return glm::lookAt(position_, position_ + front_, up_);
