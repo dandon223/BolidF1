@@ -96,30 +96,133 @@ int main()
 		glGetIntegerv(GL_MAX_TEXTURE_COORDS, &nrAttributes);
 		cout << "Max texture coords allowed: " << nrAttributes << std::endl;
 
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);	
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		// Set texture filtering parameters
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+
 		// Build, compile and link shader program
 		//ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 
-		/*Cube box1(&CubeShader);
-		Cube box2(&CubeShader);
-		box1.bind_buffers();
-		box2.bind_buffers();
-		int i = 0;
-
-		box2.translate(glm::vec3(2.0f, 0.0f, 0.0f));
-		box1.scale(glm::vec3(1.0f, 1.0f, 1.0f));
-		box2.scale(glm::vec3(3.0f, 3.0f, 3.0f));*/
-
-		Cube* box1 = new Cube(&CubeShader);
+		/*Cube* box1 = new Cube(&CubeShader);
 		Cube* box2 = new Cube(&CubeShader);
+		
+		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
+		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
 		box2->translate(glm::vec3(0.0f, 2.0f, 0.0f));
 		box1->scale(glm::vec3(1.0f, 1.0f, 1.0f));
-		box2->scale(glm::vec3(1.0f, 1.0f, 1.0f));
+		box2->scale(glm::vec3(1.0f, 1.0f, 1.0f));*/
 
-		Model testModel;
-		testModel.add(box1);
-		testModel.add(box2);
+
+		/*BIG TEST*/
+		std::vector<GLfloat> vertices = {
+		0.0f, -0.6f, 0.0f,		0.5f,  0.0f,// 0
+		0.3f, -0.2f, 0.0f,		1.0f,  0.2f,// 1
+		-0.3f, -0.2f, 0.0f,		0.03f,  0.2f,// 2
+		0.3f, 0.6f, 0.0f,		1.0f,  1.0f,// 3
+		-0.3f, 0.6f, 0.0f,		0.03f,  1.0f,// 4
+		};
+		std::vector<GLuint> indices = {
+			0, 1, 2,
+			1, 3, 2,
+			2, 3, 4,
+		};
+		std::vector<GLfloat> vertices1 = {
+			 0.0f, -0.6f, 0.0f,		0.5f,  0.0f,// 0
+			 0.3f, -0.2f, 0.0f,		1.0f,  0.2f,// 1
+			 -0.3f, -0.2f, 0.0f,	0.0f,  0.2f,// 2
+			0.3f, 0.6f, 0.0f,		1.0f,  1.0f,// 3
+			-0.3f, 0.6f, 0.0f,		0.0f,  1.0f,// 4
+
+			0.0f, -0.6f, 0.01f,		0.5f,  0.0f,// 5
+			0.3f, -0.2f, 0.01f,		1.0f,  0.2f,// 6
+			-0.3f, -0.2f, 0.01f,	0.0f,  0.2f,// 7
+			0.3f, 0.6f, 0.01f,		1.0f,  1.0f,// 8
+			-0.3f, 0.6f, 0.01f,		0.0f,  1.0f,// 9
+		};
+		std::vector<GLuint> indices1 = {
+			0,5,1,
+			5,6,1,
+			0,5,2,
+			2,5,7,
+			1,6,3,
+			6,8,3,
+			2,7,4,
+			7,9,4,
+			3,8,4,
+			8,9,4,
+			6,8,7,
+			8,9,7,
+			5,6,7,
+		};
+		std::vector<GLfloat> vertices2 = {
+			0.5f, 0.1f, 0.0f,		1.0f,1.0f,	//0
+			-0.98f, 0.1f , 0.0f,	0.0f,1.0f,	//1
+			-0.98f,0.0f, -0.4f,		1.0f, 0.0f, //2
+			0.5f,0.0f, -0.4f,		0.0f,0.0f,	//3
+			0.5f, 0.15f, -0.3f,		0.0f,1.0f,	//4
+			-0.98f, 0.15f, -0.3f,	0.0f,0.0f,	//5
+
+		};
+		std::vector<GLuint> indices2 = {
+			0,3,4,
+			1,2,5,
+			0,3,1,
+			3,2,1,
+			1,0,4,
+			1,4,5,
+			2,3,4,
+			2,4,5,
+		};
+		std::vector<GLfloat> vertices3 = {
+			0.0f, -0.5f, 0.0f,		0.0f,0.0f,	//0
+			0.02f, -0.5f , 0.0f,	0.0f, 1.0f, //1
+			0.02f, -0.5f , -0.02f,  1.0f, 1.0f, //2
+			0.0f, -0.5f, -0.02f,	1.0f, 0.0f, //3
+			0.2f,0.5f, 0.0f,		1.0f, 0.0f,	//4
+			0.24f,0.5f, 0.0f,		0.0f, 0.0f, //5
+			0.24f, 0.5f, -0.02f,	0.0f,1.0f,	//6
+			0.2f, 0.5f, -0.02f,		1.0f, 1.0f,	//7
+
+		};
+		std::vector<GLuint> indices3 = {
+			0,1,2,
+			0,2,3,
+			1,2,6,
+			1,6,5,
+			0,1,5,
+			0,5,4,
+			3,0,4,
+			3,4,7,
+			3,2,6,
+			3,6,7,
+			4,5,6,
+			4,6,7,
+		};
+		Object3D* part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -0.75), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
+		Object3D* part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.5), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
+		Object3D* part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(-0.2, 0.1, -0.51), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
+		Object3D* part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.05, -0.62, -0.04), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
+		part1->set_geometry(vertices, indices);
+		//part2->set_geometry(vertices1, indices1);
+		//part3->set_geometry(vertices2, indices2);
+		//part4->set_geometry(vertices3, indices3);
+		//part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		//part2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		//part3->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		//part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+
+		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
+		/*testModel.add(box1);
+		testModel.add(box2);*/
+		testModel.add(part1);
+		testModel.add(part2);
+		testModel.add(part3);
+		testModel.add(part4);
 		testModel.bind_buffers();
 		int i = 0;
 
@@ -150,19 +253,12 @@ int main()
 			static GLfloat rotAngle = 0.3f;
 			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 			
-			//box1.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
-			//box2.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), box1.centerPoint_);
-			testModel.translate(glm::vec3(0.0, 0.0, 0.0005));
-			testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(3.0, 0.0, 0.0));
+			//testModel.translate(glm::vec3(0.0, 0.0, 0.0005));
+			//testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(3.0, 0.0, 0.0));
 
 			//shader_program.Use();
 			CubeShader.Use();
 
-			//box1->translate(glm::vec3(0.0f, 0.0f, 0.001f));
-			//box2->translate(glm::vec3(0.0f, 0.0f, 0.001f));
-
-			//box1->draw();
-			//box2->draw();
 			testModel.draw();
 
 			// Swap the screen buffers

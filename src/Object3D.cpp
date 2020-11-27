@@ -1,8 +1,9 @@
 #include "include/Object3D.h"
+#include "include/utils.h"
 
+BasicObject::BasicObject(const glm::vec3& centerPoint, const glm::vec3& translateVector, const glm::vec3& scaleVector) : centerPoint_(centerPoint), translateVector_(translateVector), scaleVector_(scaleVector) {}
 
-Object3D::Object3D() : VAO(0), VBO(0), EBO(0), centerPoint_(glm::vec3(0.0f, 0.0f, 0.0f)), model_(glm::mat4(1.0f)), shader_(nullptr) {}
-Object3D::Object3D(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* shader) {}
+Object3D::Object3D(const glm::vec3& centerPoint, const glm::vec3& translateVector, const glm::vec3& scaleVector,const ShaderProgram* shader) : BasicObject(centerPoint,translateVector,scaleVector), VAO(0), VBO(0), EBO(0), model_(glm::mat4(1.0f)), shader_(shader), texture_(0) {}
 Object3D::~Object3D() {
 	glDeleteVertexArrays(1, &this->VAO);
 	glDeleteBuffers(1, &this->VBO);
@@ -27,8 +28,8 @@ void Object3D::bind_buffers() {
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-
 	glEnableVertexAttribArray(2);
+
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
@@ -41,6 +42,11 @@ void Object3D::draw() {
 	glm::mat4 model;
 	model = glm::translate(this->model_, this->centerPoint_);
 	model = glm::scale(model, this->scaleVector_);
+
+	/*Binding texture*/
+	glActiveTexture(GL_TEXTURE0);
+	glBindTexture(GL_TEXTURE_2D, this->texture_);
+	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
 
@@ -62,11 +68,35 @@ void Object3D::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec
 void Object3D::scale(const glm::vec3& scaleVector) {
 	this->scaleVector_ += scaleVector;
 }
+void Object3D::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
+	this->set_vertices(vertices);
+	this->set_indices(indices);
+}
+void Object3D::set_vertices(const std::vector<GLfloat>& vertices) {
+	if (vertices.size() > 0) {
+		this->vertices_ = vertices;
+	}
+}
+void Object3D::set_indices(const std::vector<GLuint>& indices) {
+	if (indices.size() > 0) {
+		this->indices_ = indices;
+	}
+}
+bool Object3D::set_shader(ShaderProgram* shader) {
+	if (shader != nullptr) {
+		this->shader_ = shader;
+		return true;
+	}
+	return false;
+}
+void Object3D::set_texture(GLuint texture) {
+	this->texture_ = texture;
+}
 
 
 //ToDo
 //1. Ogarnij klase kompozytu
-Model::Model() : centerPoint_(glm::vec3(0.0, 0.0, 0.0)) {}
+Model::Model(const glm::vec3& centerPoint, const glm::vec3& translateVector, const glm::vec3& scaleVector) : BasicObject(centerPoint, translateVector, scaleVector) {}
 Model::~Model() {
 	this->free_buffers();
 }
@@ -120,39 +150,56 @@ void Model::scale(const glm::vec3& scaleVector) {
 }
 
 
-Cube::Cube(const ShaderProgram* shader) {
-	centerPoint_[0] = 0.0f;
-	centerPoint_[1] = 0.0f;
-	centerPoint_[2] = 0.0f;
-	shader_ = const_cast<ShaderProgram*>(shader);
-	translateVector_ = glm::vec3(0.0, 0.0, 0.0);
-	scaleVector_ = glm::vec3(1.0, 1.0, 1.0);
+Cube::Cube(const ShaderProgram* shader) : Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), shader) {
+	shader_ = shader;
 
 	this->vertices_ = {
 		// coordinates			// color			// texture
-		-0.5f,  -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//0
-		 0.5f,  -0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//1
-		 0.5f,   0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//2
-		-0.5f,   0.5f,  0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//3
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//0
+			-0.5f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//1
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//2
+			0.5f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//3
 
-		-0.5f,  -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//4
-		 0.5f,  -0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//5
-		 0.5f,   0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//6
-		-0.5f,   0.5f, -0.5f,	1.0f, 0.0f, 0.0f,	0.0f,  0.0f,	//7
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//4
+			-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//5
+			0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//6
+			0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//7
+
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//8
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  1.0f,	//9
+			0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 1.0f,	1.0f,  1.0f,	//10
+			0.5f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//11
+
+			-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  0.0f,	//12
+			-0.5f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//13
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f,	//14
+			0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	1.0f,  0.0f,	//15
+
+			-0.5f, -0.5f,  -0.5f,	0.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//16
+			-0.5f,  0.5f,  -0.5f,	0.0f, 1.0f, 0.0f,	0.0f,  1.0f,	//17
+			-0.5f, -0.5f,  0.5f,	0.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//18
+			-0.5f,  0.5f,  0.5f,	0.0f, 1.0f, 0.0f,	1.0f,  1.0f,	//19
+
+			0.5f, -0.5f,  -0.5f,	1.0f, 0.0f, 1.0f,	1.0f,  0.0f,	//20
+			0.5f, -0.5f,  0.5f,		1.0f, 0.0f, 1.0f,	0.0f,  0.0f,	//21
+			0.5f,  0.5f,  0.5f,		1.0f, 0.0f, 0.0f,	0.0f,  1.0f,	//22
+			0.5f,  0.5f,  -0.5f,	1.0f, 0.0f, 0.0f,	1.0f,  1.0f		//23
+
 	};
 	this->indices_ = {
 			0, 1, 2,
-			0, 3, 2,
-			1, 5, 6,
-			1, 6, 2,
-			1, 4, 0,
-			1, 5, 4,
-			2, 7, 3,
-			2, 6, 7,
-			4, 3, 7,
-			4, 0, 3,
-			5, 7, 6,
-			5, 4, 7
+			0, 2, 3,
+			4, 5, 6,
+			4, 6, 7,
+			8, 9, 10,
+			8, 10, 11,
+			12, 13, 14,
+			12, 14, 15,
+			16, 17, 18,
+			18, 17, 19,
+			20, 21, 22,
+			20, 22, 23
+
 	};
 }
 Cube::~Cube() {};

@@ -34,8 +34,12 @@ struct Vertex {
 2) Popraw wskazniki na smart_ptr
 3) wyczyœæ kod*/
 class BasicObject {
-
 public:
+	glm::vec3 centerPoint_;
+	glm::vec3 translateVector_;
+	glm::vec3 scaleVector_;
+
+	BasicObject(const glm::vec3&, const glm::vec3&, const glm::vec3&);
 	virtual ~BasicObject() {}
 	virtual void bind_buffers() = 0;
 	virtual void free_buffers() = 0;
@@ -54,18 +58,19 @@ private:
 	glm::mat4 model_;
 	
 protected:
-	ShaderProgram* shader_;
-	std::string texturePath_;
+	/*const ShaderProgram* shader_;
+	GLuint texture_;*/
+	//std::string texturePath_;
+	
 
 public:
-	glm::vec3 centerPoint_;
-	glm::vec3 translateVector_;
-	glm::vec3 scaleVector_;
 	std::vector<GLfloat> vertices_;
 	std::vector<GLuint> indices_;
 
-	Object3D();
-	Object3D(const glm::vec3&, const glm::vec3&, ShaderProgram*);
+	const ShaderProgram* shader_;
+	GLuint texture_;
+
+	Object3D(const glm::vec3&, const glm::vec3&, const glm::vec3&,const ShaderProgram*);
 	virtual ~Object3D();
 	virtual void bind_buffers();
 	virtual void free_buffers();
@@ -77,20 +82,20 @@ public:
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
 	virtual void scale(const glm::vec3&);
 
+	void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
 	void set_vertices(const std::vector<GLfloat>&);
 	void set_indices(const std::vector<GLuint>&);
 	void set_color(const glm::vec3&);
 	bool set_shader(ShaderProgram*);
-	bool set_texture(std::string);
+	void set_texture(GLuint);
 };
 
 class Model : public BasicObject {
 private:
-	glm::vec3 centerPoint_;
 	std::vector<BasicObject *> objectsVector_;
 
 public:
-	Model();
+	Model(const glm::vec3&, const glm::vec3&, const glm::vec3&);
 	virtual ~Model();
 
 	bool add(BasicObject *);
