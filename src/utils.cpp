@@ -23,7 +23,7 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 
 	glActiveTexture(texId);
 	glBindTexture(GL_TEXTURE_2D, texture);
-	//glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
 	glGenerateMipmap(GL_TEXTURE_2D);
 	SOIL_free_image_data(image);

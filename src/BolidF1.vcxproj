@@ -87,6 +87,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="test.cpp" />
@@ -96,8 +97,12 @@
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="shaders\BasicShader.frag" />
+    <None Include="shaders\BasicShader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\ResourceFiles\carbon.png" />
+    <Image Include="..\ResourceFiles\spoiler.png" />
     <Image Include="bricks.bmp" />
     <Image Include="iipw.png" />
     <Image Include="weiti.png" />
@@ -107,6 +112,7 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
+    <ClInclude Include="Model.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

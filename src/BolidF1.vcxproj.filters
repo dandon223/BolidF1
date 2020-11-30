@@ -30,10 +30,19 @@
     <ClCompile Include="Object3D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="shaders\BasicShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shaders\BasicShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
@@ -43,6 +52,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="bricks.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\carbon.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\spoiler.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>
@@ -57,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Object3D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

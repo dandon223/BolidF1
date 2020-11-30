@@ -8,13 +8,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include "include/utils.h"
-#include "include/Object3D.h"
-
 // KB: TODO - header przechowuj¹cy wszystkie u¿ywane biblioteki?
 // ¿eby ka¿dy plik .h nie pod³¹cza³ ich osobno
 
-#include "include/shprogram.h"
+#include "include/utils.h"
+#include "include/Model.h"
 #include "include/camera.h"
 
 using namespace std;
@@ -104,20 +102,12 @@ int main()
 
 
 		// Build, compile and link shader program
-		//ShaderProgram shader_program("gl_05.vert", "gl_05.frag");
+		std::vector<ShaderProgram> shaderVector;
+		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
-
-		/*Cube* box1 = new Cube(&CubeShader);
-		Cube* box2 = new Cube(&CubeShader);
+		shaderVector.push_back(BasicShader);
+		shaderVector.push_back(CubeShader);
 		
-		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
-		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
-
-		box2->translate(glm::vec3(0.0f, 2.0f, 0.0f));
-		box1->scale(glm::vec3(1.0f, 1.0f, 1.0f));
-		box2->scale(glm::vec3(1.0f, 1.0f, 1.0f));*/
-
-
 		/*BIG TEST*/
 		std::vector<GLfloat> vertices = {
 		0.0f, -0.6f, 0.0f,		0.5f,  0.0f,// 0
@@ -203,26 +193,45 @@ int main()
 			4,5,6,
 			4,6,7,
 		};
-		Object3D* part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, -0.75), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
-		Object3D* part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 1.5), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
-		Object3D* part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(-0.2, 0.1, -0.51), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
-		Object3D* part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.05, -0.62, -0.04), glm::vec3(1.0, 1.0, 1.0), &CubeShader);
-		part1->set_geometry(vertices, indices);
-		//part2->set_geometry(vertices1, indices1);
-		//part3->set_geometry(vertices2, indices2);
-		//part4->set_geometry(vertices3, indices3);
-		//part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
-		//part2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
-		//part3->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
-		//part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
 
-		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
-		/*testModel.add(box1);
-		testModel.add(box2);*/
+		Object3D* part1 = new Object3D(glm::vec3(-1.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+		Object3D* part2 = new Object3D(glm::vec3(0.5, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+		Object3D* wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+		Object3D* wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+		Object3D* part3 = new Object3D(glm::vec3(0.2, -0.5, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+		Object3D* part4 = new Object3D(glm::vec3(-0.6, -0.5, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
+
+		part1->set_geometry(vertices1, indices1);
+		part2->set_geometry(vertices1, indices1);
+		wing1->set_geometry(vertices2, indices2);
+		wing2->set_geometry(vertices2, indices2);
+		part3->set_geometry(vertices3, indices3);
+		part4->set_geometry(vertices3, indices3);
+		
+		part1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+		part2->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+		part3->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+		part4->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+		
+		part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		part2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
+		wing1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		wing2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		part3->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+
+		Cube* box1 = new Cube(&shaderVector[1]);
+		box1->translate(glm::vec3(-0.25, -1.0, 0.0));
+		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
+
 		testModel.add(part1);
 		testModel.add(part2);
+		testModel.add(wing1);
+		testModel.add(wing2);
 		testModel.add(part3);
 		testModel.add(part4);
+		testModel.add(box1);
 		testModel.bind_buffers();
 		int i = 0;
 
@@ -245,19 +254,16 @@ int main()
 			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			// Bind Textures using texture units
-			//glActiveTexture(GL_TEXTURE1);
-			//glBindTexture(GL_TEXTURE_2D, texture1);
-			//glUniform1i(glGetUniformLocation(theProgram.get_programID(), "Texture1"), 1);
-
+			
 			static GLfloat rotAngle = 0.3f;
 			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 			
-			//testModel.translate(glm::vec3(0.0, 0.0, 0.0005));
-			//testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(3.0, 0.0, 0.0));
+			//testModel.translate(glm::vec3(0.0, 0.0, 0.0001));
+			//testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			//testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(1.0, 0.0, 0.0));
 
 			//shader_program.Use();
-			CubeShader.Use();
+			BasicShader.Use();
 
 			testModel.draw();
 
