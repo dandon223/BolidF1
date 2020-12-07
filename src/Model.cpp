@@ -5,9 +5,7 @@ Model::~Model() {
 	this->free_buffers();
 }
 bool Model::add(BasicObject* objectToAdd) {
-	//std::unique_ptr<BasicObject> newObject = std::make_unique<BasicObject>(objectToAdd);
 	this->objectsVector_.push_back(objectToAdd);
-	//this->objectsVector_.push_back(newObject);
 	return true;
 }
 bool Model::remove(unsigned int index) {
@@ -27,28 +25,30 @@ void Model::free_buffers() {
 		object->free_buffers();
 	}
 }
-void Model::draw() {
+void Model::draw(glm::mat4& compositeModel) {
+
+	glm::mat4 model;
+	model = compositeModel * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
+
 	for (auto& object : this->objectsVector_) {
-		object->draw();
+		object->draw(model);
 	}
 }
 void Model::translate(const glm::vec3& translateVector) {
 	this->centerPoint_ += translateVector;
-	for (auto& object : this->objectsVector_) {
-		object->translate(translateVector);
-	}
 }
 void Model::rotate(float angle, const glm::vec3& rotationAxis) {
-	for (auto& object : this->objectsVector_) {
-		object->rotate(angle, rotationAxis, this->centerPoint_);
-	}
+	glm::mat4 model;
+	this->rotationMatrix_ = glm::rotate(model, glm::radians(angle), rotationAxis) * rotationMatrix_;
 }
 void Model::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	for (auto& object : this->objectsVector_) {
-		object->rotate(angle, rotationAxis, fixedPoint);
-	}
+	this->model_ = glm::translate(this->model_, fixedPoint);
+	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
+	this->model_ = glm::translate(this->model_, -fixedPoint);
 }
 void Model::scale(const glm::vec3& scaleVector) {
+	this->scaleVector_ += scaleVector;
+
 	for (auto& object : this->objectsVector_) {
 		object->scale(scaleVector);
 	}
