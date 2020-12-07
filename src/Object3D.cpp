@@ -45,10 +45,9 @@ void Object3D::free_buffers() {
 	glDeleteBuffers(1, &this->VBO);
 	glDeleteBuffers(1, &this->EBO);
 }
-void Object3D::draw() {
+void Object3D::draw(glm::mat4& compositeModel) {
 	glm::mat4 model;
-	//model = glm::translate(this->model_, this->centerPoint_);
-	model = glm::translate(this->model_, this->centerPoint_)* rotationMatrix_;
+	model = compositeModel * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
 	model = glm::scale(model, this->scaleVector_);
 
 	/*Binding texture*/
@@ -66,18 +65,14 @@ void Object3D::translate(const glm::vec3 &translateVector) {
 	this->centerPoint_ += translateVector;
 }
 void Object3D::rotate(float angle, const glm::vec3& rotationAxis) {
-	/*this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);*/
-	//this->rotate(glm::radians(angle), rotationAxis, this->centerPoint_);
-	this->rotationMatrix_ = glm::rotate(this->rotationMatrix_, glm::radians(angle), rotationAxis);
+	glm::mat4 model;
+	this->rotationMatrix_ = glm::rotate(model, glm::radians(angle), rotationAxis) * rotationMatrix_;
 }
 void Object3D::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
 	
 	this->model_ = glm::translate(this->model_, fixedPoint);
 	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
 	this->model_ = glm::translate(this->model_, -fixedPoint);
-	/*this->rotationMatrix_ = glm::translate(this->rotationMatrix_, fixedPoint);
-	this->rotationMatrix_ = glm::rotate(this->rotationMatrix_, glm::radians(angle), rotationAxis);
-	this->rotationMatrix_ = glm::translate(this->rotationMatrix_, -fixedPoint);*/
 }
 void Object3D::scale(const glm::vec3& scaleVector) {
 	this->scaleVector_ += scaleVector;

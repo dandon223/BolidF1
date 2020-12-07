@@ -194,6 +194,7 @@ int main()
 			4,6,7,
 		};
 		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
+		Model* testModel2 = new Model(glm::vec3(1.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
 
 		Object3D* part1 = new Object3D(glm::vec3(-1.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
 		Object3D* part2 = new Object3D(glm::vec3(0.5, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
@@ -225,6 +226,10 @@ int main()
 		box1->translate(glm::vec3(-0.25, -1.0, 0.0));
 		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
+		Cube* box2 = new Cube(&shaderVector[1]);
+		box2->translate(glm::vec3(-1.25, -2.0, 0.0));
+		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
+
 		testModel.add(part1);
 		testModel.add(part2);
 		testModel.add(wing1);
@@ -232,6 +237,13 @@ int main()
 		testModel.add(part3);
 		testModel.add(part4);
 		testModel.add(box1);
+
+		testModel2->add(box2);
+		//testModel2->rotate(45, { 0.0, 1.0, 0.0 });
+		testModel.add(testModel2);
+
+		//testModel.rotate(90, { 0.0, 1.0, 0.0 });
+		//box1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 		testModel.bind_buffers();
 		int i = 0;
 
@@ -257,12 +269,12 @@ int main()
 			
 			static GLfloat rotAngle = 0.3f;
 			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
-			
-			//testModel.translate(glm::vec3(0.0, 0.0, 0.0001));
-			//testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
-			//testModel.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0), glm::vec3(1.0, 0.0, 0.0));
 
-			//shader_program.Use();
+			testModel.translate(glm::vec3(0.0, 0.0, -0.01));
+			testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			//testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
+			//testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0), testModel.centerPoint_);
+
 			BasicShader.Use();
 
 			testModel.draw();

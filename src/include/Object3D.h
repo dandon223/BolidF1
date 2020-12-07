@@ -25,9 +25,8 @@ public:
 	virtual ~BasicObject() {}
 	virtual void bind_buffers() = 0;
 	virtual void free_buffers() = 0;
-	virtual void draw() = 0;
+	virtual void draw(glm::mat4&) = 0;
 
-	//virtual void set_centerPoint(const glm::vec3&) = 0;
 	virtual void translate(const glm::vec3&) = 0;
 	virtual void rotate(float, const glm::vec3&) = 0;
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&) = 0;
@@ -51,9 +50,8 @@ public:
 	virtual ~Object3D();
 	virtual void bind_buffers();
 	virtual void free_buffers();
-	virtual void draw();
+	virtual void draw(glm::mat4& = glm::mat4());
 
-	//virtual void set_centerPoint(const glm::vec3&);
 	virtual void translate(const glm::vec3&);
 	virtual void rotate(float, const glm::vec3&);
 	virtual void rotate(float, const glm::vec3&, const glm::vec3&);
