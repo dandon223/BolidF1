@@ -5,7 +5,12 @@ Model::~Model() {
 	this->free_buffers();
 }
 bool Model::add(BasicObject* objectToAdd) {
-	this->objectsVector_.push_back(objectToAdd);
+	try {
+		this->objectsVector_.push_back(objectToAdd);
+	}
+	catch (...) {
+		return false;
+	}
 	return true;
 }
 bool Model::remove(unsigned int index) {
@@ -14,6 +19,12 @@ bool Model::remove(unsigned int index) {
 		return true;
 	}
 	else return false;
+}
+BasicObject* Model::getChild(unsigned int index) {
+	if (index < this->objectsVector_.size()) {
+		return this->objectsVector_[index];
+	}
+	else return nullptr;
 }
 void Model::bind_buffers() {
 	for (auto& object : this->objectsVector_) {
