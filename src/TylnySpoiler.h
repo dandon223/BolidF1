@@ -125,5 +125,5 @@ public:
 	void translate(const glm::vec3&);
 	void rotate(float, const glm::vec3&);
 	void rotate(float, const glm::vec3&, const glm::vec3&);
-	//virtual void scale(const glm::vec3&) = 0;
+	void scale(const glm::vec3&);
 };

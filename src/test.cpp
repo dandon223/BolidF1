@@ -103,168 +103,21 @@ int main()
 
 
 		// Build, compile and link shader program
-		std::vector<ShaderProgram> shaderVector;
-		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
-		shaderVector.push_back(BasicShader);
-		shaderVector.push_back(CubeShader);
 		
-		/*BIG TEST*/
-		std::vector<GLfloat> vertices = {
-		0.0f, -0.6f, 0.0f,		0.5f,  0.0f,// 0
-		0.3f, -0.2f, 0.0f,		1.0f,  0.3f,// 1
-		-0.3f, -0.2f, 0.0f,		0.03f,  0.3f,// 2
-		0.3f, 0.6f, 0.0f,		1.0f,  1.0f,// 3
-		-0.3f, 0.6f, 0.0f,		0.03f,  1.0f,// 4
-		};
-		std::vector<GLuint> indices = {
-			0, 1, 2,
-			1, 3, 2,
-			2, 3, 4,
-		};
-		std::vector<GLfloat> vertices1 = {
-			 0.0f, -0.6f, -0.01f,		0.5f,  0.0f,// 0
-			 0.3f, -0.2f, -0.01f,		1.0f,  0.2f,// 1
-			 -0.3f, -0.2f, -0.01f,	0.0f,  0.2f,// 2
-			0.3f, 0.6f, -0.01f,		1.0f,  1.0f,// 3
-			-0.3f, 0.6f, -0.01f,		0.0f,  1.0f,// 4
 
-			0.0f, -0.6f, 0.01f,		0.5f,  0.0f,// 5
-			0.3f, -0.2f, 0.01f,		1.0f,  0.2f,// 6
-			-0.3f, -0.2f, 0.01f,	0.0f,  0.2f,// 7
-			0.3f, 0.6f, 0.01f,		1.0f,  1.0f,// 8
-			-0.3f, 0.6f, 0.01f,		0.0f,  1.0f,// 9
-		};
-		std::vector<GLuint> indices1 = {
-			0,5,1,
-			5,6,1,
-			0,5,2,
-			2,5,7,
-			1,6,3,
-			6,8,3,
-			2,7,4,
-			7,9,4,
-			3,8,4,
-			8,9,4,
-			6,8,7,
-			8,9,7,
-			5,6,7,
-		};
-		std::vector<GLfloat> vertices2 = {
-			-0.8f, -0.01f, -0.2f,		0.0f,0.0f,	//0
-			0.8f, -0.01f , -0.2f,		0.0f,1.0f,	//1
-			0.8f,0.01f, -0.2f,		1.0f, 1.0f, //2
-			-0.8f,0.01f, -0.2f,		0.0f,1.0f,	//3
-			-0.8f, -0.01f, 0.2f,		1.0f,0.0f,	//4
-			0.8f, -0.01f , 0.2f,		1.0f,1.0f,	//5
-			0.8f,0.01f, 0.2f,		1.0f, 0.0f, //6
-			-0.8f,0.01f, 0.2f,		0.0f,0.0f,	//7
-
-		};
-		std::vector<GLuint> indices2 = {
-			0,1,2,
-			0,2,3,
-			1,5,6,
-			1,6,2,
-			0,4,7,
-			0,7,3,
-			4,5,6,
-			4,6,7,
-			0,1,5,
-			0,5,4,
-			3,2,6,
-			3,6,7,
-		};
-		std::vector<GLfloat> vertices3 = {
-			-0.22f, -0.5f, -0.01f,		0.0f,0.0f,	//0
-			-0.20f, -0.5f , -0.01f,	0.0f, 1.0f, //1
-			-0.20f, -0.5f , 0.01f,  1.0f, 1.0f, //2
-			-0.22f, -0.5f, 0.01f,	1.0f, 0.0f, //3
-			0.20f,0.5f, -0.01f,		1.0f, 0.0f,	//4
-			0.22f,0.5f, -0.01f,		0.0f, 0.0f, //5
-			0.22f, 0.5f, 0.01f,	0.0f,1.0f,	//6
-			0.20f, 0.5f, 0.01f,		1.0f, 1.0f,	//7
-
-		};
-		std::vector<GLuint> indices3 = {
-			0,1,2,
-			0,2,3,
-			1,2,6,
-			1,6,5,
-			0,1,5,
-			0,5,4,
-			3,0,4,
-			3,4,7,
-			3,2,6,
-			3,6,7,
-			4,5,6,
-			4,6,7,
-		};
+		
+		
 		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
-		Model* testModel2 = new Model(glm::vec3(1.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
 
-		Object3D* part1 = new Object3D(glm::vec3(-0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* part12 = new Object3D(glm::vec3(-0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* part2 = new Object3D(glm::vec3(0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* part22 = new Object3D(glm::vec3(0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.0), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* part3 = new Object3D(glm::vec3(0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-		Object3D* part4 = new Object3D(glm::vec3(-0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), &shaderVector[0]);
-
-
-		part1->set_geometry(vertices, indices);
-		part12->set_geometry(vertices1, indices1);
-		part2->set_geometry(vertices, indices);
-		part22->set_geometry(vertices1, indices1);
-		wing1->set_geometry(vertices2, indices2);
-		wing2->set_geometry(vertices2, indices2);
-		part3->set_geometry(vertices3, indices3);
-		part4->set_geometry(vertices3, indices3);
-
-		part1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
-		part12->rotate(90, glm::vec3(0.0, 1.0, 0.0));
-		part2->rotate(270, glm::vec3(0.0, 1.0, 0.0));
-		part22->rotate(270, glm::vec3(0.0, 1.0, 0.0));
-		part3->rotate(90, glm::vec3(0.0, 1.0, 0.0));
-		part4->rotate(90, glm::vec3(0.0, 1.0, 0.0));
-
-
-		part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
-		part2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
-		part12->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		part22->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		wing1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		wing2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		part3->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-
-		Cube* box1 = new Cube(&shaderVector[1]);
+		Cube* box1 = new Cube(&CubeShader);
 		box1->translate(glm::vec3(0.0, -1.0, 0.0));
 		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
-		Cube* box2 = new Cube(&shaderVector[1]);
-		box2->translate(glm::vec3(-1.0, -2.0, 0.0));
-		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
-		testModel.add(part1);
-		testModel.add(part12);
-		testModel.add(part2);
-		testModel.add(part22);
-		testModel.add(wing1);
-		testModel.add(wing2);
-		testModel.add(part3);
-		testModel.add(part4);
 		testModel.add(box1);
 
-		testModel2->add(box2);
-		//testModel2->rotate(45, { 0.0, 1.0, 0.0 });
-		testModel.add(testModel2);
-
 		
-
-		//testModel.rotate(90, { 0.0, 1.0, 0.0 });
-		//box1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 		testModel.bind_buffers();
 		int i = 0;
 		TylnySpoiler tylnySpoiler = TylnySpoiler();
@@ -294,16 +147,13 @@ int main()
 
 			testModel.translate(glm::vec3(0.0, 0.0, -0.01));
 			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
-			//testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
-			//testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0), testModel.centerPoint_);
 
-			//BasicShader.Use();
-			//testModel.draw();
+			CubeShader.Use();
+			testModel.draw();
+
+			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 			tylnySpoiler.draw();
-			tylnySpoiler.translate(glm::vec3(0.001f,0.0f,0.0f));
-			//tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
-			tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(-1.0, 0.0, 0.0));
-
+			
 			
 
 			// Swap the screen buffers

@@ -70,11 +70,11 @@ void TylnySpoiler::translate(const glm::vec3& translateVector) {
 	this->spoilerModel.translate( translateVector);
 }
 void TylnySpoiler::rotate(float angle, const glm::vec3& rotationAxis) {
-	glm::mat4 model;
-	spoilerModel.setRotationMatrix(glm::rotate(spoilerModel.getModel(), glm::radians(angle), rotationAxis) * spoilerModel.getRotationMatrix());
+	spoilerModel.rotate(angle, rotationAxis);
 }
 void TylnySpoiler::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	spoilerModel.setModel(glm::translate(spoilerModel.getModel(), fixedPoint));
-	spoilerModel.setModel(glm::rotate(spoilerModel.getModel(), glm::radians(angle), rotationAxis));
-	spoilerModel.setModel(glm::translate(spoilerModel.getModel(),-fixedPoint));
+	spoilerModel.rotate(angle,  rotationAxis,  fixedPoint);
+}
+void TylnySpoiler::scale(const glm::vec3& scaleVector) {
+	spoilerModel.scale(scaleVector);
 }
