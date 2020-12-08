@@ -132,18 +132,23 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// setup projection matrix
+			CubeShader.Use();
+
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object
 			glm::mat4 view = camera.getViewMatrix();
 			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
+
+			testModel.draw();
 			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			
 			static GLfloat rotAngle = 0.3f;
 			//static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 
+			//tylnySpoiler.shaderUse();
 			tylnySpoiler.setProjectionView(projection,view);
 			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 			tylnySpoiler.draw();
@@ -151,8 +156,8 @@ int main()
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
 			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 
-			//CubeShader.Use();
-			testModel.draw();
+			
+			
 
 			
 			
