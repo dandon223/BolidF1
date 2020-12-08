@@ -64,7 +64,18 @@ void Model::scale(const glm::vec3& scaleVector) {
 		object->scale(scaleVector);
 	}
 }
-
+glm::mat4 Model::getRotationMatrix() {
+	return this->rotationMatrix_;
+}
+void Model::setRotationMatrix(glm::mat4 rM) {
+	this->rotationMatrix_ = rM;
+}
+glm::mat4 Model::getModel() {
+	return this->model_;
+}
+void Model::setModel(glm::mat4 model) {
+	this->model_ = model;
+}
 
 Cube::Cube(const ShaderProgram* shader) : Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), shader) {
 	shader_ = shader;

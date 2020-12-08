@@ -92,6 +92,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="shprogram.cpp" />
+    <ClCompile Include="TylnySpoiler.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -112,7 +113,8 @@
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
-    <ClInclude Include="Model.h" />
+    <ClInclude Include="include\Model.h" />
+    <ClInclude Include="TylnySpoiler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

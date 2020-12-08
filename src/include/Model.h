@@ -16,6 +16,10 @@ public:
 
 	Model(const glm::vec3&, const glm::vec3&);
 	virtual ~Model();
+	glm::mat4 getRotationMatrix();
+	void setRotationMatrix(glm::mat4 rM);
+	glm::mat4 getModel();
+	void setModel(glm::mat4 model);
 
 	/*add
 	* Zwraca true (udalo sie dodac element), false (w kazdym innym)*/
