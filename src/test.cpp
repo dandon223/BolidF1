@@ -139,16 +139,15 @@ int main()
 			// setup view matrix - get it from camera object
 			glm::mat4 view = camera.getViewMatrix();
 			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
-
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			testModel.draw();
-			//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
-			//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			
 			
 			static GLfloat rotAngle = 0.3f;
 			//static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 
-			//tylnySpoiler.shaderUse();
+			tylnySpoiler.shaderUse();
 			tylnySpoiler.setProjectionView(projection,view);
 			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 			tylnySpoiler.draw();
@@ -156,11 +155,6 @@ int main()
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
 			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 
-			
-			
-
-			
-			
 			
 
 			// Swap the screen buffers
