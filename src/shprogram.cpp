@@ -6,7 +6,7 @@ using namespace std;
 
 #define GLEW_STATIC
 #include <GL/glew.h>
-#include "shprogram.h"
+#include "include/shprogram.h"
 
 string read_shader_code(const GLchar* shaderPath)
 {

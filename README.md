@@ -16,10 +16,10 @@ Temat: Bolid F1 na torze
 # **Postępy**
 
 | Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
-|--------------------------------------------|--------------------|----------------|--------|---------------------------------|
-|0. Konfiguracja środowiska i repozystorium	| 	   				   |                |        |                                 |
-|1. Utworzenie środowiska roboczego	         | 	   				   |                |        |                                 |
-|2. Modelowanie bolidu				            | 	   				   |                |        |                                 |
+|--------------------------------------------|:------------------:|:--------------:|:------:|:-------------------------------:|
+|0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
+|1. Utworzenie środowiska roboczego	         | 	   				   |                |  Doing |                                 |
+|2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
 |3. Tekstury bolidu					            |                    |                |        |                                 |
 |4. Model fragmentu toru			            |                    |                |        |                                 |
 |5. Tekstury toru					               |	                  |                |        |                                 |
@@ -29,25 +29,29 @@ Temat: Bolid F1 na torze
 |9. Animacja                       	         |                    |                |        |                                 |
 |10. Interakcja z użytkownikiem		         |                    |                |        |                                 |
 
+## **Aktualna wersja programu**
+<img src="Schematy/Current.png" alt="Obecna wersja"
+	title="FRONT" width="600" height="400" />
+
 # **Schemat modeli**
 
 ## **Model referencyjny**
 W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zdjęciach.
 ### FRONT  
 <img src="Schematy/FRONT.png" alt="FRONT"
-	title="FRONT" width="640" height="360" />
+	title="FRONT" width="480" height="270" />
 ### BACK  
 <img src="Schematy/BACK.png" alt="BACK"
-	title="BACK" width="640" height="360" />
+	title="BACK" width="480" height="270" />
 ### LEFT
 <img src="Schematy/LEFT.png" alt="LEFT"
-	title="LEFT" width="640" height="360" />
+	title="LEFT" width="480" height="270" />
 ### RIGHT
 <img src="Schematy/RIGHT.png" alt="RIGHT"
-	title="RIGHT" width="640" height="360" />
+	title="RIGHT" width="480" height="270" />
 ### TOP
 <img src="Schematy/TOP.png" alt="TOP"
-	title="TOP" width="640" height="360" />
+	title="TOP" width="480" height="270" />
 
 
 # **Milestones**
