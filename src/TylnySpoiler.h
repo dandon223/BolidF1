@@ -126,4 +126,5 @@ public:
 	void rotate(float, const glm::vec3&);
 	void rotate(float, const glm::vec3&, const glm::vec3&);
 	void scale(const glm::vec3&);
+	void setProjectionView(glm::mat4 p , glm::mat4 w);
 };

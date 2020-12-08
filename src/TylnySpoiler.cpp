@@ -58,6 +58,7 @@ spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	spoilerModel.add(part4);
 	spoilerModel.bind_buffers();
 
+
 }
 TylnySpoiler::~TylnySpoiler() {
 	spoilerModel.free_buffers();
@@ -77,4 +78,12 @@ void TylnySpoiler::rotate(float angle, const glm::vec3& rotationAxis, const glm:
 }
 void TylnySpoiler::scale(const glm::vec3& scaleVector) {
 	spoilerModel.scale(scaleVector);
+}
+void TylnySpoiler::setProjectionView(glm::mat4 p, glm::mat4 v) {
+	GLint projLoc = glGetUniformLocation(basicShader.get_programID(), "projection");
+	// setup view matrix - get it from camera object
+	GLint viewLoc = glGetUniformLocation(basicShader.get_programID(), "view");
+	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
+	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(p));
+	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(v));
 }

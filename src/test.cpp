@@ -114,13 +114,12 @@ int main()
 		box1->translate(glm::vec3(0.0, -1.0, 0.0));
 		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
-
+		TylnySpoiler tylnySpoiler = TylnySpoiler();
 		testModel.add(box1);
 
 		
 		testModel.bind_buffers();
-		int i = 0;
-		TylnySpoiler tylnySpoiler = TylnySpoiler();
+		
 
 		// main event loop
 		while (!glfwWindowShouldClose(window))
@@ -143,16 +142,19 @@ int main()
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			
 			static GLfloat rotAngle = 0.3f;
-			static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
+			//static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 
-			testModel.translate(glm::vec3(0.0, 0.0, -0.01));
-			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
-
-			CubeShader.Use();
-			testModel.draw();
-
+			tylnySpoiler.setProjectionView(projection,view);
 			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 			tylnySpoiler.draw();
+
+			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
+			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
+
+			//CubeShader.Use();
+			testModel.draw();
+
+			
 			
 			
 
