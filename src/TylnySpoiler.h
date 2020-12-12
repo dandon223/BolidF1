@@ -115,9 +115,6 @@ private:
 	Object3D *part3;
 	Object3D *part4;
 public:
-	glm::vec3 centerPoint_;
-	glm::vec3 scaleVector_;
-
 	TylnySpoiler();
 	virtual ~TylnySpoiler();
 	virtual void draw(glm::mat4& = glm::mat4());
