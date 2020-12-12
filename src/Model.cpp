@@ -65,7 +65,6 @@ void Model::scale(const glm::vec3& scaleVector) {
 	}
 }
 
-
 Cube::Cube(const ShaderProgram* shader) : Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), shader) {
 	shader_ = shader;
 
