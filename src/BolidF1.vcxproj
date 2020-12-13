@@ -90,6 +90,7 @@
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="camera.cpp" />
+    <ClCompile Include="PrzedniSpoiler.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TylnySpoiler.cpp" />
@@ -106,6 +107,7 @@
     <Image Include="..\ResourceFiles\spoiler.png" />
     <Image Include="bricks.bmp" />
     <Image Include="iipw.png" />
+    <Image Include="przedniSpoiler1.png" />
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +116,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
+    <ClInclude Include="PrzedniSpoiler.h" />
     <ClInclude Include="TylnySpoiler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

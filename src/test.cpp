@@ -15,6 +15,7 @@
 #include "include/Model.h"
 #include "include/camera.h"
 #include "TylnySpoiler.h"
+#include "PrzedniSpoiler.h"
 
 using namespace std;
 
@@ -115,6 +116,9 @@ int main()
 		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
 		TylnySpoiler tylnySpoiler = TylnySpoiler();
+		PrzedniSpoiler przedniSpoiler = PrzedniSpoiler();
+		przedniSpoiler.translate(glm::vec3(1.0, 1.0, 0.0));
+
 		testModel.add(box1);
 
 		
@@ -151,6 +155,11 @@ int main()
 			tylnySpoiler.setProjectionView(projection,view);
 			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
 			tylnySpoiler.draw();
+
+			przedniSpoiler.shaderUse();
+			przedniSpoiler.setProjectionView(projection, view);
+			przedniSpoiler.draw();
+			
 
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
 			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
