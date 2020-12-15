@@ -104,6 +104,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\ResourceFiles\carbon.png" />
+    <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
     <Image Include="..\ResourceFiles\spoiler.png" />
     <Image Include="bricks.bmp" />
     <Image Include="iipw.png" />

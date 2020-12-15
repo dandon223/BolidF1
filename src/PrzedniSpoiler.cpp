@@ -13,12 +13,20 @@ PrzedniSpoiler::PrzedniSpoiler() :
 	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag"),
 	spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
+	part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
 
 	part1->set_geometry(this->vertices, this->indices);
+	part2->set_geometry(this->vertices1, this->indices1);
+
+	part2->rotate(90, glm::vec3(1.0, 0.0, 0.0));
+	part2->rotate(180, glm::vec3(0.0, 0.0, 1.0));
+	part2->translate(glm::vec3(0.0f,0.4f,0.0f));
 
 	part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "przedniSpoiler1.png"));
+	part2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/przedniSpoiler2.png"));
 
 	spoilerModel.add(part1);
+	spoilerModel.add(part2);
 	spoilerModel.bind_buffers();
 
 

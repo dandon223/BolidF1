@@ -69,6 +69,9 @@
     <Image Include="przedniSpoiler1.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\przedniSpoiler2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shprogram.h">
