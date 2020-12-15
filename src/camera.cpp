@@ -30,6 +30,10 @@ void Camera::processKeyboardInput(GLFWwindow* window) {
 		position_ -= cameraSpeed * right_;
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		position_ += cameraSpeed * right_;
+	if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)		// straight up
+		position_ += cameraSpeed * up_;
+	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)		// straight down
+		position_ -= cameraSpeed * up_;
 }
 
 	// update camera's parameters after user moves their mouse
