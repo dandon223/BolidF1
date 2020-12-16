@@ -15,6 +15,7 @@
 #include "include/Model.h"
 #include "include/camera.h"
 #include "TylnySpoiler.h"
+#include "PrzedniSpoiler.h"
 
 using namespace std;
 
@@ -114,8 +115,17 @@ int main()
 		box1->translate(glm::vec3(0.0, -1.0, 0.0));
 		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 
+		Cube* box2 = new Cube(&CubeShader);
+		box2->scale(glm::vec3(-0.6f,-0.6f,0.0f));
+		box2->translate(glm::vec3(0.0, -1.3, 1.0));
+		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 		TylnySpoiler tylnySpoiler = TylnySpoiler();
+		PrzedniSpoiler przedniSpoiler = PrzedniSpoiler();
+		przedniSpoiler.translate(glm::vec3(0.0, -1.4, 1.5));
+		przedniSpoiler.rotate(180, glm::vec3(0.0, 1.0, 0.0));
+
 		testModel.add(box1);
+		testModel.add(box2);
 
 		
 		testModel.bind_buffers();
@@ -149,11 +159,17 @@ int main()
 
 			tylnySpoiler.shaderUse();
 			tylnySpoiler.setProjectionView(projection,view);
-			tylnySpoiler.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
+			tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
 			tylnySpoiler.draw();
 
+			przedniSpoiler.shaderUse();
+			przedniSpoiler.setProjectionView(projection, view);
+			przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
+			przedniSpoiler.draw();
+			
+
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
-			testModel.rotate(rotAngle, glm::vec3(1.0, 0.0, 0.0));
+			testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 
 			
 
