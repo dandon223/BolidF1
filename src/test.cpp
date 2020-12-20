@@ -16,6 +16,8 @@
 #include "include/camera.h"
 #include "TylnySpoiler.h"
 #include "PrzedniSpoiler.h"
+#include "Kadlub.h"
+
 
 using namespace std;
 
@@ -121,7 +123,11 @@ int main()
 		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 		TylnySpoiler tylnySpoiler = TylnySpoiler();
 		PrzedniSpoiler przedniSpoiler = PrzedniSpoiler();
-		przedniSpoiler.translate(glm::vec3(0.0, -1.4, 1.5));
+		Kadlub kadlub = Kadlub();
+		kadlub.scale(glm::vec3(1.0f,1.0f,1.0f));
+		kadlub.translate(glm::vec3(0.0f, 1.5f, 0.0f));
+		kadlub.rotate(-90,glm::vec3(1.0f,0.0f,0.0f));
+		przedniSpoiler.translate(glm::vec3(0.0, 1.3, 1.9));
 		przedniSpoiler.rotate(180, glm::vec3(0.0, 1.0, 0.0));
 
 		testModel.add(box1);
@@ -164,8 +170,12 @@ int main()
 
 			przedniSpoiler.shaderUse();
 			przedniSpoiler.setProjectionView(projection, view);
-			przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
+			//przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
 			przedniSpoiler.draw();
+
+			kadlub.shaderUse();
+			kadlub.setProjectionView(projection,view);
+			kadlub.draw();
 			
 
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
