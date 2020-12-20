@@ -90,6 +90,7 @@
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="PrzedniSpoiler.cpp" />
+    <ClCompile Include="Wheel.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TylnySpoiler.cpp" />
@@ -111,6 +112,7 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Wheel.h" />
     <ClInclude Include="include\Object3D.h" />
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\camera.h" />

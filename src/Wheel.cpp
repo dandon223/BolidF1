@@ -19,8 +19,25 @@ std::vector<GLfloat> Wheel::createCircle()
 {
 	GLfloat doublePi = 2.0f * 3.14159265358979323846;
 
-	std::vector<GLfloat> vertices;
-	vertices.push_back()
+	std::vector<GLfloat> vertices = { _x, _y, _z, 0.01f, 0.01f };
+	std::vector<GLuint> indices;
+
+	for (int i = 0; i < _numOfSides; i++) {
+		vertices.push_back(_x + (_radius * cos(i * doublePi / _numOfSides)));
+		vertices.push_back(_y + (_radius * sin(i * doublePi / _numOfSides)));
+		vertices.push_back(_z);
+		vertices.push_back(0.01f);
+		vertices.push_back(0.01f);
+
+		indices.push_back(0);
+		if (i == _numOfSides - 1) {
+			indices.push_back(1);
+		}
+		else {
+			indices.push_back(i + 2);
+		}
+		indices.push_back(i + 1);
+	}
 
 
 
