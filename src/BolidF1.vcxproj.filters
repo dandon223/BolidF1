@@ -87,6 +87,9 @@
     <Image Include="..\ResourceFiles\chassis2.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\orange.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shprogram.h">

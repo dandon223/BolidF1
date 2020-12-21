@@ -122,6 +122,8 @@ int main()
 		box2->translate(glm::vec3(0.0, -1.3, 1.0));
 		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
 		TylnySpoiler tylnySpoiler = TylnySpoiler();
+		tylnySpoiler.translate(glm::vec3(0.0f, 2.3f, -1.7f));
+		//tylnySpoiler.scale(glm::vec3(-0.2f, -0.2f, -0.2f));
 		PrzedniSpoiler przedniSpoiler = PrzedniSpoiler();
 		Kadlub kadlub = Kadlub();
 		kadlub.scale(glm::vec3(1.0f,1.0f,1.0f));
@@ -165,7 +167,7 @@ int main()
 
 			tylnySpoiler.shaderUse();
 			tylnySpoiler.setProjectionView(projection,view);
-			tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			//tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
 			tylnySpoiler.draw();
 
 			przedniSpoiler.shaderUse();

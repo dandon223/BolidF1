@@ -107,6 +107,7 @@
     <Image Include="..\ResourceFiles\chasis12.png" />
     <Image Include="..\ResourceFiles\chassis1.png" />
     <Image Include="..\ResourceFiles\chassis2.png" />
+    <Image Include="..\ResourceFiles\orange.png" />
     <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
     <Image Include="..\ResourceFiles\red.png" />
     <Image Include="..\ResourceFiles\spoiler.png" />

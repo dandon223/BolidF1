@@ -30,12 +30,32 @@ spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	part3->set_geometry(vertices3, indices3);
 	part4->set_geometry(vertices3, indices3);
 
+	part1->translate(glm::vec3(0.0, -0.2, -0.15));
+	part12->translate( glm::vec3(0.0, -0.2, -0.15));
+	part2->translate( glm::vec3(0.0, -0.2, -0.15));
+	part22->translate( glm::vec3(0.0, -0.2, -0.15));
+	wing1->translate( glm::vec3(0.0, -0.2, -0.15));
+	wing2->translate(glm::vec3(0.0, -0.2, -0.15));
+	part3->translate(glm::vec3(0.0, -0.0, -0.3));
+	part4->translate(glm::vec3(0.0, -0.0, -0.3));
+
 	part1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part12->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part2->rotate(270, glm::vec3(0.0, 1.0, 0.0));
 	part22->rotate(270, glm::vec3(0.0, 1.0, 0.0));
 	part3->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part4->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+
+	part1->scale(glm::vec3(-0.4f,-0.4f,-0.0f));
+	part12->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+	part2->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+	part22->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+
+	wing1->scale(glm::vec3(-0.0f, -0.0f, -0.6f));
+	wing2->scale(glm::vec3(-0.0f, -0.0f, -0.6f));
+
+	part3->scale(glm::vec3(-0.0f, -0.4f, -0.0f));
+	part4->scale(glm::vec3(-0.0f, -0.4f, -0.0f));
 
 
 	part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
@@ -52,10 +72,13 @@ spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	spoilerModel.add(part12);
 	spoilerModel.add(part2);
 	spoilerModel.add(part22);
+
 	spoilerModel.add(wing1);
 	spoilerModel.add(wing2);
+
 	spoilerModel.add(part3);
 	spoilerModel.add(part4);
+
 	spoilerModel.bind_buffers();
 
 
