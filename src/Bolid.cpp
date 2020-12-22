@@ -41,3 +41,8 @@ void Bolid::shaderUse() {
 	przedniSpoiler.shaderUse();
 	tylnySpoiler.shaderUse();
 }
+void Bolid::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
+	kadlub.rotate(angle, rotationAxis, fixedPoint);
+	przedniSpoiler.rotate(angle, rotationAxis, fixedPoint);
+	tylnySpoiler.rotate(angle, rotationAxis, fixedPoint);
+}
