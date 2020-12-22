@@ -357,7 +357,7 @@ private:
 		22,15,14,
 
 	};
-	ShaderProgram basicShader;
+	ShaderProgram *basicShader;
 	Model spoilerModel;
 	Object3D *part1;
 	Object3D *part2;
@@ -365,7 +365,7 @@ private:
 	Object3D *part4;
 	Object3D *part5;
 public:
-	Kadlub();
+	Kadlub(ShaderProgram *basicShader);
 	virtual ~Kadlub();
 	virtual void draw(glm::mat4& = glm::mat4());
 

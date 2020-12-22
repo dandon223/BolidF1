@@ -119,14 +119,14 @@ private:
 		5,9,6,
 		8,9,6,
 	};
-	ShaderProgram basicShader;
+	ShaderProgram *basicShader;
 	Model spoilerModel;
 	Object3D *part1;
 	Object3D *part2;
 	Object3D *part3;
 	Object3D *part4;
 public:
-	PrzedniSpoiler();
+	PrzedniSpoiler(ShaderProgram *basicShader);
 	virtual ~PrzedniSpoiler();
 	virtual void draw(glm::mat4& = glm::mat4());
 

@@ -10,7 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Bolid::Bolid() :
-	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag") ,kadlub(),przedniSpoiler(),tylnySpoiler(){
+	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag") ,kadlub(&basicShader),przedniSpoiler(&basicShader),tylnySpoiler(&basicShader){
 	tylnySpoiler.translate(glm::vec3(0.0f, 2.3f, -1.7f));
 	kadlub.scale(glm::vec3(1.0f, 1.0f, 1.0f));
 	kadlub.translate(glm::vec3(0.0f, 1.5f, 0.0f));
@@ -31,15 +31,15 @@ void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
 	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(p));
 	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(v));
-	kadlub.setProjectionView(p, v);
-	przedniSpoiler.setProjectionView(p, v);
-	tylnySpoiler.setProjectionView(p, v);
+	//kadlub.setProjectionView(p, v);
+	//przedniSpoiler.setProjectionView(p, v);
+	//tylnySpoiler.setProjectionView(p, v);
 }
 void Bolid::shaderUse() {
 	basicShader.Use();
-	kadlub.shaderUse();
-	przedniSpoiler.shaderUse();
-	tylnySpoiler.shaderUse();
+	//kadlub.shaderUse();
+	//przedniSpoiler.shaderUse();
+	//tylnySpoiler.shaderUse();
 }
 void Bolid::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
 	kadlub.rotate(angle, rotationAxis, fixedPoint);
