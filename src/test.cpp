@@ -17,6 +17,7 @@
 #include "TylnySpoiler.h"
 #include "PrzedniSpoiler.h"
 #include "Kadlub.h"
+#include "Bolid.h"
 
 
 using namespace std;
@@ -135,6 +136,8 @@ int main()
 		testModel.add(box1);
 		testModel.add(box2);
 
+		Bolid bolid = Bolid();
+
 		
 		testModel.bind_buffers();
 		
@@ -167,17 +170,19 @@ int main()
 
 			tylnySpoiler.shaderUse();
 			tylnySpoiler.setProjectionView(projection,view);
-			//tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
-			tylnySpoiler.draw();
+			//tylnySpoiler.draw();
 
 			przedniSpoiler.shaderUse();
 			przedniSpoiler.setProjectionView(projection, view);
-			//przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
-			przedniSpoiler.draw();
+			//przedniSpoiler.draw();
 
 			kadlub.shaderUse();
 			kadlub.setProjectionView(projection,view);
-			kadlub.draw();
+			//kadlub.draw();
+
+			bolid.shaderUse();
+			bolid.setProjectionView(projection, view);
+			bolid.draw();
 			
 
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
