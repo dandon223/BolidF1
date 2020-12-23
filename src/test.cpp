@@ -135,7 +135,7 @@ int main()
 
 			bolid.shaderUse();
 			bolid.setProjectionView(projection, view);
-			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
 			bolid.draw();
 
 			

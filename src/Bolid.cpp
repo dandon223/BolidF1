@@ -41,6 +41,16 @@ void Bolid::shaderUse() {
 	//przedniSpoiler.shaderUse();
 	//tylnySpoiler.shaderUse();
 }
+void Bolid::translate(const glm::vec3& translateVector) {
+	kadlub.translate(translateVector);
+	przedniSpoiler.translate(translateVector);
+	tylnySpoiler.translate(translateVector);
+}
+void Bolid::rotate(float angle, const glm::vec3& rotationAxis) {
+	kadlub.rotate(angle, rotationAxis);
+	przedniSpoiler.rotate(angle, rotationAxis);
+	tylnySpoiler.rotate(angle, rotationAxis);
+}
 void Bolid::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
 	kadlub.rotate(angle, rotationAxis, fixedPoint);
 	przedniSpoiler.rotate(angle, rotationAxis, fixedPoint);
