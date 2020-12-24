@@ -104,7 +104,7 @@ private:
 		4,5,6,
 		4,6,7,
 	};
-	ShaderProgram basicShader;
+	ShaderProgram *basicShader;
 	Model spoilerModel;
 	Object3D *part1;
 	Object3D *part12;
@@ -115,7 +115,7 @@ private:
 	Object3D *part3;
 	Object3D *part4;
 public:
-	TylnySpoiler();
+	TylnySpoiler(ShaderProgram *sp);
 	virtual ~TylnySpoiler();
 	virtual void draw(glm::mat4& = glm::mat4());
 

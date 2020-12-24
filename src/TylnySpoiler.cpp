@@ -9,17 +9,18 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-TylnySpoiler::TylnySpoiler() : 
-basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag"),
+TylnySpoiler::TylnySpoiler(ShaderProgram *sp) :
+//basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag"),
 spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
-	part1 = new Object3D(glm::vec3(-0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	part12 = new Object3D(glm::vec3(-0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	part2 = new Object3D(glm::vec3(0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	part22 = new Object3D(glm::vec3(0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.0), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	part3 = new Object3D(glm::vec3(0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
-	part4 = new Object3D(glm::vec3(-0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), &(this->basicShader));
+	this->basicShader = sp;
+	part1 = new Object3D(glm::vec3(-0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	part12 = new Object3D(glm::vec3(-0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
+	part2 = new Object3D(glm::vec3(0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	part22 = new Object3D(glm::vec3(0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
+	part3 = new Object3D(glm::vec3(0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	part4 = new Object3D(glm::vec3(-0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
 
 	part1->set_geometry(this->vertices, this->indices);
 	part12->set_geometry(vertices1, indices1);
@@ -30,12 +31,32 @@ spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	part3->set_geometry(vertices3, indices3);
 	part4->set_geometry(vertices3, indices3);
 
+	part1->translate(glm::vec3(0.0, -0.2, -0.15));
+	part12->translate( glm::vec3(0.0, -0.2, -0.15));
+	part2->translate( glm::vec3(0.0, -0.2, -0.15));
+	part22->translate( glm::vec3(0.0, -0.2, -0.15));
+	wing1->translate( glm::vec3(0.0, -0.2, -0.15));
+	wing2->translate(glm::vec3(0.0, -0.2, -0.15));
+	part3->translate(glm::vec3(0.0, -0.0, -0.3));
+	part4->translate(glm::vec3(0.0, -0.0, -0.3));
+
 	part1->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part12->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part2->rotate(270, glm::vec3(0.0, 1.0, 0.0));
 	part22->rotate(270, glm::vec3(0.0, 1.0, 0.0));
 	part3->rotate(90, glm::vec3(0.0, 1.0, 0.0));
 	part4->rotate(90, glm::vec3(0.0, 1.0, 0.0));
+
+	part1->scale(glm::vec3(-0.4f,-0.4f,-0.0f));
+	part12->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+	part2->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+	part22->scale(glm::vec3(-0.4f, -0.4f, -0.0f));
+
+	wing1->scale(glm::vec3(-0.0f, -0.0f, -0.6f));
+	wing2->scale(glm::vec3(-0.0f, -0.0f, -0.6f));
+
+	part3->scale(glm::vec3(-0.0f, -0.4f, -0.0f));
+	part4->scale(glm::vec3(-0.0f, -0.4f, -0.0f));
 
 
 	part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/spoiler.png"));
@@ -52,10 +73,13 @@ spoilerModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0)) {
 	spoilerModel.add(part12);
 	spoilerModel.add(part2);
 	spoilerModel.add(part22);
+
 	spoilerModel.add(wing1);
 	spoilerModel.add(wing2);
+
 	spoilerModel.add(part3);
 	spoilerModel.add(part4);
+
 	spoilerModel.bind_buffers();
 
 
@@ -79,13 +103,13 @@ void TylnySpoiler::scale(const glm::vec3& scaleVector) {
 	spoilerModel.scale(scaleVector);
 }
 void TylnySpoiler::setProjectionView(glm::mat4 p, glm::mat4 v) {
-	GLint projLoc = glGetUniformLocation(basicShader.get_programID(), "projection");
+	//GLint projLoc = glGetUniformLocation(basicShader.get_programID(), "projection");
 	// setup view matrix - get it from camera object
-	GLint viewLoc = glGetUniformLocation(basicShader.get_programID(), "view");
+	//GLint viewLoc = glGetUniformLocation(basicShader.get_programID(), "view");
 	//glUniformMatrix4fv(modelLoc, 1, GL_FALSE, glm::value_ptr(box1.model_));
-	glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(p));
-	glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(v));
+	//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(p));
+	//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(v));
 }
 void TylnySpoiler::shaderUse() {
-	basicShader.Use();
+	//basicShader.Use();
 }

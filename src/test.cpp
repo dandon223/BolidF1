@@ -16,6 +16,9 @@
 #include "include/camera.h"
 #include "TylnySpoiler.h"
 #include "PrzedniSpoiler.h"
+#include "Kadlub.h"
+#include "Bolid.h"
+
 
 using namespace std;
 
@@ -105,32 +108,8 @@ int main()
 
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
-		
-
-		
-		
-		Model testModel(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0));
-
-		Cube* box1 = new Cube(&CubeShader);
-		box1->translate(glm::vec3(0.0, -1.0, 0.0));
-		box1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
-
-		Cube* box2 = new Cube(&CubeShader);
-		box2->scale(glm::vec3(-0.6f,-0.6f,0.0f));
-		box2->translate(glm::vec3(0.0, -1.3, 1.0));
-		box2->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.bmp"));
-		TylnySpoiler tylnySpoiler = TylnySpoiler();
-		PrzedniSpoiler przedniSpoiler = PrzedniSpoiler();
-		przedniSpoiler.translate(glm::vec3(0.0, -1.4, 1.5));
-		przedniSpoiler.rotate(180, glm::vec3(0.0, 1.0, 0.0));
-
-		testModel.add(box1);
-		testModel.add(box2);
-
-		
-		testModel.bind_buffers();
-		
-
+		// bolid
+		Bolid bolid = Bolid();
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -141,8 +120,6 @@ int main()
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-			// setup projection matrix
-			CubeShader.Use();
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
@@ -151,25 +128,15 @@ int main()
 			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			testModel.draw();
 			
 			
 			static GLfloat rotAngle = 0.3f;
-			//static glm::vec3 transVector(0.1f, 0.0f, 0.0f);
 
-			tylnySpoiler.shaderUse();
-			tylnySpoiler.setProjectionView(projection,view);
-			tylnySpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
-			tylnySpoiler.draw();
 
-			przedniSpoiler.shaderUse();
-			przedniSpoiler.setProjectionView(projection, view);
-			przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
-			przedniSpoiler.draw();
-			
-
-			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));
-			testModel.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			bolid.shaderUse();
+			bolid.setProjectionView(projection, view);
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
+			bolid.draw();
 
 			
 
