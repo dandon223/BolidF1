@@ -55,6 +55,12 @@
     <None Include="shaders\BasicShader.vert">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="skyboxShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skyboxShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">
@@ -91,6 +97,24 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\ResourceFiles\orange.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\bottom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\top.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

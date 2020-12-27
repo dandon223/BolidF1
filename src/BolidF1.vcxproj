@@ -102,16 +102,24 @@
     <None Include="gl_05.vert" />
     <None Include="shaders\BasicShader.frag" />
     <None Include="shaders\BasicShader.vert" />
+    <None Include="skyboxShader.frag" />
+    <None Include="skyboxShader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\ResourceFiles\back.png" />
+    <Image Include="..\ResourceFiles\bottom.png" />
     <Image Include="..\ResourceFiles\carbon.png" />
     <Image Include="..\ResourceFiles\chasis12.png" />
     <Image Include="..\ResourceFiles\chassis1.png" />
     <Image Include="..\ResourceFiles\chassis2.png" />
+    <Image Include="..\ResourceFiles\front.png" />
+    <Image Include="..\ResourceFiles\left.png" />
     <Image Include="..\ResourceFiles\orange.png" />
     <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
     <Image Include="..\ResourceFiles\red.png" />
+    <Image Include="..\ResourceFiles\right.png" />
     <Image Include="..\ResourceFiles\spoiler.png" />
+    <Image Include="..\ResourceFiles\top.png" />
     <Image Include="bricks.bmp" />
     <Image Include="iipw.png" />
     <Image Include="przedniSpoiler1.png" />
