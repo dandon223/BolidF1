@@ -16,6 +16,7 @@
 #include "include/camera.h"
 #include "TylnySpoiler.h"
 #include "PrzedniSpoiler.h"
+#include "Wheel.h"
 
 using namespace std;
 
@@ -124,6 +125,21 @@ int main()
 		przedniSpoiler.translate(glm::vec3(0.0, -1.4, 1.5));
 		przedniSpoiler.rotate(180, glm::vec3(0.0, 1.0, 0.0));
 
+		Wheel kolo = Wheel(1, -1, -1.5, 0.7, 30);
+		Wheel kolo2 = Wheel(-1, -1, -1.5, 0.7, 30);
+		Wheel kolo3 = Wheel(1, -1.5, 1, 0.3, 30);
+		Wheel kolo4 = Wheel(-1, -1.5, 1, 0.3, 30);
+
+		kolo.rotate(90, glm::vec3(0.0, 0.1, 0.0));
+		kolo2.rotate(-90, glm::vec3(0.0, 0.1, 0.0));
+		kolo3.rotate(90, glm::vec3(0.0, 0.1, 0.0));
+		kolo4.rotate(-90, glm::vec3(0.0, 0.1, 0.0));
+
+		kolo3.translate(glm::vec3(-0.5, 0.0, 2.5));
+		kolo4.translate(glm::vec3(0.5, 0.0, 2.5));
+
+		
+
 		testModel.add(box1);
 		testModel.add(box2);
 
@@ -166,6 +182,31 @@ int main()
 			przedniSpoiler.setProjectionView(projection, view);
 			przedniSpoiler.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),testModel.centerPoint_);
 			przedniSpoiler.draw();
+
+			kolo.shaderUse();	
+			kolo.setProjectionView(projection, view);
+			kolo.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			kolo.draw();
+
+			kolo2.shaderUse();
+			kolo2.setProjectionView(projection, view);
+			kolo2.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			kolo2.draw();
+
+			kolo3.shaderUse();
+			kolo3.setProjectionView(projection, view);
+			kolo3.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			kolo3.draw();
+
+			kolo4.shaderUse();
+			kolo4.setProjectionView(projection, view);
+			kolo4.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			kolo4.draw();
+
+			/*kolo2.shaderUse();
+			kolo2.setProjectionView(projection, view);
+			kolo2.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), testModel.centerPoint_);
+			kolo2.draw();*/
 			
 
 			//testModel.translate(glm::vec3(0.0, 0.0, -0.01));

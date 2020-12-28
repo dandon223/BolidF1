@@ -19,8 +19,12 @@ private:
 
 	GLint _numOfSides;
 	GLfloat _x, _y, _z, _radius;
+
+	std::vector<GLfloat> vertices = { _x, _y, _z, 0.01f, 0.01f }, vertices2, verticesTire;
+	std::vector<GLuint> indicesCir, indicesTire;
+
 	ShaderProgram basicShader;
-	Model WheelModel;
+	Model wheelModel;
 	Object3D* part1;
 	Object3D* part2;
 	Object3D* part3;
@@ -36,7 +40,8 @@ public:
 	void setProjectionView(glm::mat4 p, glm::mat4 w);
 	void shaderUse();
 
-	std::vector<GLfloat> createCircle();
+	void createCircle();
+	void makeTire(GLfloat width);
 	
 
 };
