@@ -87,6 +87,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bolid.cpp" />
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Kadlub.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object3D.cpp" />
@@ -108,11 +109,13 @@
   <ItemGroup>
     <Image Include="..\ResourceFiles\back.png" />
     <Image Include="..\ResourceFiles\bottom.png" />
+    <Image Include="..\ResourceFiles\bricks.png" />
     <Image Include="..\ResourceFiles\carbon.png" />
     <Image Include="..\ResourceFiles\chasis12.png" />
     <Image Include="..\ResourceFiles\chassis1.png" />
     <Image Include="..\ResourceFiles\chassis2.png" />
     <Image Include="..\ResourceFiles\front.png" />
+    <Image Include="..\ResourceFiles\grass.png" />
     <Image Include="..\ResourceFiles\left.png" />
     <Image Include="..\ResourceFiles\orange.png" />
     <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
@@ -127,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bolid.h" />
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="include\Object3D.h" />
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\camera.h" />

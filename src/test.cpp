@@ -19,6 +19,7 @@
 #include "PrzedniSpoiler.h"
 #include "Kadlub.h"
 #include "Bolid.h"
+#include "Floor.h"
 
 
 using namespace std;
@@ -185,9 +186,12 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
+
 		// bolid
 		Bolid bolid = Bolid();
-
+		bolid.translate(glm::vec3(0.0,-2.0,0.0));
+		// floor
+		Floor floor = Floor(&CubeShader);
 		// skybox
 
 		unsigned int skyboxVAO, skyboxVBO;
@@ -234,7 +238,6 @@ int main()
 
 
 			// draw skybox as last
-			//glDepthFunc(GL_LEQUAL);  // change depth function so depth test passes when values are equal to depth buffer's content
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
 			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
@@ -249,8 +252,9 @@ int main()
 			glDrawArrays(GL_TRIANGLES, 0, 36);
 			glBindVertexArray(0);
 			glDepthMask(GL_TRUE);
-			//glDepthFunc(GL_LESS); // set depth function back to default
 
+
+			CubeShader.Use();
 			projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object
 			view = camera.getViewMatrix();
@@ -258,10 +262,16 @@ int main()
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
+			floor.draw();
+
+
+
 			bolid.shaderUse();
 			bolid.setProjectionView(projection, view);
 			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
 			bolid.draw();
+
+
 
 
 
