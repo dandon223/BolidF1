@@ -4,6 +4,7 @@
 #include <SOIL.h>
 #include <iostream>
 
+
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -18,6 +19,7 @@
 #include "PrzedniSpoiler.h"
 #include "Kadlub.h"
 #include "Bolid.h"
+#include "Floor.h"
 
 
 using namespace std;
@@ -29,6 +31,50 @@ Camera camera;
 double mouse_prev_x;
 double mouse_prev_y;
 bool first_use = true;
+float skyboxVertices[] = {
+	// positions          
+	-1.0f,  1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+
+	-1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,
+
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+
+	-1.0f, -1.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f,
+	-1.0f, -1.0f,  1.0f,
+
+	-1.0f,  1.0f, -1.0f,
+	 1.0f,  1.0f, -1.0f,
+	 1.0f,  1.0f,  1.0f,
+	 1.0f,  1.0f,  1.0f,
+	-1.0f,  1.0f,  1.0f,
+	-1.0f,  1.0f, -1.0f,
+
+	-1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f, -1.0f,
+	 1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f,  1.0f,
+	 1.0f, -1.0f,  1.0f
+};
 
 	// keyboard interaction: close the program
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
@@ -56,6 +102,37 @@ void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
 	// mouse scroll interaction: change FOV, effectively - zoom in/out
 void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) {
 	camera.processMouseScroll(y_offset);
+}
+unsigned int loadCubemap(vector<std::string> faces)
+{
+	unsigned int textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_CUBE_MAP, textureID);
+
+	int width, height, nrChannels;
+	for (unsigned int i = 0; i < faces.size(); i++)
+	{
+		//unsigned char *data = stbi_load(faces[i].c_str(), &width, &height, &nrChannels, 0);
+		unsigned char* data = SOIL_load_image(faces[i].c_str(), &width, &height, 0, SOIL_LOAD_RGB);
+
+		if (data)
+		{
+			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i,
+				0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data
+			);
+		}
+		else
+		{
+			cout << "Cubemap tex failed to load at path: " << faces[i].c_str() << std::endl;
+		}
+	}
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+	glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+	return textureID;
 }
 
 int main()
@@ -108,8 +185,35 @@ int main()
 
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
+		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
+
 		// bolid
 		Bolid bolid = Bolid();
+		bolid.translate(glm::vec3(0.0,-2.0,0.0));
+		// floor
+		Floor floor = Floor(&CubeShader);
+		// skybox
+
+		unsigned int skyboxVAO, skyboxVBO;
+		glGenVertexArrays(1, &skyboxVAO);
+		glGenBuffers(1, &skyboxVBO);
+		glBindVertexArray(skyboxVAO);
+		glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+
+		vector<std::string> faces
+		{
+			"../ResourceFiles/right.png",
+			"../ResourceFiles/left.png",
+			"../ResourceFiles/top.png",
+			"../ResourceFiles/bottom.png",
+			"../ResourceFiles/front.png",
+			"../ResourceFiles/back.png"
+		};
+		unsigned int cubemapTexture = loadCubemap(faces);
+
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -122,21 +226,54 @@ int main()
 
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
-			GLint projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
-			// setup view matrix - get it from camera object
-			glm::mat4 view = camera.getViewMatrix();
-			GLint viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
 			
 			
 			static GLfloat rotAngle = 0.3f;
+
+
+
+
+
+
+
+			// draw skybox as last
+			glDepthMask(GL_FALSE);
+			skyboxShader.Use();
+			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
+			GLint projLoc = glGetUniformLocation(skyboxShader.get_programID(), "projection");
+			GLint viewLoc = glGetUniformLocation(skyboxShader.get_programID(), "view");
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			// skybox cube
+			glBindVertexArray(skyboxVAO);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+			glDrawArrays(GL_TRIANGLES, 0, 36);
+			glBindVertexArray(0);
+			glDepthMask(GL_TRUE);
+
+
+			CubeShader.Use();
+			projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
+			// setup view matrix - get it from camera object
+			view = camera.getViewMatrix();
+			viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+
+			floor.draw();
+
 
 
 			bolid.shaderUse();
 			bolid.setProjectionView(projection, view);
 			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
 			bolid.draw();
+
+
+
+
 
 			
 

@@ -45,6 +45,9 @@
     <ClCompile Include="Bolid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -53,6 +56,12 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="shaders\BasicShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skyboxShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="skyboxShader.frag">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
@@ -93,6 +102,30 @@
     <Image Include="..\ResourceFiles\orange.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\back.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\bottom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\front.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\top.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\bricks.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shprogram.h">
@@ -120,6 +153,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bolid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Floor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
