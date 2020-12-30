@@ -239,7 +239,7 @@ int main()
 		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
 
 		// bolid
-		Bolid bolid = Bolid();
+		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0));
 		bolid.translate(glm::vec3(0.0,-2.0,0.0));
 		// floor
 		Floor floor = Floor(&CubeShader);
@@ -275,6 +275,7 @@ int main()
 		glm::vec3 color = glm::vec3(0.5, 0.5, 1.0); // kolor oswietlenia
 
 		// main event loop
+		
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
@@ -331,7 +332,9 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
+			
+			bolid.translate(glm::vec3(0.1, 0.0, 0.0));
+			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			bolid.draw();
 
 

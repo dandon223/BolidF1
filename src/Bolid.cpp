@@ -9,20 +9,26 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Bolid::Bolid() :
-	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag") ,kadlub(&basicShader),przedniSpoiler(&basicShader),tylnySpoiler(&basicShader){
-	tylnySpoiler.translate(glm::vec3(0.0f, 2.3f, -1.7f));
-	kadlub.scale(glm::vec3(1.0f, 1.0f, 1.0f));
-	kadlub.translate(glm::vec3(0.0f, 1.5f, 0.0f));
-	kadlub.rotate(-90, glm::vec3(1.0f, 0.0f, 0.0f));
-	przedniSpoiler.translate(glm::vec3(0.0, 1.3, 1.9));
-	przedniSpoiler.rotate(180, glm::vec3(0.0, 1.0, 0.0));
+Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector) : Model(centerPoint, scaleVector),
+	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag") //,
+	//kadlub(centerPoint, scaleVector,&basicShader),
+	//przedniSpoiler(centerPoint, scaleVector, &basicShader),
+	//tylnySpoiler(centerPoint, scaleVector, &basicShader)
+{
+	kadlub = new Kadlub(centerPoint, scaleVector,&basicShader);
+	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, &basicShader);
+	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, &basicShader);
+	tylnySpoiler->translate(glm::vec3(0.0f, 2.3f, -1.7f));
+	kadlub->scale( glm::vec3(1.0f, 1.0f, 1.0f));
+	kadlub->translate(glm::vec3(0.0f, 1.5f, 0.0f));
+	kadlub->rotate(-90, glm::vec3(1.0f, 0.0f, 0.0f));
+	przedniSpoiler->translate(glm::vec3(0.0, 1.3, 1.9));
+	przedniSpoiler->rotate(180, glm::vec3(0.0, 1.0, 0.0));
+	this->add(tylnySpoiler);
+	this->add(przedniSpoiler);
+	this->add(kadlub);
+	this->bind_buffers();
 
-}
-void Bolid::draw(glm::mat4& m) {
-	kadlub.draw(m);
-	przedniSpoiler.draw(m);
-	tylnySpoiler.draw(m);
 }
 void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 	GLint projLoc = glGetUniformLocation(basicShader.get_programID(), "projection");
@@ -38,25 +44,5 @@ void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 void Bolid::shaderUse() {
 	//Light Test
 	basicShader.Use();
-	GLfloat ambient = 0.1;
-	glm::vec3 color = glm::vec3(1.0, 1.0, 0.0);
-	glUniform3fv(glGetUniformLocation(this->basicShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient * color));
-	//kadlub.shaderUse();
-	//przedniSpoiler.shaderUse();
-	//tylnySpoiler.shaderUse();
 }
-void Bolid::translate(const glm::vec3& translateVector) {
-	kadlub.translate(translateVector);
-	przedniSpoiler.translate(translateVector);
-	tylnySpoiler.translate(translateVector);
-}
-void Bolid::rotate(float angle, const glm::vec3& rotationAxis) {
-	kadlub.rotate(angle, rotationAxis);
-	przedniSpoiler.rotate(angle, rotationAxis);
-	tylnySpoiler.rotate(angle, rotationAxis);
-}
-void Bolid::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	kadlub.rotate(angle, rotationAxis, fixedPoint);
-	przedniSpoiler.rotate(angle, rotationAxis, fixedPoint);
-	tylnySpoiler.rotate(angle, rotationAxis, fixedPoint);
-}
+

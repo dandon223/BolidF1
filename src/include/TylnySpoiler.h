@@ -12,7 +12,7 @@
 #include "include/shprogram.h"
 #include "include/Model.h"
 
-class TylnySpoiler {
+class TylnySpoiler : public Model {
 private:
 	std::vector<GLfloat> vertices = {
 0.0f, -0.6f, 0.0f,		0.5f,  0.0f,// 0
@@ -105,7 +105,6 @@ private:
 		4,6,7,
 	};
 	ShaderProgram *basicShader;
-	Model spoilerModel;
 	Object3D *part1;
 	Object3D *part12;
 	Object3D *part2;
@@ -115,14 +114,5 @@ private:
 	Object3D *part3;
 	Object3D *part4;
 public:
-	TylnySpoiler(ShaderProgram *sp);
-	virtual ~TylnySpoiler();
-	virtual void draw(glm::mat4& = glm::mat4());
-
-	void translate(const glm::vec3&);
-	void rotate(float, const glm::vec3&);
-	void rotate(float, const glm::vec3&, const glm::vec3&);
-	void scale(const glm::vec3&);
-	void setProjectionView(glm::mat4 p , glm::mat4 w);
-	void shaderUse();
+	TylnySpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp);
 };
