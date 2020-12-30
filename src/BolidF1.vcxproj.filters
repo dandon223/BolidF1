@@ -67,6 +67,12 @@
     <None Include="skyboxShader.frag">
       <Filter>Source Files</Filter>
     </None>
+    <None Include="LightSourceShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="LightSourceShader.vert">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="iipw.png">

@@ -102,6 +102,8 @@
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
+    <None Include="LightSourceShader.frag" />
+    <None Include="LightSourceShader.vert" />
     <None Include="shaders\BasicShader.frag" />
     <None Include="shaders\BasicShader.vert" />
     <None Include="skyboxShader.frag" />

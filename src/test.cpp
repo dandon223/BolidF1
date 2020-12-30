@@ -15,11 +15,62 @@
 #include "include/utils.h"
 #include "include/Model.h"
 #include "include/camera.h"
-#include "TylnySpoiler.h"
-#include "PrzedniSpoiler.h"
-#include "Kadlub.h"
-#include "Bolid.h"
-#include "Floor.h"
+#include "include/TylnySpoiler.h"
+#include "include/PrzedniSpoiler.h"
+#include "include/Kadlub.h"
+#include "include/Bolid.h"
+#include "include/Floor.h"
+
+/*LightSource Test*/
+#include "include/Light.h"
+std::vector<GLfloat>vertices_ = {
+	// coordinates			// texture
+		0.5f,  0.5f,  -0.5f,		1.0f,  0.0f,	//0
+		-0.5f,  0.5f,  -0.5f,		0.0f,  0.0f,	//1
+		-0.5f, -0.5f,  -0.5f,		0.0f,  1.0f,	//2
+		0.5f, -0.5f,  -0.5f,		1.0f,  1.0f,	//3
+
+		-0.5f, -0.5f,  0.5f,		0.0f,  0.0f,	//4
+		-0.5f,  0.5f,  0.5f,		0.0f,  1.0f,	//5
+		0.5f,  0.5f,  0.5f,			1.0f,  1.0f,	//6
+		0.5f, -0.5f,  0.5f,			1.0f,  0.0f,	//7
+
+		-0.5f, -0.5f,  -0.5f,		0.0f,  0.0f,	//8
+		-0.5f, -0.5f,  0.5f,		0.0f,  1.0f,	//9
+		0.5f, -0.5f,  0.5f,			1.0f,  1.0f,	//10
+		0.5f, -0.5f,  -0.5f,		1.0f,  0.0f,	//11
+
+		-0.5f,  0.5f,  0.5f,		0.0f,  0.0f,	//12
+		-0.5f,  0.5f,  -0.5f,		0.0f,  1.0f,	//13
+		0.5f,  0.5f,  -0.5f,		1.0f,  1.0f,	//14
+		0.5f,  0.5f,  0.5f,			1.0f,  0.0f,	//15
+
+		-0.5f, -0.5f,  -0.5f,		0.0f,  0.0f,	//16
+		-0.5f,  0.5f,  -0.5f,		0.0f,  1.0f,	//17
+		-0.5f, -0.5f,  0.5f,		1.0f,  0.0f,	//18
+		-0.5f,  0.5f,  0.5f,		1.0f,  1.0f,	//19
+
+		0.5f, -0.5f,  -0.5f,		1.0f,  0.0f,	//20
+		0.5f, -0.5f,  0.5f,			0.0f,  0.0f,	//21
+		0.5f,  0.5f,  0.5f,			0.0f,  1.0f,	//22
+		0.5f,  0.5f,  -0.5f,		1.0f,  1.0f		//23		
+
+};
+std::vector<GLuint>indices_ = {
+		0, 1, 2,
+		0, 2, 3,
+		4, 5, 6,
+		4, 6, 7,
+		8, 9, 10,
+		8, 10, 11,
+		12, 13, 14,
+		12, 14, 15,
+		16, 17, 18,
+		18, 17, 19,
+		20, 21, 22,
+		20, 22, 23
+
+};
 
 
 using namespace std;
@@ -214,6 +265,15 @@ int main()
 		};
 		unsigned int cubemapTexture = loadCubemap(faces);
 
+		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
+		/*Light source test*/
+		GLfloat ambient = 0.1;
+		LightSource testLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 0.0), &LightShader);
+		testLight.set_geometry(vertices_, indices_);
+		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		testLight.bind_buffers();
+		glm::vec3 color = glm::vec3(0.5, 0.5, 1.0); // kolor oswietlenia
+
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
@@ -231,12 +291,6 @@ int main()
 			
 			static GLfloat rotAngle = 0.3f;
 
-
-
-
-
-
-
 			// draw skybox as last
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
@@ -253,6 +307,15 @@ int main()
 			glBindVertexArray(0);
 			glDepthMask(GL_TRUE);
 
+			LightShader.Use();
+			projLoc = glGetUniformLocation(LightShader.get_programID(), "projection");
+			// setup view matrix - get it from camera object
+			view = camera.getViewMatrix();
+			viewLoc = glGetUniformLocation(LightShader.get_programID(), "view");
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			testLight.draw();
+
 
 			CubeShader.Use();
 			projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
@@ -261,12 +324,12 @@ int main()
 			viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
+			//Light Test
+			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			floor.draw();
 
-
-
 			bolid.shaderUse();
+			//Light Test
 			bolid.setProjectionView(projection, view);
 			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0),glm::vec3(0.0,0.0,0.0));
 			bolid.draw();

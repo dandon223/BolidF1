@@ -36,7 +36,11 @@ void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 	//tylnySpoiler.setProjectionView(p, v);
 }
 void Bolid::shaderUse() {
+	//Light Test
 	basicShader.Use();
+	GLfloat ambient = 0.1;
+	glm::vec3 color = glm::vec3(1.0, 1.0, 0.0);
+	glUniform3fv(glGetUniformLocation(this->basicShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient * color));
 	//kadlub.shaderUse();
 	//przedniSpoiler.shaderUse();
 	//tylnySpoiler.shaderUse();
