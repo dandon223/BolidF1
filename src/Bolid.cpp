@@ -1,4 +1,4 @@
-#include "Bolid.h"
+#include "include/Bolid.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>

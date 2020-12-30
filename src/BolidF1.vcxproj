@@ -89,6 +89,7 @@
     <ClCompile Include="Bolid.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Kadlub.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="camera.cpp" />
@@ -137,6 +138,7 @@
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="Kadlub.h" />
+    <ClInclude Include="Light.h" />
     <ClInclude Include="PrzedniSpoiler.h" />
     <ClInclude Include="TylnySpoiler.h" />
   </ItemGroup>
