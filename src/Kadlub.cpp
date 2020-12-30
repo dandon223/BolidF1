@@ -1,4 +1,4 @@
-#include "Kadlub.h"
+#include "include/Kadlub.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>

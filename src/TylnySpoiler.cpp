@@ -1,4 +1,4 @@
-#include "TylnySpoiler.h"
+#include "include/TylnySpoiler.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>

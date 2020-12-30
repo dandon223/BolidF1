@@ -38,13 +38,14 @@ public:
 --model_ - macierz obrotu w globalnym ukladzie wspolrzednych
 --rotationMatrix_ - macierz obrotu w lokalnym ukladzie wspolrzednych*/
 class Object3D : public BasicObject {
-private:
+protected:
 	GLuint VAO, VBO, EBO;
 	glm::mat4 model_;
 	glm::mat4 rotationMatrix_;
 	
 public:
 	std::vector<GLfloat> vertices_;
+	std::vector<GLfloat> normals_;
 	std::vector<GLuint> indices_;
 
 	const ShaderProgram* shader_;
@@ -90,6 +91,7 @@ public:
 	void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
 	void set_vertices(const std::vector<GLfloat>&);
 	void set_indices(const std::vector<GLuint>&);
+	void calculate_normals();
 	void set_color(const glm::vec3&); // chwilowo bez implementacji
 
 	/*set_shader

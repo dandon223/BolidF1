@@ -30,3 +30,13 @@ GLuint LoadMipmapTexture(GLuint texId, const char* fname)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	return texture;
 }
+
+glm::vec3 calculate_normal_vector(const glm::vec3& a, const glm::vec3& b, const glm::vec3& c) {
+	glm::vec3 A = b - a;
+	glm::vec3 B = c - a;
+	glm::vec3 result = glm::vec3( A.y * B.z - A.z * B.y, A.x * B.z - A.z * B.x, A.x * B.y - A.y * B.x );
+	return result;
+}
+GLfloat calculate_vector_length(const glm::vec3& vector_) {
+	return (GLfloat)sqrt(vector_.x * vector_.x + vector_.y * vector_.y + vector_.z * vector_.z);
+}

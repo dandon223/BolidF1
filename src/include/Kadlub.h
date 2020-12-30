@@ -137,7 +137,6 @@ private:
 
 		42,44,45,
 		42,45,43,
-
 	};
 	std::vector<GLfloat> vertices1 = {
 		-0.02f,-0.399f,-0.099f,		0.5f,0.1f,   //0

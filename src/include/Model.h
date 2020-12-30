@@ -69,4 +69,9 @@ public:
 	~Cube();
 };
 
+class Cylinder : public Object3D {
+public:
+	Cylinder(unsigned int, unsigned int, const glm::vec3&, const ShaderProgram*);
+
+};
 #endif

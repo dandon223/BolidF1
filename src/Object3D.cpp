@@ -80,6 +80,7 @@ void Object3D::scale(const glm::vec3& scaleVector) {
 void Object3D::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
 	this->set_vertices(vertices);
 	this->set_indices(indices);
+	//this->calculate_normals();
 }
 void Object3D::set_vertices(const std::vector<GLfloat>& vertices) {
 	if (vertices.size() > 0) {
@@ -89,6 +90,19 @@ void Object3D::set_vertices(const std::vector<GLfloat>& vertices) {
 void Object3D::set_indices(const std::vector<GLuint>& indices) {
 	if (indices.size() > 0) {
 		this->indices_ = indices;
+	}
+}
+void Object3D::calculate_normals() {
+	glm::vec3 a, b, c, result;
+	for (int i = 0; i < this->indices_.size(); i = i + 3) {
+		a = glm::vec3(this->vertices_[indices_[i]], this->vertices_[indices_[i] + 1], this->vertices_[indices_[i] +2]);
+		b = glm::vec3(this->vertices_[indices_[i + 1]], this->vertices_[indices_[i + 1] + 1], this->vertices_[indices_[i + 1] + 2]);
+		c = glm::vec3(this->vertices_[indices_[i + 2]], this->vertices_[indices_[i + 2] + 1], this->vertices_[indices_[i + 2] + 2]);
+		result = calculate_normal_vector(a, b, c);
+		result = result / calculate_vector_length(result);
+		this->normals_.push_back(result.x);
+		this->normals_.push_back(result.y);
+		this->normals_.push_back(result.z);
 	}
 }
 bool Object3D::set_shader(ShaderProgram* shader) {

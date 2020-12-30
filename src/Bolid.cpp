@@ -1,4 +1,4 @@
-#include "Bolid.h"
+#include "include/Bolid.h"
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
@@ -42,6 +42,7 @@ void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 	//tylnySpoiler.setProjectionView(p, v);
 }
 void Bolid::shaderUse() {
+	//Light Test
 	basicShader.Use();
 }
 

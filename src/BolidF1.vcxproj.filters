@@ -48,6 +48,9 @@
     <ClCompile Include="Floor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -62,6 +65,12 @@
       <Filter>Source Files</Filter>
     </None>
     <None Include="skyboxShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="LightSourceShader.frag">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="LightSourceShader.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
@@ -156,6 +165,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

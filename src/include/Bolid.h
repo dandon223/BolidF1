@@ -14,6 +14,7 @@
 #include "PrzedniSpoiler.h"
 #include "TylnySpoiler.h"
 #include "Kadlub.h"
+#include "Light.h"
 
 class Bolid : public Model {
 private:

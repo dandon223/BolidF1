@@ -13,6 +13,8 @@
 std::ostream& operator<<(std::ostream&, const glm::mat4&);
 
 GLuint LoadMipmapTexture(GLuint , const char* );
+glm::vec3 calculate_normal_vector(const glm::vec3&, const glm::vec3&, const glm::vec3&);
+GLfloat calculate_vector_length(const glm::vec3&);
 
 #endif // !UTILS_H
 
