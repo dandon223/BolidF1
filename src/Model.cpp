@@ -118,3 +118,12 @@ Cube::Cube(const ShaderProgram* shader) : Object3D(glm::vec3(0.0, 0.0, 0.0), glm
 	};
 }
 Cube::~Cube() {};
+
+Cylinder::Cylinder(unsigned int hight, unsigned int sides, const glm::vec3& centerPoint, const ShaderProgram* shader) : Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader) {
+	float angle = 360.0 / sides;
+	int i = 0;
+	for (i = 0; i < sides; ++i) {
+
+	}
+
+}

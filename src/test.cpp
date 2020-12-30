@@ -1,4 +1,4 @@
-#define GLEW_STATIC
+ï»¿#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
@@ -9,8 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-// KB: TODO - header przechowuj¹cy wszystkie u¿ywane biblioteki?
-// ¿eby ka¿dy plik .h nie pod³¹cza³ ich osobno
+// KB: TODO - header przechowujï¿½cy wszystkie uï¿½ywane biblioteki?
+// ï¿½eby kaï¿½dy plik .h nie podï¿½ï¿½czaï¿½ ich osobno
 
 #include "include/utils.h"
 #include "include/Model.h"
