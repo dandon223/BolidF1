@@ -33,7 +33,7 @@ void Model::bind_buffers() {
 }
 void Model::free_buffers() {
 	for (auto& object : this->objectsVector_) {
-		object->free_buffers();
+		delete object;
 	}
 }
 void Model::draw(glm::mat4& compositeModel) {

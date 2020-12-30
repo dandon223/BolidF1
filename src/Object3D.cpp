@@ -80,7 +80,7 @@ void Object3D::scale(const glm::vec3& scaleVector) {
 void Object3D::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
 	this->set_vertices(vertices);
 	this->set_indices(indices);
-	this->calculate_normals();
+	//this->calculate_normals();
 }
 void Object3D::set_vertices(const std::vector<GLfloat>& vertices) {
 	if (vertices.size() > 0) {

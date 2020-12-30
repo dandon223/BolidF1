@@ -267,12 +267,11 @@ int main()
 
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
-		GLfloat ambient = 0.1;
+		GLfloat ambient = 1.0;
 		LightSource testLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 0.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
-		glm::vec3 color = glm::vec3(0.5, 0.5, 1.0); // kolor oswietlenia
 
 		// main event loop
 		
@@ -288,8 +287,6 @@ int main()
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 
-			
-			
 			static GLfloat rotAngle = 0.3f;
 
 			// draw skybox as last
@@ -325,27 +322,20 @@ int main()
 			viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			//Light Test
+			//Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			floor.draw();
 
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			
 			bolid.translate(glm::vec3(0.1, 0.0, 0.0));
 			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			bolid.draw();
-
-
-
-
-
-			
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
-
 			// Check if any events have been activiated (key pressed, mouse moved etc.) and call corresponding response functions
 			glfwPollEvents();
 		}
