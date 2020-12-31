@@ -287,7 +287,7 @@ int main()
 
 			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
 
-			static GLfloat rotAngle = 0.3f;
+			static GLfloat rotAngle = 0.5f;
 
 			// draw skybox as last
 			glDepthMask(GL_FALSE);
@@ -329,8 +329,8 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			//bolid.translate(glm::vec3(0.1, 0.0, 0.0));
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			bolid.translate(glm::vec3(0.02, 0.0, 0.0));
+			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			bolid.draw();
 
