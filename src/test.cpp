@@ -329,8 +329,8 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			bolid.translate(glm::vec3(0.1, 0.0, 0.0));
-			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			//bolid.translate(glm::vec3(0.1, 0.0, 0.0));
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			bolid.draw();
 

@@ -149,25 +149,28 @@
     <ClInclude Include="include\Object3D.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TylnySpoiler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PrzedniSpoiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Kadlub.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bolid.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Floor.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Bolid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Floor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Kadlub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PrzedniSpoiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\TylnySpoiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
