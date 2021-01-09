@@ -45,7 +45,7 @@ void Camera::setPosition(glm::vec3 pos) {
 void Camera::processMouseMovement(double x_offset, double y_offset) {
 	x_offset *= MOUSE_SENSITIVITY;
 	y_offset *= MOUSE_SENSITIVITY;
-
+	float old_yaw = yaw_;
 	yaw_ = std::fmod((yaw_ + static_cast<float>(x_offset)), 360.0f);
 	if (is_inside_bolid ) {
 		
@@ -63,28 +63,32 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 				yaw_ += 1;
 			}
 		}
-		if (MIN_YAW < -359.9) {
-			int x = MIN_YAW / 360;
-			MIN_YAW = MIN_YAW - 360 * x;
-			MAX_YAW = MIN_YAW + 100;
+		if (MIN_YAW < -358) {
+			MAX_YAW = 60;
+			MIN_YAW = 0;
+			yaw_ = 360 + old_yaw;
+			//int x = MIN_YAW / 360;
+			//MIN_YAW = MIN_YAW - 360 * x;
+			//MAX_YAW = MIN_YAW + 100;
+			
 		}	
-		else if (MAX_YAW > 359.9){
-			int x = MAX_YAW / 360;
-			MAX_YAW = MAX_YAW - 360*x;
-			MIN_YAW = MAX_YAW -100;
+		else if (MAX_YAW > 358){
+			MAX_YAW = 0;
+			MIN_YAW = -60;
+			yaw_ = (360 - old_yaw)*-1;
+			//int x = MAX_YAW / 360;
+			//MAX_YAW = MAX_YAW - 360*x;
+			//MIN_YAW = MAX_YAW -100;
+			
 			
 		}
-		if (yaw_ > 359.9 || yaw_ < -359.9) {
-			int x = yaw_ / 360;
-			yaw_ = yaw_ - 360 * x;
-		}
 		if (yaw_ < MIN_YAW) {
-			yaw_ = MIN_YAW;
+				yaw_ = MIN_YAW;
 		}
 		else if (yaw_ > MAX_YAW) {
 			yaw_ = MAX_YAW ;
 		}
-		std::cout <<"MIN= "<<MIN_YAW<<" yaw_= "<< yaw_ <<" MAX= "<< MAX_YAW<<std::endl;
+		
 	}
 	
 	pitch_ += static_cast<float>(y_offset);
@@ -94,12 +98,14 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 		pitch_ = MAX_PITCH;
 	
 	updateCameraVectors();
+	std::cout <<"0"<< "MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
 }
 void Camera::setIsInsideBolid(bool b) {
 	is_inside_bolid = b;
 }
 void Camera::movementInBolid() {
 	if (rotation_pos_changed &&  rotation_position!=0) {
+		float old_yaw = yaw_;
 		rotation_pos_changed = false;
 		if (rotation_left) {
 			yaw_ -= 1;
@@ -111,9 +117,34 @@ void Camera::movementInBolid() {
 			MIN_YAW += 1;
 			MAX_YAW += 1;
 		}
+		if (MIN_YAW < -358) {
+			MAX_YAW = 60;
+			MIN_YAW = 0;
+			yaw_ = 360 + old_yaw;
+			//int x = MIN_YAW / 360;
+			//MIN_YAW = MIN_YAW - 360 * x;
+			//MAX_YAW = MIN_YAW + 100;
+
+		}
+		else if (MAX_YAW > 358) {
+			MAX_YAW = 0;
+			MIN_YAW = -60;
+			yaw_ = (360 - old_yaw)*-1;
+			//int x = MAX_YAW / 360;
+			//MAX_YAW = MAX_YAW - 360*x;
+			//MIN_YAW = MAX_YAW -100;
+
+
+		}
+		if (yaw_ < MIN_YAW) {
+			yaw_ = MIN_YAW;
+		}
+		else if (yaw_ > MAX_YAW) {
+			yaw_ = MAX_YAW;
+		}
 		updateCameraVectors();
 	}
-	
+	std::cout <<"1"<< " MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
 
 }
 

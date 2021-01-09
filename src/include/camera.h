@@ -51,8 +51,8 @@ private:
 	const glm::vec3 INIT_FRONT = glm::vec3(0.0f, 0.0f, -1.0f);
 
 	const float INIT_YAW = -90.0;
-	float MIN_YAW = 40.0;
-	float MAX_YAW = 140.0;
+	float MIN_YAW = 60.0;
+	float MAX_YAW = 120.0;
 	int rotation_position = 0;
 	bool rotation_left = false;
 	bool rotation_pos_changed = false;
