@@ -275,27 +275,39 @@ int main()
 
 		// main event loop
 		bool cameraInBolid = false;
-		
+		double prev_frame_time = glfwGetTime();
+		double curr_frame_time;
+		double delta_time = 0;
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
-			bolid.processKeyboardInput(window);
-			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
-				if (cameraInBolid)
+			curr_frame_time = glfwGetTime();
+			delta_time = delta_time + (curr_frame_time - prev_frame_time);
+			prev_frame_time = curr_frame_time;
+			cout << delta_time << endl;
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.2) {
+				delta_time = 0;
+				if (cameraInBolid) {
+					camera.setIsInsideBolid(false);
 					cameraInBolid = false;
-				else
+				}
+				else {
+					camera.setIsInsideBolid(true);
 					cameraInBolid = true;
+				}
+					
 			}
 			if (cameraInBolid) {
-				camera.setIsInsideBolid(true);
+				bolid.processKeyboardInput(window);
 				camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
 				camera.movementInBolid();
+				camera.setRotationPosition(bolid.getRotationPosition());
 			}
 			else {
-				camera.setIsInsideBolid(false);
+				
 				camera.processKeyboardInput(window);
 			}
-			camera.setRotationPosition(bolid.getRotationPosition());
+			
 			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer

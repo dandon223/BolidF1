@@ -1,4 +1,5 @@
 #include "include/camera.h"
+#include <iostream>
 
 glm::mat4 Camera::getViewMatrix() {
 	return glm::lookAt(position_, position_ + front_, up_);
@@ -62,18 +63,18 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 				yaw_ += 1;
 			}
 		}
-		if (MIN_YAW < -359) {
+		if (MIN_YAW < -359.9) {
 			int x = MIN_YAW / 360;
 			MIN_YAW = MIN_YAW - 360 * x;
 			MAX_YAW = MIN_YAW + 100;
 		}	
-		if (MAX_YAW > 359){
+		else if (MAX_YAW > 359.9){
 			int x = MAX_YAW / 360;
 			MAX_YAW = MAX_YAW - 360*x;
 			MIN_YAW = MAX_YAW -100;
 			
 		}
-		if (yaw_ > 360 || yaw_ < -360) {
+		if (yaw_ > 359.9 || yaw_ < -359.9) {
 			int x = yaw_ / 360;
 			yaw_ = yaw_ - 360 * x;
 		}
@@ -83,6 +84,7 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 		else if (yaw_ > MAX_YAW) {
 			yaw_ = MAX_YAW;
 		}
+		//std::cout << yaw_ << std::endl;
 	}
 	
 	pitch_ += static_cast<float>(y_offset);
