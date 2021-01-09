@@ -9,6 +9,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+
+
 Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector) : Model(centerPoint, scaleVector),
 	basicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag") //,
 	//kadlub(centerPoint, scaleVector,&basicShader),
@@ -44,5 +46,44 @@ void Bolid::setProjectionView(glm::mat4 p, glm::mat4 v) {
 void Bolid::shaderUse() {
 	//Light Test
 	basicShader.Use();
+}
+// check for potential camera movement user input
+void Bolid::processKeyboardInput(GLFWwindow* window) {
+	double curr_frame_time = glfwGetTime();
+	delta_time = curr_frame_time - prev_frame_time;
+	prev_frame_time = curr_frame_time;
+
+	float bolidSpeed = MOVEMENT_SPEED * static_cast<float>(delta_time);
+	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
+		speed += SPEED_RATE;
+		if (speed > MAX_SPEED)
+			speed = MAX_SPEED;
+	}
+	else {
+		speed -= STOP_SPEED;
+		if (speed < 0)
+			speed = 0;
+	}
+	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+		speed -= SPEED_RATE;
+		if (speed < 0)
+			speed = 0;
+	}
+	
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
+		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
+		rotation_position += 1;
+		if (rotation_position > 360)
+			rotation_position = 0;
+	}
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && speed != 0) {
+		rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
+		rotation_position -= 1;
+		if (rotation_position < -360)
+			rotation_position = 0;
+	}
+	double x = sin(rotation_position*PI / 180) * speed;
+	double z = cos(rotation_position*PI / 180)* speed;
+	translate(glm::vec3(x, 0.0, z));
 }
 

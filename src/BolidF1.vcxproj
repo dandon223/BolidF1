@@ -142,7 +142,6 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
-    <ClInclude Include="Kadlub.h" />
     <ClInclude Include="Light.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

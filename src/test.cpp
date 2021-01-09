@@ -279,6 +279,7 @@ int main()
 		{
 			// check for camera movement
 			camera.processKeyboardInput(window);
+			bolid.processKeyboardInput(window);
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -293,6 +294,7 @@ int main()
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
 			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
+			//glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(bolid.centerPoint_,bolid.centerPoint_,glm::vec3(0.0,1.0,0.0))));
 			GLint projLoc = glGetUniformLocation(skyboxShader.get_programID(), "projection");
 			GLint viewLoc = glGetUniformLocation(skyboxShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -329,8 +331,8 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			bolid.translate(glm::vec3(0.02, 0.0, 0.0));
-			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			//bolid.translate(glm::vec3(0.02, 0.0, 0.0));
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
 			bolid.draw();
 

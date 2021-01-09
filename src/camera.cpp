@@ -34,6 +34,7 @@ void Camera::processKeyboardInput(GLFWwindow* window) {
 		position_ += cameraSpeed * up_;
 	if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)		// straight down
 		position_ -= cameraSpeed * up_;
+	position_ = glm::vec3(0.0, 1.0, 0.0);
 }
 
 	// update camera's parameters after user moves their mouse
