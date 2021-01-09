@@ -82,9 +82,9 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 			yaw_ = MIN_YAW;
 		}
 		else if (yaw_ > MAX_YAW) {
-			yaw_ = MAX_YAW;
+			yaw_ = MAX_YAW ;
 		}
-		//std::cout << yaw_ << std::endl;
+		std::cout <<"MIN= "<<MIN_YAW<<" yaw_= "<< yaw_ <<" MAX= "<< MAX_YAW<<std::endl;
 	}
 	
 	pitch_ += static_cast<float>(y_offset);

@@ -59,8 +59,8 @@ private:
 	bool is_inside_bolid = false;
 
 	const float INIT_PITCH = 0.0f;
-	const float MAX_PITCH  = 89.9f;
-	const float MIN_PITCH  = -89.9f;
+	const float MAX_PITCH  = 59.9f;
+	const float MIN_PITCH  = -59.9f;
 
 	const float INIT_FOV = 45.0f;
 	const float MAX_FOV  = 75.0f;

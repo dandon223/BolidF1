@@ -129,7 +129,6 @@ float skyboxVertices[] = {
 
 	// keyboard interaction: close the program
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -284,7 +283,6 @@ int main()
 			curr_frame_time = glfwGetTime();
 			delta_time = delta_time + (curr_frame_time - prev_frame_time);
 			prev_frame_time = curr_frame_time;
-			cout << delta_time << endl;
 			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.2) {
 				delta_time = 0;
 				if (cameraInBolid) {
