@@ -283,7 +283,7 @@ int main()
 			curr_frame_time = glfwGetTime();
 			delta_time = delta_time + (curr_frame_time - prev_frame_time);
 			prev_frame_time = curr_frame_time;
-			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.2) {
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.1) {
 				delta_time = 0;
 				if (cameraInBolid) {
 					camera.setIsInsideBolid(false);

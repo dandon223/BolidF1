@@ -67,20 +67,11 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 			MAX_YAW = 60;
 			MIN_YAW = 0;
 			yaw_ = 360 + old_yaw;
-			//int x = MIN_YAW / 360;
-			//MIN_YAW = MIN_YAW - 360 * x;
-			//MAX_YAW = MIN_YAW + 100;
-			
 		}	
 		else if (MAX_YAW > 358){
 			MAX_YAW = 0;
 			MIN_YAW = -60;
-			yaw_ = (360 - old_yaw)*-1;
-			//int x = MAX_YAW / 360;
-			//MAX_YAW = MAX_YAW - 360*x;
-			//MIN_YAW = MAX_YAW -100;
-			
-			
+			yaw_ = (360 - old_yaw)*-1;	
 		}
 		if (yaw_ < MIN_YAW) {
 				yaw_ = MIN_YAW;
@@ -121,20 +112,11 @@ void Camera::movementInBolid() {
 			MAX_YAW = 60;
 			MIN_YAW = 0;
 			yaw_ = 360 + old_yaw;
-			//int x = MIN_YAW / 360;
-			//MIN_YAW = MIN_YAW - 360 * x;
-			//MAX_YAW = MIN_YAW + 100;
-
 		}
 		else if (MAX_YAW > 358) {
 			MAX_YAW = 0;
 			MIN_YAW = -60;
 			yaw_ = (360 - old_yaw)*-1;
-			//int x = MAX_YAW / 360;
-			//MAX_YAW = MAX_YAW - 360*x;
-			//MIN_YAW = MAX_YAW -100;
-
-
 		}
 		if (yaw_ < MIN_YAW) {
 			yaw_ = MIN_YAW;
