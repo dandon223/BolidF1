@@ -274,12 +274,29 @@ int main()
 		testLight.bind_buffers();
 
 		// main event loop
+		bool cameraInBolid = false;
 		
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
-			camera.processKeyboardInput(window);
 			bolid.processKeyboardInput(window);
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS) {
+				if (cameraInBolid)
+					cameraInBolid = false;
+				else
+					cameraInBolid = true;
+			}
+			if (cameraInBolid) {
+				camera.setIsInsideBolid(true);
+				camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
+				camera.movementInBolid();
+			}
+			else {
+				camera.setIsInsideBolid(false);
+				camera.processKeyboardInput(window);
+			}
+			camera.setRotationPosition(bolid.getRotationPosition());
+			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -331,10 +348,11 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			//bolid.translate(glm::vec3(0.02, 0.0, 0.0));
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
+			
 			bolid.draw();
+			
+			
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

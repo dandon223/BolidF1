@@ -27,8 +27,8 @@ private:
 	const float MOVEMENT_SPEED = 2.4f;
 	double speed = 0.0f;
 	double rotation_angle = 1.0f;
-	double rotation_position = 0.0f;
-	const double MAX_SPEED = 0.2f;
+	int rotation_position = 0;
+	const double MAX_SPEED = 0.5f;
 	const double STOP_SPEED = 0.01f;
 	const double SPEED_RATE = 0.02f;
 	const double PI =3.14159265;
@@ -37,4 +37,5 @@ public:
 	void setProjectionView(glm::mat4 p, glm::mat4 w);
 	void shaderUse();
 	void processKeyboardInput(GLFWwindow* window);
+	int getRotationPosition();
 };

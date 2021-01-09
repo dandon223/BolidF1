@@ -86,4 +86,7 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	double z = cos(rotation_position*PI / 180)* speed;
 	translate(glm::vec3(x, 0.0, z));
 }
+int Bolid::getRotationPosition() {
+	return rotation_position;
+}
 
