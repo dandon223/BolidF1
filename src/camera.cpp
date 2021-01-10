@@ -89,7 +89,7 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 		pitch_ = MAX_PITCH;
 	
 	updateCameraVectors();
-	std::cout <<"0"<< "MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
+	//std::cout <<"0"<< "MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
 }
 void Camera::setIsInsideBolid(bool b) {
 	is_inside_bolid = b;
@@ -126,7 +126,7 @@ void Camera::movementInBolid() {
 		}
 		updateCameraVectors();
 	}
-	std::cout <<"1"<< " MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
+	//std::cout <<"1"<< " MIN= " << MIN_YAW << " yaw_= " << yaw_ << " MAX= " << MAX_YAW << std::endl;
 
 }
 
