@@ -94,6 +94,9 @@ void Camera::processMouseMovement(double x_offset, double y_offset) {
 void Camera::setIsInsideBolid(bool b) {
 	is_inside_bolid = b;
 }
+void Camera::setIsThirdPersobView(bool b) {
+	is_third_person_view = b;
+}
 void Camera::movementInBolid() {
 	if (rotation_pos_changed &&  rotation_position!=0) {
 		float old_yaw = yaw_;

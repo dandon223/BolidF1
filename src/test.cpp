@@ -274,9 +274,12 @@ int main()
 
 		// main event loop
 		bool cameraInBolid = false;
+		bool cameraThirdPerson = false;
+		glm::vec2 lastVector = glm::vec2(0.0, -1.0);
 		double prev_frame_time = glfwGetTime();
 		double curr_frame_time;
 		double delta_time = 0;
+		const double PI = 3.14159265;
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
@@ -288,6 +291,7 @@ int main()
 				if (cameraInBolid) {
 					camera.setIsInsideBolid(false);
 					cameraInBolid = false;
+
 				}
 				else {
 					camera.setIsInsideBolid(true);
@@ -295,9 +299,28 @@ int main()
 				}
 					
 			}
+			else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS && delta_time > 0.1) {
+				delta_time = 0;
+				if (cameraInBolid && cameraThirdPerson) {
+					cameraThirdPerson = false;
+					camera.setIsThirdPersobView(false);
+				}
+				else if (cameraInBolid && !cameraThirdPerson) {
+					cameraThirdPerson = true;
+					camera.setIsThirdPersobView(true);
+				}
+			}
 			if (cameraInBolid) {
 				bolid.processKeyboardInput(window);
-				camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
+				if (cameraThirdPerson) {
+					double x = 5.5 * cos((-bolid.getRotationPosition()-90)*PI / 180);
+					double z = 5.5 * sin((-bolid.getRotationPosition()-90)*PI / 180);
+					camera.setPosition(bolid.centerPoint_ + glm::vec3(x, 3.0, z));
+					std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
+					std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
+				}
+				else
+					camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
 				camera.movementInBolid();
 				camera.setRotationPosition(bolid.getRotationPosition());
 			}
