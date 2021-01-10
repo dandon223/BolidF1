@@ -33,6 +33,10 @@ public:
 	void processKeyboardInput(GLFWwindow* window);
 	void processMouseMovement(double x_offset, double y_offset);
 	void processMouseScroll(double y_offset);
+	void setPosition(glm::vec3 pos);
+	void setIsInsideBolid(bool b);
+	void setRotationPosition(int pos);
+	void movementInBolid();
 
 private:
 	void updateCameraVectors();
@@ -47,10 +51,16 @@ private:
 	const glm::vec3 INIT_FRONT = glm::vec3(0.0f, 0.0f, -1.0f);
 
 	const float INIT_YAW = -90.0;
+	float MIN_YAW = 60.0;
+	float MAX_YAW = 120.0;
+	int rotation_position = 0;
+	bool rotation_left = false;
+	bool rotation_pos_changed = false;
+	bool is_inside_bolid = false;
 
 	const float INIT_PITCH = 0.0f;
-	const float MAX_PITCH  = 89.9f;
-	const float MIN_PITCH  = -89.9f;
+	const float MAX_PITCH  = 59.9f;
+	const float MIN_PITCH  = -59.9f;
 
 	const float INIT_FOV = 45.0f;
 	const float MAX_FOV  = 75.0f;

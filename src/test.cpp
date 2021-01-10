@@ -129,7 +129,6 @@ float skyboxVertices[] = {
 
 	// keyboard interaction: close the program
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -274,11 +273,40 @@ int main()
 		testLight.bind_buffers();
 
 		// main event loop
-		
+		bool cameraInBolid = false;
+		double prev_frame_time = glfwGetTime();
+		double curr_frame_time;
+		double delta_time = 0;
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
-			camera.processKeyboardInput(window);
+			curr_frame_time = glfwGetTime();
+			delta_time = delta_time + (curr_frame_time - prev_frame_time);
+			prev_frame_time = curr_frame_time;
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.1) {
+				delta_time = 0;
+				if (cameraInBolid) {
+					camera.setIsInsideBolid(false);
+					cameraInBolid = false;
+				}
+				else {
+					camera.setIsInsideBolid(true);
+					cameraInBolid = true;
+				}
+					
+			}
+			if (cameraInBolid) {
+				bolid.processKeyboardInput(window);
+				camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
+				camera.movementInBolid();
+				camera.setRotationPosition(bolid.getRotationPosition());
+			}
+			else {
+				
+				camera.processKeyboardInput(window);
+			}
+			
+			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -293,6 +321,7 @@ int main()
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
 			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
+			//glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(bolid.centerPoint_,bolid.centerPoint_,glm::vec3(0.0,1.0,0.0))));
 			GLint projLoc = glGetUniformLocation(skyboxShader.get_programID(), "projection");
 			GLint viewLoc = glGetUniformLocation(skyboxShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
@@ -329,10 +358,11 @@ int main()
 			bolid.shaderUse();
 			//Light Test
 			bolid.setProjectionView(projection, view);
-			bolid.translate(glm::vec3(0.02, 0.0, 0.0));
-			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
+			
 			bolid.draw();
+			
+			
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);
