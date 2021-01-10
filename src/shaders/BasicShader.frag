@@ -22,6 +22,6 @@ void main()
 	vec3 diffuse = diff * lightColor;
 
 	vec3 result = (ambient + diffuse);
-	color = vec4(result, 1.0f);//*texture(Texture0, TexCoord);
+	color = vec4(result, 1.0f)*texture(Texture0, TexCoord);
 	//*texture(Texture0, TexCoord) ;
 }
