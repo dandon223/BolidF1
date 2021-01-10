@@ -88,7 +88,7 @@ public:
 
 	/*set_geometry
 	* Laczy dzialanie metod set_vertices, set_indices. Podajecie jej vetor'y vertices i indices*/
-	void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
+	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
 	void set_vertices(const std::vector<GLfloat>&);
 	void set_indices(const std::vector<GLuint>&);
 	void calculate_normals();

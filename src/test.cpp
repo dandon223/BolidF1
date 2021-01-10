@@ -24,52 +24,93 @@
 /*LightSource Test*/
 #include "include/Light.h"
 std::vector<GLfloat>vertices_ = {
-	// coordinates			// texture
-		0.5f,  0.5f,  -0.5f,		1.0f,  0.0f,	//0
-		-0.5f,  0.5f,  -0.5f,		0.0f,  0.0f,	//1
-		-0.5f, -0.5f,  -0.5f,		0.0f,  1.0f,	//2
-		0.5f, -0.5f,  -0.5f,		1.0f,  1.0f,	//3
+	// positions          
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
+	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	 1.0f,  1.0f, -1.0f, 1.0f, 1.0f,
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
 
-		-0.5f, -0.5f,  0.5f,		0.0f,  0.0f,	//4
-		-0.5f,  0.5f,  0.5f,		0.0f,  1.0f,	//5
-		0.5f,  0.5f,  0.5f,			1.0f,  1.0f,	//6
-		0.5f, -0.5f,  0.5f,			1.0f,  0.0f,	//7
+	-1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
+	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+	-1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
 
-		-0.5f, -0.5f,  -0.5f,		0.0f,  0.0f,	//8
-		-0.5f, -0.5f,  0.5f,		0.0f,  1.0f,	//9
-		0.5f, -0.5f,  0.5f,			1.0f,  1.0f,	//10
-		0.5f, -0.5f,  -0.5f,		1.0f,  0.0f,	//11
+	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
+	 1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
+	 1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
+	 1.0f,  1.0f, -1.0f, 1.0f, 1.0f,
+	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
 
-		-0.5f,  0.5f,  0.5f,		0.0f,  0.0f,	//12
-		-0.5f,  0.5f,  -0.5f,		0.0f,  1.0f,	//13
-		0.5f,  0.5f,  -0.5f,		1.0f,  1.0f,	//14
-		0.5f,  0.5f,  0.5f,			1.0f,  0.0f,	//15
+	-1.0f, -1.0f,  1.0f, 0.0f, 1.0f,
+	-1.0f,  1.0f,  1.0f, 0.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
+	 1.0f, -1.0f,  1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f,  1.0f, 0.0f, 1.0f,
 
-		-0.5f, -0.5f,  -0.5f,		0.0f,  0.0f,	//16
-		-0.5f,  0.5f,  -0.5f,		0.0f,  1.0f,	//17
-		-0.5f, -0.5f,  0.5f,		1.0f,  0.0f,	//18
-		-0.5f,  0.5f,  0.5f,		1.0f,  1.0f,	//19
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
+	 1.0f,  1.0f, -1.0f, 0.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
+	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
+	-1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
+	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
 
-		0.5f, -0.5f,  -0.5f,		1.0f,  0.0f,	//20
-		0.5f, -0.5f,  0.5f,			0.0f,  0.0f,	//21
-		0.5f,  0.5f,  0.5f,			0.0f,  1.0f,	//22
-		0.5f,  0.5f,  -0.5f,		1.0f,  1.0f		//23		
+	-1.0f, -1.0f, -1.0f, 0.0f, 1.0f,
+	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+	 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
+	 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
+	 1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
+	/*	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
 
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f*/
 };
 std::vector<GLuint>indices_ = {
-		0, 1, 2,
-		0, 2, 3,
-		4, 5, 6,
-		4, 6, 7,
-		8, 9, 10,
-		8, 10, 11,
-		12, 13, 14,
-		12, 14, 15,
-		16, 17, 18,
-		18, 17, 19,
-		20, 21, 22,
-		20, 22, 23
-
+		0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+		21,22,23,24,25,26,27,28,29,30,31,32,33,34,35
 };
 
 
@@ -84,7 +125,7 @@ double mouse_prev_y;
 bool first_use = true;
 float skyboxVertices[] = {
 	// positions          
-	-1.0f,  1.0f, -1.0f,
+	-1.0f,  1.0f, -1.0f, 
 	-1.0f, -1.0f, -1.0f,
 	 1.0f, -1.0f, -1.0f,
 	 1.0f, -1.0f, -1.0f,
@@ -237,12 +278,13 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
+		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 
 		// bolid
 		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0));
 		bolid.translate(glm::vec3(0.0,-2.0,0.0));
 		// floor
-		Floor floor = Floor(&CubeShader);
+		Floor floor = Floor(&BasicShader);
 		// skybox
 
 		unsigned int skyboxVAO, skyboxVBO;
@@ -267,11 +309,18 @@ int main()
 
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
-		GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 1.0, 1.0), glm::vec3(1.0, 1.0, 0.0), &LightShader);
+		//GLfloat ambient = 1.0;
+		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
+
+		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
+		testOBJ.set_geometry(vertices_, indices_);
+		/*testOBJ.set_vertices(vertices_);
+		testOBJ.set_indices(indices_);*/
+		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		testOBJ.bind_buffers();
 
 		// main event loop
 		
@@ -315,24 +364,36 @@ int main()
 			testLight.draw();
 
 
-			CubeShader.Use();
-			projLoc = glGetUniformLocation(CubeShader.get_programID(), "projection");
+			BasicShader.Use();
+			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object
 			view = camera.getViewMatrix();
-			viewLoc = glGetUniformLocation(CubeShader.get_programID(), "view");
+			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 			//Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
-			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
 			floor.draw();
 
 			bolid.shaderUse();
-			//Light Test
 			bolid.setProjectionView(projection, view);
-			bolid.translate(glm::vec3(0.02, 0.0, 0.0));
-			bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
-			glUniform3fv(glGetUniformLocation(CubeShader.get_programID(), "lightColor"), 1, glm::value_ptr(ambient*testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			bolid.draw();
+
+			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
+			// setup view matrix - get it from camera object
+			view = camera.getViewMatrix();
+			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
+			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
+			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
+			testOBJ.draw();
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

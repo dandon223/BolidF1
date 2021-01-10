@@ -13,6 +13,7 @@ public:
 	LightSource(const glm::vec3&, const glm::vec3&, const ShaderProgram*);
 	virtual void bind_buffers();
 	virtual void draw(glm::mat4& = glm::mat4());
+	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
 };
 
 #endif // !LIGHT_H

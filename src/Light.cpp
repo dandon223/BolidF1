@@ -42,3 +42,8 @@ void LightSource::draw(glm::mat4& compositeModel) {
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 }
+void LightSource::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
+	this->set_vertices(vertices);
+	this->set_indices(indices);
+	//this->calculate_normals();
+}
