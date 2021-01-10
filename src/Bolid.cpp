@@ -24,9 +24,9 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector) : Model
 	kadlub->rotate(-90, glm::vec3(1.0f, 0.0f, 0.0f));
 	przedniSpoiler->translate(glm::vec3(0.0, 1.3, 1.9));
 	przedniSpoiler->rotate(180, glm::vec3(0.0, 1.0, 0.0));
-	this->add(tylnySpoiler);
-	this->add(przedniSpoiler);
-	//this->add(kadlub);
+	//this->add(tylnySpoiler);
+	//this->add(przedniSpoiler);
+	this->add(kadlub);
 	this->bind_buffers();
 
 }

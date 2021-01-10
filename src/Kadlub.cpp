@@ -39,11 +39,11 @@ Kadlub::Kadlub(const glm::vec3& centerPoint, const glm::vec3& scaleVector,Shader
 	part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/orange.png"));
 	part5->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/orange.png"));
 
-	this->add(part1);
-	this->add(part2);
+	//this->add(part1);
+	//this->add(part2);
 	this->add(part3);
-	this->add(part4);
-	this->add(part5);
+	//this->add(part4);
+	//this->add(part5);
 	//this->bind_buffers();
 
 

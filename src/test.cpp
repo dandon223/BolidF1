@@ -374,13 +374,13 @@ int main()
 			//Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
-			floor.draw();
+			//floor.draw();
 
 			bolid.shaderUse();
 			bolid.setProjectionView(projection, view);
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			bolid.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 			bolid.draw();
 
 			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
