@@ -35,6 +35,7 @@ public:
 	void processMouseScroll(double y_offset);
 	void setPosition(glm::vec3 pos);
 	void setIsInsideBolid(bool b);
+	void setIsThirdPersobView(bool b);
 	void setRotationPosition(int pos);
 	void movementInBolid();
 
@@ -57,6 +58,7 @@ private:
 	bool rotation_left = false;
 	bool rotation_pos_changed = false;
 	bool is_inside_bolid = false;
+	bool is_third_person_view = false;
 
 	const float INIT_PITCH = 0.0f;
 	const float MAX_PITCH  = 59.9f;
