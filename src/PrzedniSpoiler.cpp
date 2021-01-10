@@ -37,9 +37,9 @@ PrzedniSpoiler::PrzedniSpoiler(const glm::vec3& centerPoint, const glm::vec3& sc
 	part4->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 
 	this->add(part1);
-	this->add(part2);
-	this->add(part3);
-	this->add(part4);
+	//this->add(part2);
+	//this->add(part3);
+	//this->add(part4);
 	//this->bind_buffers();
 
 
