@@ -316,8 +316,8 @@ int main()
 					double x = 5.5 * cos((-bolid.getRotationPosition()-90)*PI / 180);
 					double z = 5.5 * sin((-bolid.getRotationPosition()-90)*PI / 180);
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(x, 3.0, z));
-					std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
-					std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
+					//std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
+					//std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
 				}
 				else
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
