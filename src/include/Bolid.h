@@ -26,12 +26,15 @@ private:
 	Kolo *osie[2];
 	
 	ShaderProgram basicShader;
-	double delta_time, prev_frame_time = 0.0f;
+	double delta_time = 0.0f;
+	double prev_frame_time = 0.0f;
 	const float MOVEMENT_SPEED = 2.4f;
 	double speed = 0.0f;
 	double rotation_angle = 1.0f;
 	int rotation_position = 0;
 	const double MAX_SPEED = 0.5f;
+	const double MAX_SPEED_REVERSE = -0.2f;
+	bool inReverse = false;
 	const double STOP_SPEED = 0.01f;
 	const double SPEED_RATE = 0.02f;
 	const double PI =3.14159265;
