@@ -77,9 +77,5 @@ TylnySpoiler::TylnySpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleV
 
 	this->add(part3);
 	this->add(part4);
-
-	this->bind_buffers();
-
-
 }
 

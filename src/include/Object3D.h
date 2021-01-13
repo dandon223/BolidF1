@@ -92,7 +92,6 @@ public:
 	void set_vertices(const std::vector<GLfloat>&);
 	void set_indices(const std::vector<GLuint>&);
 	void calculate_normals();
-	void set_color(const glm::vec3&); // chwilowo bez implementacji
 
 	/*set_shader
 	* Przyjmuje wskaznik na shader i ustawia go jako shader dla danego obiektu.

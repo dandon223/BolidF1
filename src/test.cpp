@@ -281,8 +281,8 @@ int main()
 		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 
 		// bolid
-		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0));
-		bolid.translate(glm::vec3(4.0,-2.0,0.0));
+		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0), &BasicShader);
+		bolid.translate(glm::vec3(0.0,-2.0,0.0));
 		// floor
 		Floor floor = Floor(&BasicShader);
 		// skybox
@@ -366,13 +366,6 @@ int main()
 
 			
 
-			bolid.shaderUse();
-			bolid.setProjectionView(projection, view);
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
-			bolid.draw();
-
 			BasicShader.Use();
 			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object
@@ -380,10 +373,23 @@ int main()
 			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			//Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
+
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
+
+			bolid.draw();
+
+			//projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
+			//// setup view matrix - get it from camera object
+			//view = camera.getViewMatrix();
+			//viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
+			//glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
+			//glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			////Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
+			//glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			//glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
+			//glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
 			floor.draw();
 
 			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");

@@ -21,9 +21,8 @@ private:
 	PrzedniSpoiler *przedniSpoiler;
 	TylnySpoiler *tylnySpoiler;
 	Kadlub *kadlub;
-	ShaderProgram basicShader;
 public:
-	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector);
+	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram*);
 	void setProjectionView(glm::mat4 p, glm::mat4 w);
 	void shaderUse();
 };
