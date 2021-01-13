@@ -310,7 +310,7 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
 		//GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(2.0, 0.0, 2.0), &LightShader);
+		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
@@ -371,7 +371,6 @@ int main()
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
 			bolid.draw();
 
 			BasicShader.Use();
