@@ -282,7 +282,7 @@ int main()
 
 		// bolid
 		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0));
-		bolid.translate(glm::vec3(0.0,-2.0,0.0));
+		bolid.translate(glm::vec3(4.0,-2.0,0.0));
 		// floor
 		Floor floor = Floor(&BasicShader);
 		// skybox
@@ -310,7 +310,7 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
 		//GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &LightShader);
+		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(2.0, 0.0, 2.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
@@ -364,6 +364,16 @@ int main()
 			testLight.draw();
 
 
+			
+
+			bolid.shaderUse();
+			bolid.setProjectionView(projection, view);
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
+			//bolid.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0));
+			bolid.draw();
+
 			BasicShader.Use();
 			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object
@@ -374,14 +384,8 @@ int main()
 			//Light Test -> poniższa linijka służy do ustawienia parametrów oświetlenia w shaderze (przydałoby się to ładnie opakować).
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
 			floor.draw();
-
-			bolid.shaderUse();
-			bolid.setProjectionView(projection, view);
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
-			//bolid.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
-			bolid.draw();
 
 			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
 			// setup view matrix - get it from camera object

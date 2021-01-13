@@ -99,7 +99,6 @@ void Object3D::calculate_normals() {
 		c = glm::vec3(this->vertices_[5*indices_[i + 2]], this->vertices_[5*indices_[i + 2] + 1], this->vertices_[5*indices_[i + 2] + 2]);
 		
 		result = calculate_normal_vector(c, b, a);
-		//result = result / calculate_vector_length(result);
 		result = glm::normalize(result);
 		this->normals_.push_back(result.x);
 		this->normals_.push_back(result.y);
