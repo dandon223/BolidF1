@@ -33,7 +33,7 @@ private:
 
 	ShaderProgram *basicShader;
 	Object3D* tylnaOs[6];
-	Object3D* tylnaBelkaStabilizatora[6];
+	Object3D* tylnaBelkaStabilizatora[12];
 
 	Object3D* przedniaOs[6];
 	Object3D* przedniaBelkaStabilizatora[12];
