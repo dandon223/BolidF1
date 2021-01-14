@@ -23,7 +23,7 @@ private:
 	PrzedniSpoiler *przedniSpoiler;
 	TylnySpoiler *tylnySpoiler;
 	Kadlub *kadlub;
-	Kolo *osie[2];
+	Kolo *ukladJezdny;
 	
 	ShaderProgram basicShader;
 	double delta_time = 0.0f;

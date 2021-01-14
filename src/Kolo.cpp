@@ -26,20 +26,39 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	tylnaOs[0]->set_geometry(this->vertices, this->indicesCir);
 	tylnaOs[1]->set_geometry(this->vertices2, this->indicesCir);
 	tylnaOs[2]->set_geometry(this->verticesTire, this->indicesTire);
-	//Prawe ko這 - think about deep copy
+	//Prawe ko這
 	tylnaOs[3]->set_geometry(this->vertices, this->indicesCir);
 	tylnaOs[4]->set_geometry(this->vertices2, this->indicesCir);
 	tylnaOs[5]->set_geometry(this->verticesTire, this->indicesTire);
+
+	//Lewe ko這
+	przedniaOs[0]->set_geometry(this->vertices, this->indicesCir);
+	przedniaOs[1]->set_geometry(this->vertices2, this->indicesCir);
+	przedniaOs[2]->set_geometry(this->verticesTire, this->indicesTire);
+	//Prawe ko這
+	przedniaOs[3]->set_geometry(this->vertices, this->indicesCir);
+	przedniaOs[4]->set_geometry(this->vertices2, this->indicesCir);
+	przedniaOs[5]->set_geometry(this->verticesTire, this->indicesTire);
 
 	for (int i = 0; i < 6; ++i) {
 		
 		if (i / 3 < 1) {
 			tylnaOs[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
 			tylnaOs[i]->translate(glm::vec3(0.85f, 1.5f, -1.7f));
+
+			przedniaOs[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
+			przedniaOs[i]->translate(glm::vec3(0.85f, 1.5f, -1.7f));
+			przedniaOs[i]->translate(glm::vec3(0.0f, -0.15f, 3.f));
+			przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 		}
 		else {
 			tylnaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
 			tylnaOs[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
+
+			przedniaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
+			przedniaOs[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
+			przedniaOs[i]->translate(glm::vec3(0.0f, -0.15f, 3.f));
+			przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 		}
 	}
 
@@ -48,8 +67,14 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	tylnaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 	tylnaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 
+	przedniaOs[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	przedniaOs[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	przedniaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	przedniaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	
 	for (int i = 0; i < 6; ++i) {
 		this->add(tylnaOs[i]);
+		this->add(przedniaOs[i]);
 	}
 	//this->bind_buffers();
 

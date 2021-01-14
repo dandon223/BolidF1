@@ -26,7 +26,11 @@ private:
 
 	ShaderProgram *basicShader;
 	Object3D* tylnaOs[6];
+	Object3D* tylnaBelkaStabilizatora[6];
+
 	Object3D* przedniaOs[6];
+	Object3D* przedniaBelkaStabilizatora[6];
+
 public:
 	Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width);
 
