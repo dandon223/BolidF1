@@ -14,15 +14,22 @@
 #include "include/shprogram.h"
 #include "include/Model.h"
 
-class Kolo : public Model {
+class Kola : public Model {
 private:
 
 	GLint _numOfSides;
 	GLfloat _radius;
 	GLfloat _width;
 
-	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2, verticesTire;
-	std::vector<GLuint> indicesCir, indicesTire;
+	std::vector<GLfloat> verticesBeam = {
+		0.0f, 0.0f, 0.0f,	0.5f, 0.1f,	//0
+		0.02f, 0.0f, 0.0f,	0.5f, 0.1f,	//1
+		0.02f, 0.02f, 0.0f,	0.5f, 0.1f,	//2
+		0.0f, 0.02f, 0.0f,	0.5f, 0.1f	//3
+	};
+
+	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2, verticesTire, verticesBeam2, verticesBeamCon;
+	std::vector<GLuint> indicesCir, indicesTire, indicesBeam, indicesSquare = { 0 ,1 , 2, 0, 2, 3 };
 
 	ShaderProgram *basicShader;
 	Object3D* tylnaOs[6];
@@ -32,9 +39,10 @@ private:
 	Object3D* przedniaBelkaStabilizatora[6];
 
 public:
-	Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width);
+	Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width);
 
 	void createCircle();
 	void makeTire();
+	void makeBeam();
 
 };
