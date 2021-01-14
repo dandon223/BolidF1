@@ -43,9 +43,10 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 		}
 	}
 
-	for (int i = 0; i < 6; ++i) {
-		tylnaOs[i]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.png"));
-	}
+	tylnaOs[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	tylnaOs[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	tylnaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	tylnaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 
 	for (int i = 0; i < 6; ++i) {
 		this->add(tylnaOs[i]);
@@ -64,11 +65,16 @@ void Kolo::createCircle()
 	std::vector<GLuint> indices;*/
 
 	for (int i = 0; i < _numOfSides; i++) {
-		vertices.push_back(0.f + (_radius * cos(i * doublePi / _numOfSides)));
-		vertices.push_back(0.f + (_radius * sin(i * doublePi / _numOfSides)));
+		/*vertices.push_back(0.f + (_radius * cos(i * doublePi / _numOfSides)));
+		vertices.push_back(0.f + (_radius * sin(i * doublePi / _numOfSides)));*/
+		GLfloat tempX = 0.f + (_radius * cos(i * doublePi / _numOfSides));
+		GLfloat tempY = 0.f + (_radius * sin(i * doublePi / _numOfSides));
+
+		vertices.push_back(tempX);
+		vertices.push_back(tempY);
 		vertices.push_back(0.f);
-		vertices.push_back(0.01f);
-		vertices.push_back(0.01f);
+		vertices.push_back((tempX + _radius) / (2 * _radius));
+		vertices.push_back((tempY + _radius) / (2 * _radius));
 
 		indicesCir.push_back(0);
 		if (i == _numOfSides - 1) {
