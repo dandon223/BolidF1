@@ -36,7 +36,7 @@ private:
 	Object3D* tylnaBelkaStabilizatora[6];
 
 	Object3D* przedniaOs[6];
-	Object3D* przedniaBelkaStabilizatora[6];
+	Object3D* przedniaBelkaStabilizatora[12];
 
 public:
 	Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width);

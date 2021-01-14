@@ -26,6 +26,8 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 
 		przedniaOs[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
 		przedniaBelkaStabilizatora[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+		przedniaBelkaStabilizatora[i+6] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+
 	}
 
 	//Lewe ko³o
@@ -47,14 +49,12 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	przedniaOs[5]->set_geometry(this->verticesTire, this->indicesTire);
 
 	//
-	przedniaBelkaStabilizatora[0]->set_geometry(this->verticesBeam, this->indicesSquare);
-	przedniaBelkaStabilizatora[1]->set_geometry(this->verticesBeam2, this->indicesSquare);
-	przedniaBelkaStabilizatora[2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
-
-	przedniaBelkaStabilizatora[3]->set_geometry(this->verticesBeam, this->indicesSquare);
-	przedniaBelkaStabilizatora[4]->set_geometry(this->verticesBeam2, this->indicesSquare);
-	przedniaBelkaStabilizatora[5]->set_geometry(this->verticesBeamCon, this->indicesBeam);
-
+	for (int i = 0; i < 4; ++i)
+	{
+		przedniaBelkaStabilizatora[3*i]->set_geometry(this->verticesBeam, this->indicesSquare);
+		przedniaBelkaStabilizatora[3*i + 1]->set_geometry(this->verticesBeam2, this->indicesSquare);
+		przedniaBelkaStabilizatora[3*i + 2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
+	}
 
 	for (int i = 0; i < 6; ++i) {
 		
@@ -69,7 +69,8 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 
 			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.18f));
 			przedniaBelkaStabilizatora[i]->rotate(80, glm::vec3(0.0f, 1.0f, 0.0f));
-			
+			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.45f));
+			przedniaBelkaStabilizatora[i + 6]->rotate(100, glm::vec3(0.0f, 1.0f, 0.0f));
 		
 		}
 		else {
@@ -80,6 +81,12 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 			przedniaOs[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
 			przedniaOs[i]->translate(glm::vec3(0.0f, -0.15f, 3.f));
 			przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+
+			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.16f));
+			przedniaBelkaStabilizatora[i]->rotate(-80, glm::vec3(0.0f, 1.0f, 0.0f));
+			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.43f));
+			przedniaBelkaStabilizatora[i + 6]->rotate(-100, glm::vec3(0.0f, 1.0f, 0.0f));
+
 		}
 	}
 
@@ -101,6 +108,7 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 		this->add(tylnaOs[i]);
 		this->add(przedniaOs[i]);
 		this->add(przedniaBelkaStabilizatora[i]);
+		this->add(przedniaBelkaStabilizatora[i+6]);
 	}
 	//this->bind_buffers();
 
