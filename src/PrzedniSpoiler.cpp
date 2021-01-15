@@ -1,13 +1,6 @@
 #include "include/PrzedniSpoiler.h"
-//#include <GL/glew.h>
-//#include <GLFW/glfw3.h>
-//#include <SOIL.h>
-//#include <iostream>
 #include "include/utils.h"
-//
-//#include <glm/glm.hpp>
-//#include <glm/gtc/matrix_transform.hpp>
-//#include <glm/gtc/type_ptr.hpp>
+
 
 PrzedniSpoiler::PrzedniSpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp) :Model(centerPoint, scaleVector) {
 	this->basicShader = sp;
