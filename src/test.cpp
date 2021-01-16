@@ -274,9 +274,8 @@ int main()
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(vertices_, indices_);
-		/*testOBJ.set_vertices(vertices_);
-		testOBJ.set_indices(indices_);*/
 		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		testOBJ.set_material(glm::vec3(1.0, 0.0, 0.0), glm::vec3(1.0, 0.0, 1.0), glm::vec3(1.0, 0.2, 1.0), 32);
 		testOBJ.bind_buffers();
 
 		// main event loop

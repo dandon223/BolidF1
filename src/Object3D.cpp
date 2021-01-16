@@ -30,12 +30,6 @@ void Object3D::bind_buffers() {
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(2);
 
-	//glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-	//glEnableVertexAttribArray(0);
-
-	//glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	//glEnableVertexAttribArray(1);
-
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
@@ -54,7 +48,11 @@ void Object3D::draw(glm::mat4& compositeModel) {
 	glBindTexture(GL_TEXTURE_2D, this->texture_);
 	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
-	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+	/*glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.ambientColor"), 1, glm::value_ptr(materialParam_[0]));
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.diffuseColor"), 1, glm::value_ptr(materialParam_[1]));
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.specularColor"), 1, glm::value_ptr(materialParam_[2]));
+	glUniform1f(glGetUniformLocation(this->shader_->get_programID(), "material.shininess"), shininess_);*/
 
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
@@ -133,4 +131,10 @@ bool Object3D::set_shader(ShaderProgram* shader) {
 }
 void Object3D::set_texture(GLuint texture) {
 	this->texture_ = texture;
+}
+void Object3D::set_material(const glm::vec3& ambientColor, const glm::vec3& diffuseColor, const glm::vec3& specularColor, float shininess) {
+	materialParam_[0] = ambientColor;
+	materialParam_[1] = diffuseColor;
+	materialParam_[2] = specularColor;
+	shininess_ = shininess;
 }

@@ -42,6 +42,8 @@ protected:
 	GLuint VAO, VBO, EBO;
 	glm::mat4 model_;
 	glm::mat4 rotationMatrix_;
+	glm::vec3 materialParam_[3];
+	float shininess_;
 	
 public:
 	std::vector<GLfloat> vertices_;
@@ -105,6 +107,11 @@ public:
 	* By uproscic uzytkowanie zaleca sie nastepujacy sposob wywolania:
 	* Object3D->set_texture(LoadMipmapTexture(GLuint texId, const char* fname));*/
 	void set_texture(GLuint);
+
+	/*set_material
+	* Przyjmuje trzy wektory opisuj¹ce kolor poszczegulnych sk³adowych: ambient, diffuse, specular, oraz float shininess
+	*/
+	void set_material(const glm::vec3&, const glm::vec3&, const glm::vec3&, float);
 };
 #endif // !OBJECT3D_H
 
