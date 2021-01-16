@@ -51,6 +51,9 @@
     <ClCompile Include="Light.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Kolo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -133,6 +136,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="..\ResourceFiles\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\ResourceFiles\opona.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

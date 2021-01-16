@@ -170,7 +170,6 @@ float skyboxVertices[] = {
 
 	// keyboard interaction: close the program
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	cout << key << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 }
@@ -323,11 +322,63 @@ int main()
 		testOBJ.bind_buffers();
 
 		// main event loop
-		
+		bool cameraInBolid = false;
+		bool cameraThirdPerson = false;
+		glm::vec2 lastVector = glm::vec2(0.0, -1.0);
+		double prev_frame_time = glfwGetTime();
+		double curr_frame_time;
+		double delta_time = 0;
+		const double PI = 3.14159265;
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
-			camera.processKeyboardInput(window);
+			curr_frame_time = glfwGetTime();
+			delta_time = delta_time + (curr_frame_time - prev_frame_time);
+			prev_frame_time = curr_frame_time;
+			if (glfwGetKey(window, GLFW_KEY_C) == GLFW_PRESS && delta_time>0.1) {
+				delta_time = 0;
+				if (cameraInBolid) {
+					camera.setIsInsideBolid(false);
+					cameraInBolid = false;
+
+				}
+				else {
+					camera.setIsInsideBolid(true);
+					cameraInBolid = true;
+				}
+					
+			}
+			else if (glfwGetKey(window, GLFW_KEY_TAB) == GLFW_PRESS && delta_time > 0.1) {
+				delta_time = 0;
+				if (cameraInBolid && cameraThirdPerson) {
+					cameraThirdPerson = false;
+					camera.setIsThirdPersobView(false);
+				}
+				else if (cameraInBolid && !cameraThirdPerson) {
+					cameraThirdPerson = true;
+					camera.setIsThirdPersobView(true);
+				}
+			}
+			if (cameraInBolid) {
+				bolid.processKeyboardInput(window);
+				if (cameraThirdPerson) {
+					double x = 5.5 * cos((-bolid.getRotationPosition()-90)*PI / 180);
+					double z = 5.5 * sin((-bolid.getRotationPosition()-90)*PI / 180);
+					camera.setPosition(bolid.centerPoint_ + glm::vec3(x, 3.0, z));
+					//std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
+					//std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
+				}
+				else
+					camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
+				camera.movementInBolid();
+				camera.setRotationPosition(bolid.getRotationPosition());
+			}
+			else {
+				
+				camera.processKeyboardInput(window);
+			}
+			
+			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
@@ -342,6 +393,7 @@ int main()
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
 			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
+			//glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(bolid.centerPoint_,bolid.centerPoint_,glm::vec3(0.0,1.0,0.0))));
 			GLint projLoc = glGetUniformLocation(skyboxShader.get_programID(), "projection");
 			GLint viewLoc = glGetUniformLocation(skyboxShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));

@@ -89,6 +89,7 @@
     <ClCompile Include="Bolid.cpp" />
     <ClCompile Include="Floor.cpp" />
     <ClCompile Include="Kadlub.cpp" />
+    <ClCompile Include="Kolo.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Object3D.cpp" />
@@ -120,6 +121,7 @@
     <Image Include="..\ResourceFiles\front.png" />
     <Image Include="..\ResourceFiles\grass.png" />
     <Image Include="..\ResourceFiles\left.png" />
+    <Image Include="..\ResourceFiles\opona.png" />
     <Image Include="..\ResourceFiles\orange.png" />
     <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
     <Image Include="..\ResourceFiles\red.png" />
