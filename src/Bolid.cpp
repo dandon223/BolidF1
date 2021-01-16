@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <iostream>
+#include <cmath>
 #include "include/utils.h"
 
 #include <glm/glm.hpp>
@@ -11,11 +12,11 @@
 
 Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* shader) : Model(centerPoint, scaleVector)
 {
-	kadlub = new Kadlub(centerPoint, scaleVector,&basicShader);
-	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, &basicShader);
-	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, &basicShader);
-	osie[0] = new Kolo(centerPoint, scaleVector, &basicShader, 0.25f, 20, 0.2f);
-	osie[1] = new Kolo(centerPoint, scaleVector, &basicShader, 0.4f, 20, 0.3f);
+	kadlub = new Kadlub(centerPoint, scaleVector,shader);
+	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
+	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
+	osie[0] = new Kolo(centerPoint, scaleVector, shader, 0.25f, 20, 0.2f);
+	osie[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f);
 	osie[0]->translate(glm::vec3(0.0f,-0.15f, 3.f));
 	kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
@@ -65,12 +66,12 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		if (!inReverse) {
-			speed += SPEED_RATE;
+			speed += 0.5*log(SPEED_RATE);
 			if (speed > MAX_SPEED)
 				speed = MAX_SPEED;
 		}
 		else {
-			speed -= SPEED_RATE;
+			speed -= 0.5*log(SPEED_RATE);
 			if (speed < MAX_SPEED_REVERSE)
 				speed = MAX_SPEED_REVERSE;
 		}

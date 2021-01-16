@@ -1,6 +1,16 @@
 #include "include/Light.h"
 
-LightSource::LightSource(const glm::vec3& centerPoint, const glm::vec3& lightColor, const ShaderProgram* shader) : Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader), lightColor_(lightColor) {}
+LightSource::LightSource(
+	const glm::vec3& centerPoint,
+	const glm::vec3& ambientStrength, 
+	const glm::vec3& diffuseStrength, 
+	const glm::vec3& specularStrength, 
+	const ShaderProgram* shader) : 
+		Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader), 
+		ambientStrength_(ambientStrength), 
+		diffuseStrength_(diffuseStrength),
+		specularStrength_(specularStrength) {}
+
 void LightSource::bind_buffers() {
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
@@ -25,7 +35,9 @@ void LightSource::bind_buffers() {
 	glBindVertexArray(0);
 }
 void LightSource::draw(glm::mat4& compositeModel) {
-	
+	if (shader_ == nullptr)
+		return;
+
 	glm::mat4 model;
 	model = compositeModel * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
 	model = glm::scale(model, this->scaleVector_);
@@ -36,7 +48,6 @@ void LightSource::draw(glm::mat4& compositeModel) {
 	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "lightColor"), 1, glm::value_ptr(this->lightColor_));
 
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
@@ -45,5 +56,4 @@ void LightSource::draw(glm::mat4& compositeModel) {
 void LightSource::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
 	this->set_vertices(vertices);
 	this->set_indices(indices);
-	//this->calculate_normals();
 }

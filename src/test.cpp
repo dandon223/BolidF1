@@ -66,57 +66,15 @@ std::vector<GLfloat>vertices_ = {
 	 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
 	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
 	 1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
-	/*	-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
-
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		 0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-		-0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		 0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-		-0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f*/
 };
 std::vector<GLuint>indices_ = {
 		0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
 		21,22,23,24,25,26,27,28,29,30,31,32,33,34,35
 };
 
-
 using namespace std;
 
-const GLuint WIDTH = 1200, HEIGHT = 800;
+const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 Camera camera;
 
@@ -309,7 +267,7 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
 		//GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &LightShader);
+		LightSource testLight(glm::vec3(1.0, 20.0, 1.0), glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
@@ -426,22 +384,18 @@ int main()
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.position"), 1, glm::value_ptr(testLight.centerPoint_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.ambientStrength"), 1, glm::value_ptr(testLight.ambientStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.diffuseStrength"), 1, glm::value_ptr(testLight.diffuseStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.specularStrength"), 1, glm::value_ptr(testLight.specularStrength_));
+
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(testLight.ambientStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(testLight.diffuseStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.specularColor"), 1, glm::value_ptr(testLight.specularStrength_));
+			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "material.shininess"), 32.0);
 
 			bolid.draw();
 			floor.draw();
-
-			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
-			// setup view matrix - get it from camera object
-			view = camera.getViewMatrix();
-			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "lightPos"), 1, glm::value_ptr(testLight.centerPoint_));
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 			testOBJ.draw();
 
