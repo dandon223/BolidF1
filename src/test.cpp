@@ -267,7 +267,7 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
 		//GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 20.0, 1.0), glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), &LightShader);
+		LightSource testLight(glm::vec3(1.0, 10.0, 1.0), glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testLight.bind_buffers();
@@ -388,9 +388,9 @@ int main()
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.diffuseStrength"), 1, glm::value_ptr(testLight.diffuseStrength_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.specularStrength"), 1, glm::value_ptr(testLight.specularStrength_));
 
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(testLight.ambientStrength_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(testLight.diffuseStrength_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.specularColor"), 1, glm::value_ptr(testLight.specularStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.specularColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "material.shininess"), 32.0);
 
 			bolid.draw();

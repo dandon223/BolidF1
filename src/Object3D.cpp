@@ -48,8 +48,9 @@ void Object3D::draw(glm::mat4& compositeModel) {
 	glBindTexture(GL_TEXTURE_2D, this->texture_);
 	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
-	/*glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
-	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.ambientColor"), 1, glm::value_ptr(materialParam_[0]));
+	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+	/*glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.ambientColor"), 1, glm::value_ptr(materialParam_[0]));
 	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.diffuseColor"), 1, glm::value_ptr(materialParam_[1]));
 	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.specularColor"), 1, glm::value_ptr(materialParam_[2]));
 	glUniform1f(glGetUniformLocation(this->shader_->get_programID(), "material.shininess"), shininess_);*/

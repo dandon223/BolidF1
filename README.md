@@ -81,7 +81,7 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
     - [x] Implementacja roboczego otoczenia  
 	 - [x] Implementacja prostego obiektu  
  2. Modelowanie bolidu
-    - [ ] Model kół
+    - [x] Model kół
     - [x] Modele spoilerów  
 	 - [x] Model nadwozia  
  3. Tekstury bolidu
