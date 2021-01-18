@@ -111,7 +111,7 @@ public:
 	/*set_material
 	* Przyjmuje trzy wektory opisuj¹ce kolor poszczegulnych sk³adowych: ambient, diffuse, specular, oraz float shininess
 	*/
-	void set_material(const glm::vec3&, const glm::vec3&, const glm::vec3&, float);
+	void set_material(const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), float = 32);
 };
 #endif // !OBJECT3D_H
 

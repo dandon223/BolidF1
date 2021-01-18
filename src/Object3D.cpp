@@ -10,7 +10,6 @@ Object3D::~Object3D() {
 	glDeleteBuffers(1, &this->EBO);
 }
 void Object3D::bind_buffers() {
-	
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
 	glGenBuffers(1, &this->EBO);
@@ -32,6 +31,8 @@ void Object3D::bind_buffers() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	normals_.clear();
 }
 void Object3D::free_buffers() {
 	glDeleteVertexArrays(1, &this->VAO);

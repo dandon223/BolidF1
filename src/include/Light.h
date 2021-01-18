@@ -7,15 +7,17 @@
 
 class LightSource : public Object3D {
 public:
-	glm::vec3 ambientStrength_;
-	glm::vec3 diffuseStrength_;
-	glm::vec3 specularStrength_;
+	glm::vec3 lightColor_;
+	float ambientStrength_;
+	float diffuseStrength_;
+	float specularStrength_;
 
 	LightSource(
-		const glm::vec3& = glm::vec3(), 
-		const glm::vec3& = glm::vec3(0.1, 0.1, 0.1), 
-		const glm::vec3& = glm::vec3(0.5, 0.5, 0.5), 
-		const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), 
+		const glm::vec3 & = glm::vec3(),
+		const glm::vec3 & = glm::vec3(1.0, 1.0, 1.0),
+		const float = 0.1,
+		const float = 1.0,
+		const float = 0.5, 
 		const ShaderProgram* = nullptr);
 
 	virtual void bind_buffers();

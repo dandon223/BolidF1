@@ -267,15 +267,15 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		/*Light source test*/
 		//GLfloat ambient = 1.0;
-		LightSource testLight(glm::vec3(1.0, 10.0, 1.0), glm::vec3(0.1, 0.1, 0.1), glm::vec3(0.5, 0.5, 0.5), glm::vec3(1.0, 1.0, 1.0), &LightShader);
+		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, &LightShader);
 		testLight.set_geometry(vertices_, indices_);
-		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
+		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
 		testLight.bind_buffers();
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(vertices_, indices_);
 		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		testOBJ.set_material(glm::vec3(1.0, 0.0, 0.0), glm::vec3(1.0, 0.0, 1.0), glm::vec3(1.0, 0.2, 1.0), 32);
+		testOBJ.set_material();
 		testOBJ.bind_buffers();
 
 		// main event loop
@@ -370,6 +370,7 @@ int main()
 			viewLoc = glGetUniformLocation(LightShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			glUniform3fv(glGetUniformLocation(LightShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
 			testLight.draw();
 
 
@@ -383,10 +384,12 @@ int main()
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.position"), 1, glm::value_ptr(testLight.centerPoint_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.ambientStrength"), 1, glm::value_ptr(testLight.ambientStrength_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.diffuseStrength"), 1, glm::value_ptr(testLight.diffuseStrength_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.specularStrength"), 1, glm::value_ptr(testLight.specularStrength_));
+			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.lightColor"), 1, glm::value_ptr(testLight.lightColor_));
+			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.ambientStrength"), testLight.ambientStrength_);
+			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.diffuseStrength"), testLight.diffuseStrength_);
+			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.specularStrength"), testLight.specularStrength_);
 
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
@@ -395,8 +398,9 @@ int main()
 
 			bolid.draw();
 			floor.draw();
-			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 			testOBJ.draw();
+
+			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

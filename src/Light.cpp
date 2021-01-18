@@ -2,11 +2,13 @@
 
 LightSource::LightSource(
 	const glm::vec3& centerPoint,
-	const glm::vec3& ambientStrength, 
-	const glm::vec3& diffuseStrength, 
-	const glm::vec3& specularStrength, 
+	const glm::vec3& lightColor, 
+	const float ambientStrength,
+	const float diffuseStrength, 
+	const float specularStrength, 
 	const ShaderProgram* shader) : 
 		Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader), 
+		lightColor_(lightColor),
 		ambientStrength_(ambientStrength), 
 		diffuseStrength_(diffuseStrength),
 		specularStrength_(specularStrength) {}
