@@ -59,3 +59,10 @@ void LightSource::set_geometry(const std::vector<GLfloat>& vertices, const std::
 	this->set_vertices(vertices);
 	this->set_indices(indices);
 }
+void LightSource::pass_parameters_to_shader(ShaderProgram* shader) {
+	glUniform3fv(glGetUniformLocation(shader->get_programID(), "light.position"), 1, glm::value_ptr(centerPoint_));
+	glUniform3fv(glGetUniformLocation(shader->get_programID(), "light.lightColor"), 1, glm::value_ptr(lightColor_));
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.ambientStrength"), ambientStrength_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.diffuseStrength"), diffuseStrength_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.specularStrength"), specularStrength_);
+}

@@ -242,8 +242,8 @@ int main()
 		bolid.translate(glm::vec3(0.0,-2.0,0.0));
 		// floor
 		Floor floor = Floor(&BasicShader);
-		// skybox
 
+		// skybox
 		unsigned int skyboxVAO, skyboxVBO;
 		glGenVertexArrays(1, &skyboxVAO);
 		glGenBuffers(1, &skyboxVBO);
@@ -265,8 +265,8 @@ int main()
 		unsigned int cubemapTexture = loadCubemap(faces);
 
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
+
 		/*Light source test*/
-		//GLfloat ambient = 1.0;
 		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
@@ -385,12 +385,8 @@ int main()
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
 
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.position"), 1, glm::value_ptr(testLight.centerPoint_));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "light.lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.ambientStrength"), testLight.ambientStrength_);
-			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.diffuseStrength"), testLight.diffuseStrength_);
-			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "light.specularStrength"), testLight.specularStrength_);
-
+			testLight.pass_parameters_to_shader(&BasicShader);
+		
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.specularColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));

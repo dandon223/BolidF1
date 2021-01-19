@@ -23,6 +23,7 @@ public:
 	virtual void bind_buffers();
 	virtual void draw(glm::mat4& = glm::mat4());
 	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
+	void pass_parameters_to_shader(ShaderProgram*);
 };
 
 #endif // !LIGHT_H

@@ -273,10 +273,6 @@ private:
 		36,37,38,39,40,41,42,43,44,45,46,47
 	};
 	ShaderProgram *basicShader;
-	Object3D *part1;
-	Object3D *part2;
-	Object3D *part3;
-	Object3D *part4;
 public:
 	PrzedniSpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *basicShader);
 };
