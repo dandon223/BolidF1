@@ -67,7 +67,6 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 				static_cast<Model*>(getChild(5))->getChild(i)->rotate(5, glm::vec3(1.0f, 0.0f, 0.0f));
 				static_cast<Model*>(getChild(6))->getChild(i)->rotate(5, glm::vec3(1.0f, 0.0f, 0.0f));
 				static_cast<Model*>(getChild(7))->getChild(i)->rotate(5, glm::vec3(1.0f, 0.0f, 0.0f));
-
 	}
 			if (speed > MAX_SPEED)
 				speed = MAX_SPEED;
@@ -108,8 +107,10 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
 		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
-		//this->getChild(5)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f));
-		this->getChild(5)->centerPoint_;
+		for (int i = 0; i < 3; ++i) {
+			static_cast<Model*>(getChild(5))->getChild(i)->rotate(15, glm::vec3(0.0f, 1.0f, 0.0f));
+			static_cast<Model*>(getChild(7))->getChild(i)->rotate(-15, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
 		rotation_position += 1;
 		if (rotation_position > 360)
 			rotation_position = 0;

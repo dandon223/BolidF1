@@ -59,10 +59,6 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	opona[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 	opona[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 
-	//opona[0]->centerPoint_ = glm::vec3(1.0f, 1.0f, 0.0f);
-	//opona[1]->centerPoint_ = glm::vec3(1.0f, 1.0f, 0.0f);
-	//opona[2]->centerPoint_ = glm::vec3(1.0f, 1.0f, 0.0f);
-
 
 	for (int i = 0; i < 3; ++i) {
 		this->add(opona[i]);
