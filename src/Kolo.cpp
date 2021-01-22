@@ -63,7 +63,7 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 
 			przedniaOs[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
 			przedniaOs[i]->translate(glm::vec3(0.85f, 1.35f, 1.3f));
-			przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
 			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
 			tylnaBelkaStabilizatora[i]->rotate(90, glm::vec3(0.0f, 1.0f, 0.0f));
@@ -86,7 +86,7 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 
 			przedniaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
 			przedniaOs[i]->translate(glm::vec3(-0.85f, 1.35f, 1.3f));
-			przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
 			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
 			tylnaBelkaStabilizatora[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));

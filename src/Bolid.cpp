@@ -21,7 +21,7 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector) : Model
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, &basicShader);
 	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, &basicShader);
 	ukladJezdny = new Kola(centerPoint, scaleVector, &basicShader, 0.4f, 20, 0.3f);
-	tylnySpoiler->translate(glm::vec3(0.0f, 2.3f, -1.7f));
+	tylnySpoiler->translate(glm::vec3(0.0f, 2.5f, -1.7f));
 	kadlub->scale( glm::vec3(1.0f, 1.0f, 1.0f));
 	kadlub->translate(glm::vec3(0.0f, 1.5f, 0.0f));
 	kadlub->rotate(-90, glm::vec3(1.0f, 0.0f, 0.0f));
