@@ -12,6 +12,15 @@ struct MaterialProp {
     float shininess;
 }; 
 
+struct DirectLight {
+	vec3 direction;
+	vec3 lightColor;
+
+    float ambientStrength;
+    float diffuseStrength;
+    float specularStrength;
+};
+
 struct LightProp {
     vec3 position;
 	vec3 direction;
@@ -24,12 +33,29 @@ struct LightProp {
 	int lightType;
 };
 
-
 uniform MaterialProp material;
 uniform LightProp light; 
 
 uniform sampler2D Texture0;
 uniform vec3 viewPos;
+
+vec3 CalcDirLight(DirectLight light, vec3 normal, vec3 viewDirection){
+    vec3 lightDir = normalize(-light.direction);
+
+    // diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDirection, reflectDir), 0.0), material.shininess);
+
+    // combine results
+    vec3 ambient  = light.ambientStrength * light.lightColor  * material.ambientColor;
+    vec3 diffuse  = light.diffuseStrength * light.lightColor  * diff * material.diffuseColor;
+    vec3 specular = light.specularStrength * light.lightColor * spec * material.specularColor;
+
+    return (ambient + diffuse + specular);
+}
 
 void main()
 {
