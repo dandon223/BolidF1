@@ -12,10 +12,15 @@
 
 Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* shader) : Model(centerPoint, scaleVector)
 {
-	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector,shader);
+	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	PrzedniSpoiler* przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	TylnySpoiler* tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
-	Kola* ukladJezdny = new Kola(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f);
+	Kolo* tylnaOs[2];
+	tylnaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'T');
+	tylnaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'T');
+	Kolo* przedniaOs[2];
+	przedniaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'P');
+	przedniaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'P');
 	Zawieszenie* zawieszenie = new Zawieszenie(centerPoint, scaleVector, shader);
 	kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
@@ -30,8 +35,11 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	this->add(tylnySpoiler);
 	this->add(przedniSpoiler);
 	this->add(kadlub);
-	this->add(ukladJezdny);
 	this->add(zawieszenie);
+	for (int i = 0; i < 2; ++i) {
+		this->add(tylnaOs[i]);
+		this->add(przedniaOs[i]);
+	}
 	this->bind_buffers();
 
 }

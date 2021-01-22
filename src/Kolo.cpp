@@ -10,7 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 
-Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *sp, GLfloat radius = 5, GLint numOfSides = 10, GLfloat width = 5) : Model(centerPoint, scaleVector) {
+Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* sp, GLfloat radius = 5, GLint numOfSides = 10, GLfloat width = 5, GLchar side = 'L', GLchar direction = 'T') : Model(centerPoint, scaleVector) {
 	this->basicShader = sp;
 	_radius = radius;
 	_numOfSides = numOfSides;
@@ -18,67 +18,54 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	createCircle();
 	makeTire();
 
-	for (int i = 0; i < 6; ++i) {
-		
-		tylnaOs[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-		przedniaOs[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	for (int i = 0; i < 3; ++i) {
+		opona[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
 	}
 
-	for (int i = 0; i < 2; ++i) {
+	opona[0]->set_geometry(this->vertices, this->indicesCir);
+	opona[1]->set_geometry(this->vertices2, this->indicesCir);
+	opona[2]->set_geometry(this->verticesTire, this->indicesTire);
 
-		tylnaOs[3*i]->set_geometry(this->vertices, this->indicesCir);
-		tylnaOs[3*i + 1]->set_geometry(this->vertices2, this->indicesCir);
-		tylnaOs[3*i + 2]->set_geometry(this->verticesTire, this->indicesTire);
-
-		przedniaOs[3*i]->set_geometry(this->vertices, this->indicesCir);
-		przedniaOs[3*i + 1]->set_geometry(this->vertices2, this->indicesCir);
-		przedniaOs[3*i + 2]->set_geometry(this->verticesTire, this->indicesTire);
-
-		}
-
-	for (int i = 0; i < 6; ++i) {
+	for (int i = 0; i < 3; ++i) {
 		//LEWA STRONA
-		if (i / 3 < 1) {
-			tylnaOs[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
-			tylnaOs[i]->translate(glm::vec3(0.85f, 1.5f, -1.7f));
+		if (side == 'L') {
+			opona[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
+			if (direction == 'T') {
+				opona[i]->translate(glm::vec3(0.85f, 1.5f, -1.7f));
+			}
+			else {
+				//opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
-			przedniaOs[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
-			przedniaOs[i]->translate(glm::vec3(0.85f, 1.35f, 1.3f));
-			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+				opona[i]->translate(glm::vec3(0.85f, 1.35f, 1.3f));
+			}
 
 		}
 		else {
 			//PRAWA STRONA
-			tylnaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
-			tylnaOs[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
+			opona[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
+			if (direction == 'T') {
+				opona[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
+			}
+			else {
+				//opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
-			przedniaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
-			przedniaOs[i]->translate(glm::vec3(-0.85f, 1.35f, 1.3f));
-			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+				opona[i]->translate(glm::vec3(-0.85f, 1.35f, 1.3f));
+			}
 
 		}
 	}
 
-	tylnaOs[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	tylnaOs[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	tylnaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	tylnaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	opona[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	opona[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 
-	przedniaOs[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	przedniaOs[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	przedniaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	przedniaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-
-
-	for (int i = 0; i < 6; ++i) {
-		this->add(tylnaOs[i]);
-		this->add(przedniaOs[i]);
+	for (int i = 0; i < 3; ++i) {
+		this->add(opona[i]);
 	}
 }
 
 
 
-void Kola::createCircle()
+void Kolo::createCircle()
 {
 	GLfloat doublePi = 2.0f * 3.14159265358979323846;
 
@@ -106,7 +93,7 @@ void Kola::createCircle()
 
 }
 
-void Kola::makeTire()
+void Kolo::makeTire()
 {
 	vertices2 = vertices;
 	for (GLuint i = 0; i < vertices.size() / 5; ++i) {

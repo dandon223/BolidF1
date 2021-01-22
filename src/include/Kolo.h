@@ -14,32 +14,20 @@
 #include "include/shprogram.h"
 #include "include/Model.h"
 
-class Kola : public Model {
+class Kolo : public Model {
 private:
 
 	GLint _numOfSides;
-	GLfloat _radius;
-	GLfloat _width;
+	GLfloat _radius, _width;
 
-	std::vector<GLfloat> verticesBeam = {
-		0.0f, 0.0f, 0.0f,	0.5f, 0.1f,	//0
-		0.02f, 0.0f, 0.0f,	0.5f, 0.1f,	//1
-		0.02f, 0.02f, 0.0f,	0.5f, 0.1f,	//2
-		0.0f, 0.02f, 0.0f,	0.5f, 0.1f	//3
-	};
-
-	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2, verticesTire, verticesBeam2, verticesBeamCon;
-	std::vector<GLuint> indicesCir, indicesTire, indicesBeam, indicesSquare = { 0 ,1 , 2, 0, 2, 3 };
+	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2, verticesTire;
+	std::vector<GLuint> indicesCir, indicesTire;
 
 	ShaderProgram *basicShader;
-	Object3D* tylnaOs[6];
-	Object3D* tylnaBelkaStabilizatora[12];
-
-	Object3D* przedniaOs[6];
-	Object3D* przedniaBelkaStabilizatora[12];
+	Object3D* opona[3];
 
 public:
-	Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width);
+	Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram *basicShader, GLfloat radius, GLint numOfSides, GLfloat width, GLchar side, GLchar direction);
 
 	void createCircle();
 	void makeTire();
