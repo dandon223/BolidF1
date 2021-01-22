@@ -267,7 +267,7 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 
 		/*Light source test*/
-		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, &LightShader);
+		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0, 0, &LightShader);
 		testLight.set_geometry(vertices_, indices_);
 		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
 		testLight.bind_buffers();

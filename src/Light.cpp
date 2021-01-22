@@ -6,12 +6,18 @@ LightSource::LightSource(
 	const float ambientStrength,
 	const float diffuseStrength, 
 	const float specularStrength, 
+	const float constant,
+	const float linear,
+	const float quadratic,
 	const ShaderProgram* shader) : 
 		Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader), 
 		lightColor_(lightColor),
 		ambientStrength_(ambientStrength), 
 		diffuseStrength_(diffuseStrength),
-		specularStrength_(specularStrength) {}
+		specularStrength_(specularStrength),
+		constant_(constant),
+		linear_(linear),
+		quadratic_(quadratic) {}
 
 void LightSource::bind_buffers() {
 	glGenVertexArrays(1, &this->VAO);
@@ -60,13 +66,14 @@ void LightSource::set_geometry(const std::vector<GLfloat>& vertices, const std::
 	this->set_indices(indices);
 }
 void LightSource::pass_parameters_to_shader(ShaderProgram* shader) {
-	glUniform3fv(glGetUniformLocation(shader->get_programID(), "light.position"), 1, glm::value_ptr(centerPoint_));
-	glUniform3fv(glGetUniformLocation(shader->get_programID(), "light.lightColor"), 1, glm::value_ptr(lightColor_));
-	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.ambientStrength"), ambientStrength_);
-	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.diffuseStrength"), diffuseStrength_);
-	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.specularStrength"), specularStrength_);
-	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.specularStrength"), specularStrength_);
-	glUniform1i(glGetUniformLocation(shader->get_programID(), "light.lightType"), 1);
+	glUniform3fv(glGetUniformLocation(shader->get_programID(), "PLight.position"), 1, glm::value_ptr(centerPoint_));
+	glUniform3fv(glGetUniformLocation(shader->get_programID(), "PLight.lightColor"), 1, glm::value_ptr(lightColor_));
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.ambientStrength"), ambientStrength_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.diffuseStrength"), diffuseStrength_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.specularStrength"), specularStrength_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.constant"),	constant_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.linear"),		linear_);
+	glUniform1f(glGetUniformLocation(shader->get_programID(), "PLight.quadratic"),	quadratic_);
 }
 
 /*------------------------------DirectLight-------------------------*/
@@ -78,8 +85,12 @@ DirectLight::DirectLight(
 	const float diffuseStrength,
 	const float specularStrength,
 	const ShaderProgram* shader) :
-	LightSource(centerPoint, lightColor, ambientStrength, diffuseStrength, specularStrength, shader),
-	direction_(direction) {}
+		Object3D(centerPoint, glm::vec3(1.0, 1.0, 1.0), shader),
+		direction_(direction),
+		lightColor_(lightColor), 
+		ambientStrength_(ambientStrength), 
+		diffuseStrength_(diffuseStrength), 
+		specularStrength_(specularStrength) {}
 
 void DirectLight::pass_parameters_to_shader(ShaderProgram* shader) {
 	glUniform3fv(glGetUniformLocation(shader->get_programID(), "light.direction"), 1, glm::value_ptr(direction_));
@@ -88,5 +99,4 @@ void DirectLight::pass_parameters_to_shader(ShaderProgram* shader) {
 	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.diffuseStrength"), diffuseStrength_);
 	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.specularStrength"), specularStrength_);
 	glUniform1f(glGetUniformLocation(shader->get_programID(), "light.specularStrength"), specularStrength_);
-	glUniform1i(glGetUniformLocation(shader->get_programID(), "light.lightType"), 0);
 }
