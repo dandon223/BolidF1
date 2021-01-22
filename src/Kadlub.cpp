@@ -9,13 +9,13 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Kadlub::Kadlub(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp) :Model(centerPoint, scaleVector){
-	this->basicShader = sp;
-	part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part5 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+Kadlub::Kadlub(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp) : Model(centerPoint, scaleVector){
+	//this->basicShader = sp;
+	part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (sp));
+	part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (sp));
+	part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (sp));
+	part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (sp));
+	part5 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (sp));
 
 	part1->set_geometry(this->vertices, this->indices);
 	part2->set_geometry(this->vertices1, this->indices1);
@@ -44,7 +44,4 @@ Kadlub::Kadlub(const glm::vec3& centerPoint, const glm::vec3& scaleVector,Shader
 	this->add(part3);
 	this->add(part4);
 	this->add(part5);
-	//this->bind_buffers();
-
-
 }
