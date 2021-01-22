@@ -1,11 +1,11 @@
 # Autorzy
 
-| Imię i Nazwisko    | Funkcja |
-|--------------------|---------|
-|Daniel Górniak		|         |
-|Jakub Marczuk 		|         |
-|Konrad Bratosiewicz |         |
-|Bartosz Świrta		|         |
+| Imię i Nazwisko    |       Funkcja      |
+|--------------------|--------------------|
+|Daniel Górniak		|      3D artis      |
+|Jakub Marczuk 		|                    |
+|Konrad Bratosiewicz |                    |
+|Bartosz Świrta		|Framework/Engine dev|
 
 
 # **Temat projektu**  
@@ -20,7 +20,7 @@ Temat: Bolid F1 na torze
 |0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
 |1. Utworzenie środowiska roboczego	         | 	   				   |                |  Done  |                                 |
 |2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
-|3. Tekstury bolidu					            |                    |                |        |                                 |
+|3. Tekstury bolidu					            |                    |                |  Done  |                                 |
 |4. Model fragmentu toru			            |                    |                |        |                                 |
 |5. Tekstury toru					               |	                  |                |        |                                 |
 |6. Kamera śledząca bolid      		         |                    |                |  Done  |                                 |
