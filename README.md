@@ -18,14 +18,14 @@ Temat: Bolid F1 na torze
 | Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
 |--------------------------------------------|:------------------:|:--------------:|:------:|:-------------------------------:|
 |0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
-|1. Utworzenie środowiska roboczego	         | 	   				   |                |  Doing |                                 |
+|1. Utworzenie środowiska roboczego	         | 	   				   |                |  Done  |                                 |
 |2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
 |3. Tekstury bolidu					            |                    |                |        |                                 |
 |4. Model fragmentu toru			            |                    |                |        |                                 |
 |5. Tekstury toru					               |	                  |                |        |                                 |
-|6. Kamera śledząca bolid      		         |                    |                |        |                                 |
-|7. Oświetlenie 					               |                    |                |        |                                 |
-|8. Interaktywne oświetlenie sceny	         |                    |                |        |                                 |
+|6. Kamera śledząca bolid      		         |                    |                |  Done  |                                 |
+|7. Oświetlenie 					               |                    |                |  Doing |                                 |
+|8. Interaktywne oświetlenie sceny	         |                    |                |  Doing |                                 |
 |9. Animacja                       	         |                    |                |        |                                 |
 |10. Interakcja z użytkownikiem		         |                    |                |        |                                 |
 
@@ -77,17 +77,17 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
 # **Etapy projektowe**
  0. Konfiguracja środowiska i repozystorium
  1. Utworzenie środowiska roboczego
-    - [ ] Implementacja roboczej kamery
-    - [ ] Implementacja roboczego otoczenia  
-	 - [ ] Implementacja prostego obiektu  
+    - [x] Implementacja roboczej kamery
+    - [x] Implementacja roboczego otoczenia  
+	 - [x] Implementacja prostego obiektu  
  2. Modelowanie bolidu
-    - [ ] Model kół
-    - [ ] Modele spoilerów  
-	 - [ ] Model nadwozia  
+    - [x] Model kół
+    - [x] Modele spoilerów  
+	 - [x] Model nadwozia  
  3. Tekstury bolidu
     - [ ] Tekstury kół
-    - [ ] Tekstura nadwozia
-    - [ ] Tekstury elementów aerodynamicznych
+    - [x] Tekstura nadwozia
+    - [x] Tekstury elementów aerodynamicznych
  4. Model fragmentu toru 
     - [ ] Jezdnia
     - [ ] Trybuny
@@ -97,10 +97,10 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
     - [ ] Tekstura jezdni
     - [ ] Tekstury elementów dekoracyjnych (opcjonalnie)
  6. Kamera śledząca bolid 
-    - [ ] Ruch kamery zgodnie z ruchem myszy
-	 - [ ] Przybliżanie i oddalanie kamery 
+    - [x] Ruch kamery zgodnie z ruchem myszy
+	 - [x] Przybliżanie i oddalanie kamery 
  7. Oświetlenie
-    - [ ] Oświetlenie globalne 
+    - [x] Oświetlenie globalne 
     - [ ] Oświetlenie punktowe (lampy)
  8. Interaktywne oświetlenie sceny
  9. Animacja

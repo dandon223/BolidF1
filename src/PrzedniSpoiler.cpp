@@ -1,20 +1,13 @@
 #include "include/PrzedniSpoiler.h"
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-#include <SOIL.h>
-#include <iostream>
 #include "include/utils.h"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 PrzedniSpoiler::PrzedniSpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp) :Model(centerPoint, scaleVector) {
 	this->basicShader = sp;
-	part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part1 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part2 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part3 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part4 = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
 
 	part1->set_geometry(this->vertices, this->indices);
 	part2->set_geometry(this->vertices1, this->indices1);
@@ -40,7 +33,4 @@ PrzedniSpoiler::PrzedniSpoiler(const glm::vec3& centerPoint, const glm::vec3& sc
 	this->add(part2);
 	this->add(part3);
 	this->add(part4);
-	//this->bind_buffers();
-
-
 }

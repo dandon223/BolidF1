@@ -42,6 +42,8 @@ protected:
 	GLuint VAO, VBO, EBO;
 	glm::mat4 model_;
 	glm::mat4 rotationMatrix_;
+	glm::vec3 materialParam_[3];
+	float shininess_;
 	
 public:
 	std::vector<GLfloat> vertices_;
@@ -88,11 +90,10 @@ public:
 
 	/*set_geometry
 	* Laczy dzialanie metod set_vertices, set_indices. Podajecie jej vetor'y vertices i indices*/
-	void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
+	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
 	void set_vertices(const std::vector<GLfloat>&);
 	void set_indices(const std::vector<GLuint>&);
 	void calculate_normals();
-	void set_color(const glm::vec3&); // chwilowo bez implementacji
 
 	/*set_shader
 	* Przyjmuje wskaznik na shader i ustawia go jako shader dla danego obiektu.
@@ -106,6 +107,11 @@ public:
 	* By uproscic uzytkowanie zaleca sie nastepujacy sposob wywolania:
 	* Object3D->set_texture(LoadMipmapTexture(GLuint texId, const char* fname));*/
 	void set_texture(GLuint);
+
+	/*set_material
+	* Przyjmuje trzy wektory opisuj¹ce kolor poszczegulnych sk³adowych: ambient, diffuse, specular, oraz float shininess
+	*/
+	void set_material(const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), const glm::vec3& = glm::vec3(1.0, 1.0, 1.0), float = 32);
 };
 #endif // !OBJECT3D_H
 

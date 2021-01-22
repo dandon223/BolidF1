@@ -11,14 +11,14 @@
 
 TylnySpoiler::TylnySpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleVector,ShaderProgram *sp) :  Model(centerPoint, scaleVector) {
 	this->basicShader = sp;
-	part1 = new Object3D(glm::vec3(-0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part12 = new Object3D(glm::vec3(-0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
-	part2 = new Object3D(glm::vec3(0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part22 = new Object3D(glm::vec3(0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
-	part3 = new Object3D(glm::vec3(0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-	part4 = new Object3D(glm::vec3(-0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part1 = new Object3D(glm::vec3(-0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part12 = new Object3D(glm::vec3(-0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
+	Object3D* part2 = new Object3D(glm::vec3(0.82, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part22 = new Object3D(glm::vec3(0.81, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* wing1 = new Object3D(glm::vec3(0.0, 0.3, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* wing2 = new Object3D(glm::vec3(0.0, -0.1, 0.0), glm::vec3(1.0, 1.0, 1.0),(this->basicShader));
+	Object3D* part3 = new Object3D(glm::vec3(0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	Object3D* part4 = new Object3D(glm::vec3(-0.2, -0.59, 0.3), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
 
 	part1->set_geometry(this->vertices, this->indices);
 	part12->set_geometry(vertices1, indices1);
@@ -77,9 +77,5 @@ TylnySpoiler::TylnySpoiler(const glm::vec3& centerPoint, const glm::vec3& scaleV
 
 	this->add(part3);
 	this->add(part4);
-
-	//this->bind_buffers();
-
-
 }
 

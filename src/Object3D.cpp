@@ -10,7 +10,6 @@ Object3D::~Object3D() {
 	glDeleteBuffers(1, &this->EBO);
 }
 void Object3D::bind_buffers() {
-	
 	glGenVertexArrays(1, &this->VAO);
 	glGenBuffers(1, &this->VBO);
 	glGenBuffers(1, &this->EBO);
@@ -23,22 +22,17 @@ void Object3D::bind_buffers() {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, this->EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * this->indices_.size(), this->indices_.data(), GL_STATIC_DRAW);
 
-	/*glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
 	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)(6 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(2);*/
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-	glEnableVertexAttribArray(1);
-
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
+
+	normals_.clear();
 }
 void Object3D::free_buffers() {
 	glDeleteVertexArrays(1, &this->VAO);
@@ -56,6 +50,11 @@ void Object3D::draw(glm::mat4& compositeModel) {
 	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+	/*glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.ambientColor"), 1, glm::value_ptr(materialParam_[0]));
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.diffuseColor"), 1, glm::value_ptr(materialParam_[1]));
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "material.specularColor"), 1, glm::value_ptr(materialParam_[2]));
+	glUniform1f(glGetUniformLocation(this->shader_->get_programID(), "material.shininess"), shininess_);*/
 
 	glBindVertexArray(this->VAO);
 	glDrawElements(GL_TRIANGLES, this->indices_.size(), GL_UNSIGNED_INT, 0);
@@ -80,7 +79,7 @@ void Object3D::scale(const glm::vec3& scaleVector) {
 void Object3D::set_geometry(const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
 	this->set_vertices(vertices);
 	this->set_indices(indices);
-	//this->calculate_normals();
+	this->calculate_normals();
 }
 void Object3D::set_vertices(const std::vector<GLfloat>& vertices) {
 	if (vertices.size() > 0) {
@@ -95,15 +94,35 @@ void Object3D::set_indices(const std::vector<GLuint>& indices) {
 void Object3D::calculate_normals() {
 	glm::vec3 a, b, c, result;
 	for (int i = 0; i < this->indices_.size(); i = i + 3) {
-		a = glm::vec3(this->vertices_[indices_[i]], this->vertices_[indices_[i] + 1], this->vertices_[indices_[i] +2]);
-		b = glm::vec3(this->vertices_[indices_[i + 1]], this->vertices_[indices_[i + 1] + 1], this->vertices_[indices_[i + 1] + 2]);
-		c = glm::vec3(this->vertices_[indices_[i + 2]], this->vertices_[indices_[i + 2] + 1], this->vertices_[indices_[i + 2] + 2]);
-		result = calculate_normal_vector(a, b, c);
-		result = result / calculate_vector_length(result);
+		a = glm::vec3(this->vertices_[5*indices_[i]], this->vertices_[5*indices_[i] + 1], this->vertices_[5*indices_[i] + 2]);
+		b = glm::vec3(this->vertices_[5*indices_[i + 1]], this->vertices_[5*indices_[i + 1] + 1], this->vertices_[5*indices_[i + 1] + 2]);
+		c = glm::vec3(this->vertices_[5*indices_[i + 2]], this->vertices_[5*indices_[i + 2] + 1], this->vertices_[5*indices_[i + 2] + 2]);
+		
+		result = calculate_normal_vector(c, b, a);
+
 		this->normals_.push_back(result.x);
 		this->normals_.push_back(result.y);
 		this->normals_.push_back(result.z);
 	}
+	std::vector<GLfloat> tmp;
+	int i = 0, n = 0, counter = 0;
+	for (i = 0 ; i < this->vertices_.size()/5; ++i){
+		for(int j = 0; j < 3; ++j){
+			tmp.push_back(vertices_[5*i + j]);
+		}
+		for(int k = 0; k < 3; ++k){
+			tmp.push_back(normals_[3*n + k]);
+		}
+		for(int t = 0; t < 2; ++t){
+			tmp.push_back(vertices_[5*i + 3 + t]);
+		}
+		++counter;
+		if(counter == 3){
+			counter = 0;
+			++n;
+		}
+	}
+	vertices_ = tmp;
 }
 bool Object3D::set_shader(ShaderProgram* shader) {
 	if (shader != nullptr) {
@@ -114,4 +133,10 @@ bool Object3D::set_shader(ShaderProgram* shader) {
 }
 void Object3D::set_texture(GLuint texture) {
 	this->texture_ = texture;
+}
+void Object3D::set_material(const glm::vec3& ambientColor, const glm::vec3& diffuseColor, const glm::vec3& specularColor, float shininess) {
+	materialParam_[0] = ambientColor;
+	materialParam_[1] = diffuseColor;
+	materialParam_[2] = specularColor;
+	shininess_ = shininess;
 }

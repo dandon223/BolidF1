@@ -20,12 +20,6 @@
 
 class Bolid : public Model {
 private:
-	PrzedniSpoiler *przedniSpoiler;
-	TylnySpoiler *tylnySpoiler;
-	Kadlub *kadlub;
-	Kolo *osie[2];
-	
-	ShaderProgram basicShader;
 	double delta_time = 0.0f;
 	double prev_frame_time = 0.0f;
 	const float MOVEMENT_SPEED = 2.4f;
@@ -35,11 +29,12 @@ private:
 	const double MAX_SPEED = 0.5f;
 	const double MAX_SPEED_REVERSE = -0.2f;
 	bool inReverse = false;
-	const double STOP_SPEED = 0.01f;
-	const double SPEED_RATE = 0.02f;
+	const double STOP_SPEED = 1.01f;
+	const double SPEED_RATE = 1.01f;
 	const double PI =3.14159265;
+
 public:
-	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector);
+	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram*);
 	void setProjectionView(glm::mat4 p, glm::mat4 w);
 	void shaderUse();
 	void processKeyboardInput(GLFWwindow* window);
