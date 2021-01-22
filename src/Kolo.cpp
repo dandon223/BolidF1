@@ -17,19 +17,11 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	_width = width;
 	createCircle();
 	makeTire();
-	makeBeam();
 
 	for (int i = 0; i < 6; ++i) {
 		
 		tylnaOs[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-		tylnaBelkaStabilizatora[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-		tylnaBelkaStabilizatora[i+6] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-
-
 		przedniaOs[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-		przedniaBelkaStabilizatora[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-		przedniaBelkaStabilizatora[i+6] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
-
 	}
 
 	for (int i = 0; i < 2; ++i) {
@@ -44,17 +36,6 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 
 		}
 
-	for (int i = 0; i < 4; ++i)
-	{
-		tylnaBelkaStabilizatora[3 * i]->set_geometry(this->verticesBeam, this->indicesSquare);
-		tylnaBelkaStabilizatora[3 * i + 1]->set_geometry(this->verticesBeam2, this->indicesSquare);
-		tylnaBelkaStabilizatora[3 * i + 2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
-
-		przedniaBelkaStabilizatora[3*i]->set_geometry(this->verticesBeam, this->indicesSquare);
-		przedniaBelkaStabilizatora[3*i + 1]->set_geometry(this->verticesBeam2, this->indicesSquare);
-		przedniaBelkaStabilizatora[3*i + 2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
-	}
-
 	for (int i = 0; i < 6; ++i) {
 		//LEWA STRONA
 		if (i / 3 < 1) {
@@ -65,19 +46,6 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 			przedniaOs[i]->translate(glm::vec3(0.85f, 1.35f, 1.3f));
 			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
-			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
-			tylnaBelkaStabilizatora[i]->rotate(90, glm::vec3(0.0f, 1.0f, 0.0f));
-
-			tylnaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.65f, -1.7));
-			tylnaBelkaStabilizatora[i + 6]->rotate(90, glm::vec3(0.0f, 1.0f, 0.0f));
-			tylnaBelkaStabilizatora[i + 6]->rotate(-12, glm::vec3(0.0f, 0.0f, 1.0f));
-
-
-			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.18f));
-			przedniaBelkaStabilizatora[i]->rotate(80, glm::vec3(0.0f, 1.0f, 0.0f));
-			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.45f));
-			przedniaBelkaStabilizatora[i + 6]->rotate(100, glm::vec3(0.0f, 1.0f, 0.0f));
-		
 		}
 		else {
 			//PRAWA STRONA
@@ -87,18 +55,6 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 			przedniaOs[i]->rotate(-270, glm::vec3(0.0f, 1.0f, 0.0f));
 			przedniaOs[i]->translate(glm::vec3(-0.85f, 1.35f, 1.3f));
 			//przedniaOs[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
-
-			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
-			tylnaBelkaStabilizatora[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
-
-			tylnaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.65f, -1.7));
-			tylnaBelkaStabilizatora[i + 6]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
-			tylnaBelkaStabilizatora[i + 6]->rotate(12, glm::vec3(0.0f, 0.0f, 1.0f));
-
-			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.16f));
-			przedniaBelkaStabilizatora[i]->rotate(-80, glm::vec3(0.0f, 1.0f, 0.0f));
-			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.43f));
-			przedniaBelkaStabilizatora[i + 6]->rotate(-100, glm::vec3(0.0f, 1.0f, 0.0f));
 
 		}
 	}
@@ -112,23 +68,12 @@ Kola::Kola(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 	przedniaOs[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 	przedniaOs[3]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 	przedniaOs[4]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	
-	przedniaBelkaStabilizatora[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
-	przedniaBelkaStabilizatora[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
 
 
 	for (int i = 0; i < 6; ++i) {
 		this->add(tylnaOs[i]);
 		this->add(przedniaOs[i]);
-
-		this->add(tylnaBelkaStabilizatora[i]);
-		this->add(tylnaBelkaStabilizatora[i + 6]);
-
-		this->add(przedniaBelkaStabilizatora[i]);
-		this->add(przedniaBelkaStabilizatora[i+6]);
 	}
-	//this->bind_buffers();
-
 }
 
 
@@ -183,7 +128,80 @@ void Kola::makeTire()
 	verticesTire.insert(verticesTire.end(), vertices2.begin() + 5, vertices2.end());
 }
 
-void Kola::makeBeam() {
+Zawieszenie::Zawieszenie(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* sp) : Model(centerPoint, scaleVector) {
+	this->basicShader = sp;
+	
+	makeBeam();
+
+	for (int i = 0; i < 6; ++i) {
+
+		tylnaBelkaStabilizatora[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+		tylnaBelkaStabilizatora[i + 6] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+
+		przedniaBelkaStabilizatora[i] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+		przedniaBelkaStabilizatora[i + 6] = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), (this->basicShader));
+	}
+
+	for (int i = 0; i < 4; ++i)
+	{
+		tylnaBelkaStabilizatora[3 * i]->set_geometry(this->verticesBeam, this->indicesSquare);
+		tylnaBelkaStabilizatora[3 * i + 1]->set_geometry(this->verticesBeam2, this->indicesSquare);
+		tylnaBelkaStabilizatora[3 * i + 2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
+
+		przedniaBelkaStabilizatora[3 * i]->set_geometry(this->verticesBeam, this->indicesSquare);
+		przedniaBelkaStabilizatora[3 * i + 1]->set_geometry(this->verticesBeam2, this->indicesSquare);
+		przedniaBelkaStabilizatora[3 * i + 2]->set_geometry(this->verticesBeamCon, this->indicesBeam);
+	}
+
+	for (int i = 0; i < 6; ++i) {
+		
+		if (i / 3 < 1) {
+			//LEWA STRONA
+			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
+			tylnaBelkaStabilizatora[i]->rotate(90, glm::vec3(0.0f, 1.0f, 0.0f));
+
+			tylnaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.65f, -1.7));
+			tylnaBelkaStabilizatora[i + 6]->rotate(90, glm::vec3(0.0f, 1.0f, 0.0f));
+			tylnaBelkaStabilizatora[i + 6]->rotate(-12, glm::vec3(0.0f, 0.0f, 1.0f));
+
+
+			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.18f));
+			przedniaBelkaStabilizatora[i]->rotate(80, glm::vec3(0.0f, 1.0f, 0.0f));
+			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.45f));
+			przedniaBelkaStabilizatora[i + 6]->rotate(100, glm::vec3(0.0f, 1.0f, 0.0f));
+
+		}
+		else {
+			//PRAWA STRONA
+			tylnaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.4f, -1.7));
+			tylnaBelkaStabilizatora[i]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
+
+			tylnaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.65f, -1.7));
+			tylnaBelkaStabilizatora[i + 6]->rotate(-90, glm::vec3(0.0f, 1.0f, 0.0f));
+			tylnaBelkaStabilizatora[i + 6]->rotate(12, glm::vec3(0.0f, 0.0f, 1.0f));
+
+			przedniaBelkaStabilizatora[i]->translate(glm::vec3(0.f, 1.34f, 1.16f));
+			przedniaBelkaStabilizatora[i]->rotate(-80, glm::vec3(0.0f, 1.0f, 0.0f));
+			przedniaBelkaStabilizatora[i + 6]->translate(glm::vec3(0.f, 1.34f, 1.43f));
+			przedniaBelkaStabilizatora[i + 6]->rotate(-100, glm::vec3(0.0f, 1.0f, 0.0f));
+		}
+	}
+
+	przedniaBelkaStabilizatora[0]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+	przedniaBelkaStabilizatora[1]->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/opona.png"));
+
+
+	for (int i = 0; i < 6; ++i) {
+
+		this->add(tylnaBelkaStabilizatora[i]);
+		this->add(tylnaBelkaStabilizatora[i + 6]);
+
+		this->add(przedniaBelkaStabilizatora[i]);
+		this->add(przedniaBelkaStabilizatora[i + 6]);
+	}
+}
+
+void Zawieszenie::makeBeam() {
 	verticesBeam2 = verticesBeam;
 	for (GLuint i = 0; i < verticesBeam.size() / 5; ++i) {
 		verticesBeam2[5 * i + 2] += 0.7f;

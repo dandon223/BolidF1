@@ -15,10 +15,8 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector,shader);
 	PrzedniSpoiler* przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	TylnySpoiler* tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
-	Kolo* osie[2];
-	osie[0] = new Kolo(centerPoint, scaleVector, shader, 0.25f, 20, 0.2f);
-	osie[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f);
-	osie[0]->translate(glm::vec3(0.0f,-0.15f, 3.f));
+	Kola* ukladJezdny = new Kola(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f);
+	Zawieszenie* zawieszenie = new Zawieszenie(centerPoint, scaleVector, shader);
 	kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
@@ -32,8 +30,8 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	this->add(tylnySpoiler);
 	this->add(przedniSpoiler);
 	this->add(kadlub);
-	this->add(osie[0]);
-	this->add(osie[1]);
+	this->add(ukladJezdny);
+	this->add(zawieszenie);
 	this->bind_buffers();
 
 }
