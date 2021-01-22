@@ -14,11 +14,14 @@ struct MaterialProp {
 
 struct LightProp {
     vec3 position;
+	vec3 direction;
 	vec3 lightColor;
 
     float ambientStrength;
     float diffuseStrength;
     float specularStrength;
+
+	int lightType;
 };
 
 
@@ -35,7 +38,17 @@ void main()
 
 	// diffuse 
 	vec3 normalVec = normalize(normal);
-	vec3 lightDir = normalize(light.position - fragPos);
+	vec3 lightDir;
+	switch(light.lightType){
+		case 0:
+			lightDir = normalize(-light.direction);
+			break;
+		case 1:
+			lightDir = normalize(light.position - fragPos);
+			break;
+		default:
+			break;
+	}
 	float diff = max(dot(normalVec, lightDir), 0.0);
 	vec3 diffuse = light.lightColor * light.diffuseStrength * (diff * material.diffuseColor);
 
