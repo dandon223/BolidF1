@@ -62,6 +62,7 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		if (!inReverse) {
 			speed += 0.5*log(SPEED_RATE);
+			//this->getChild(4)->rotate(5, glm::vec3(1.0f, 0.0f, 0.0f));
 			if (speed > MAX_SPEED)
 				speed = MAX_SPEED;
 		}
@@ -101,12 +102,14 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
 		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
+		//this->getChild(5)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f));
 		rotation_position += 1;
 		if (rotation_position > 360)
 			rotation_position = 0;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && speed != 0) {
 		rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
+		//this->getChild(5)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f));
 		rotation_position -= 1;
 		if (rotation_position < -360)
 			rotation_position = 0;
