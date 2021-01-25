@@ -1,11 +1,12 @@
 # Autorzy
 
-| Imię i Nazwisko    | Funkcja |
-|--------------------|---------|
-|Daniel Górniak		|         |
-|Jakub Marczuk 		|         |
-|Konrad Bratosiewicz |         |
-|Bartosz Świrta		|         |
+| Imię i Nazwisko    |       Funkcja      |
+|--------------------|--------------------|
+|Daniel Górniak		|      3D artis      |
+|Jakub Marczuk 		|                    |
+|Konrad Bratosiewicz |                    |
+|Bartosz Świrta		|Framework/Engine dev|
+
 
 
 # **Temat projektu**  
@@ -20,14 +21,14 @@ Temat: Bolid F1 na torze
 |0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
 |1. Utworzenie środowiska roboczego	         | 	   				   |                |  Done  |                                 |
 |2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
-|3. Tekstury bolidu					            |                    |                |        |                                 |
-|4. Model fragmentu toru			            |                    |                |        |                                 |
-|5. Tekstury toru					               |	                  |                |        |                                 |
+|3. Tekstury bolidu					            |                    |                |  Done  |                                 |
+|4. Model fragmentu toru			            |                    |                |  Doing |                                 |
+|5. Tekstury toru					               |	                  |                |  Doing |                                 |
 |6. Kamera śledząca bolid      		         |                    |                |  Done  |                                 |
-|7. Oświetlenie 					               |                    |                |  Doing |                                 |
-|8. Interaktywne oświetlenie sceny	         |                    |                |  Doing |                                 |
-|9. Animacja                       	         |                    |                |        |                                 |
-|10. Interakcja z użytkownikiem		         |                    |                |        |                                 |
+|7. Oświetlenie 					               |                    |                |  Done  |                                 |
+|8. Interaktywne oświetlenie sceny	         |                    |                |  Done  |                                 |
+|9. Animacja                       	         |                    |                |  Doing |                                 |
+|10. Interakcja z użytkownikiem		         |                    |                |  Done  |                                 |
 
 ## **Aktualna wersja programu**
 <img src="Schematy/Current.png" alt="Obecna wersja"
@@ -101,7 +102,7 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
 	 - [x] Przybliżanie i oddalanie kamery 
  7. Oświetlenie
     - [x] Oświetlenie globalne 
-    - [ ] Oświetlenie punktowe (lampy)
+    - [x] Oświetlenie punktowe (lampy)
  8. Interaktywne oświetlenie sceny
  9. Animacja
     - [ ] Animacja kół 
