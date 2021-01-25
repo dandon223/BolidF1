@@ -134,6 +134,7 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\Bolid.h" />
     <ClInclude Include="include\Floor.h" />
     <ClInclude Include="include\Kadlub.h" />
@@ -144,7 +145,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
-    <ClInclude Include="Light.h" />
+    <ClInclude Include="include\Light.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

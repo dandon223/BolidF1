@@ -1,5 +1,6 @@
 #include "include/Object3D.h"
 #include "include/utils.h"
+#include <cmath>
 
 BasicObject::BasicObject(const glm::vec3& centerPoint, const glm::vec3& scaleVector) : centerPoint_(centerPoint), scaleVector_(scaleVector) {}
 
@@ -68,7 +69,6 @@ void Object3D::rotate(float angle, const glm::vec3& rotationAxis) {
 	this->rotationMatrix_ = glm::rotate(model, glm::radians(angle), rotationAxis) * rotationMatrix_;
 }
 void Object3D::rotate(float angle, const glm::vec3& rotationAxis, const glm::vec3& fixedPoint) {
-	
 	this->model_ = glm::translate(this->model_, fixedPoint);
 	this->model_ = glm::rotate(this->model_, glm::radians(angle), rotationAxis);
 	this->model_ = glm::translate(this->model_, -fixedPoint);

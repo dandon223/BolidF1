@@ -1,4 +1,5 @@
 #include "include/utils.h"
+#include "include/Cube.h"
 
 std::ostream& operator<<(std::ostream& os, const glm::mat4& mx)
 {
@@ -37,4 +38,25 @@ glm::vec3 calculate_normal_vector(const glm::vec3& a, const glm::vec3& b, const 
 }
 GLfloat calculate_vector_length(const glm::vec3& vector_) {
 	return (GLfloat)sqrt(vector_.x * vector_.x + vector_.y * vector_.y + vector_.z * vector_.z);
+}
+void pass_proj_view(const glm::mat4& projection, const glm::mat4& view, const ShaderProgram& shader) {
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_programID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_programID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+}
+void create_pointLight(
+	const glm::vec3& centerPoint, 
+	const glm::vec3& lightColor, 
+	const float ambientStrength,
+	const float diffuseStrength,
+	const float specularStrength,
+	const float constant,
+	const float linear,
+	const float quadratic,
+	const ShaderProgram& shader,
+	std::vector<LightSource*>& pointLights) {
+		LightSource* tmp = new LightSource(centerPoint, lightColor, ambientStrength, diffuseStrength, specularStrength, constant, linear, quadratic, &shader);
+		tmp->set_geometry(CUBE_VERTICES, CUBE_INDICES);
+		tmp->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
+		tmp->bind_buffers();
+		pointLights.push_back(tmp);
 }
