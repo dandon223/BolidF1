@@ -48,6 +48,8 @@ void LightSource::draw(glm::mat4& compositeModel) {
 	if (shader_ == nullptr)
 		return;
 
+	glUniform3fv(glGetUniformLocation(this->shader_->get_programID(), "lightColor"), 1, glm::value_ptr(this->lightColor_));
+
 	glm::mat4 model;
 	model = compositeModel * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
 	model = glm::scale(model, this->scaleVector_);

@@ -3,8 +3,6 @@
 
 #include "Object3D.h"
 
-/*Obiekt reprezentuj¹cy œwiat³o, umo¿liwia umieszczenie obiektu œwiat³a w scenie*/
-
 class LightSource : public Object3D {
 public:
 	glm::vec3 lightColor_;

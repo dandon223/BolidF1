@@ -38,3 +38,7 @@ glm::vec3 calculate_normal_vector(const glm::vec3& a, const glm::vec3& b, const 
 GLfloat calculate_vector_length(const glm::vec3& vector_) {
 	return (GLfloat)sqrt(vector_.x * vector_.x + vector_.y * vector_.y + vector_.z * vector_.z);
 }
+void pass_proj_view(const glm::mat4& projection, const glm::mat4& view, const ShaderProgram& shader) {
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_programID(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	glUniformMatrix4fv(glGetUniformLocation(shader.get_programID(), "view"), 1, GL_FALSE, glm::value_ptr(view));
+}
