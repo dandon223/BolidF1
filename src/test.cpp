@@ -73,10 +73,23 @@ float skyboxVertices[] = {
 	 1.0f, -1.0f,  1.0f
 };
 
-// keyboard interaction: close the program
+// keyboard interaction: close the program, brigthen lights, darken lights
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+	else if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
+		for (const auto& p : pointLights) {
+			p->diffuseStrength_ += 0.2;
+			p->specularStrength_ += 0.2;
+		}
+	}
+	else if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
+		for (const auto& p : pointLights) {
+			p->diffuseStrength_ -= 0.2;
+			p->specularStrength_ -= 0.2;
+		}
+	}
 }
 
 // mouse movement interaction: rotate camera according to user's input
