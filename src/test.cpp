@@ -233,15 +233,15 @@ int main()
 
 
 		// Build, compile and link shader program
-		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
-		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
-		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
+		ShaderProgram CubeShader = ShaderProgram("shaders/CubeShader.vert", "shaders/CubeShader.frag");
+		ShaderProgram skyboxShader = ShaderProgram("skyboxShader.vert", "skyboxShader.frag");
+		ShaderProgram* BasicShader = new ShaderProgram("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 
 		// bolid
-		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0), &BasicShader);
+		Bolid bolid = Bolid(glm::vec3(0.0,0.0,0.0),glm::vec3(1.0,1.0,1.0), BasicShader);
 		bolid.translate(glm::vec3(0.0,-2.0,0.0));
 		// floor
-		Floor floor = Floor(&BasicShader);
+		Floor floor = Floor(BasicShader);
 
 		// skybox
 		unsigned int skyboxVAO, skyboxVBO;
@@ -267,12 +267,20 @@ int main()
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 
 		/*Light source test*/
-		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0, 0, &LightShader);
-		testLight.set_geometry(vertices_, indices_);
-		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
-		testLight.bind_buffers();
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
 
-		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
+		LightSource testLight1(glm::vec3(5.0, 5.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, &LightShader);
+		testLight1.set_geometry(vertices_, indices_);
+		testLight1.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
+		testLight1.bind_buffers();
+
+		LightSource testLight2(glm::vec3(-5.0, 5.0, 0.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, &LightShader);
+		testLight2.set_geometry(vertices_, indices_);
+		testLight2.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
+		testLight2.bind_buffers();
+
+
+		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), BasicShader);
 		testOBJ.set_geometry(vertices_, indices_);
 		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testOBJ.set_material();
@@ -370,27 +378,34 @@ int main()
 			viewLoc = glGetUniformLocation(LightShader.get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			glUniform3fv(glGetUniformLocation(LightShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			testLight.draw();
+			glUniform3fv(glGetUniformLocation(LightShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight1.lightColor_));
+			testLight1.draw();
+			glUniform3fv(glGetUniformLocation(LightShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight2.lightColor_));
+			testLight2.draw();
+			testLight1.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
+			testLight2.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
+			//std::cout << "x: " << testLight1.centerPoint_.x << "y: " << testLight1.centerPoint_.y << "z: " << testLight1.centerPoint_.z << std::endl;
 
 
 			
 
-			BasicShader.Use();
-			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
+			BasicShader->Use();
+			glUniform1i(glGetUniformLocation(BasicShader->get_programID(), "lightCount"), 2);
+			projLoc = glGetUniformLocation(BasicShader->get_programID(), "projection");
 			// setup view matrix - get it from camera object
 			view = camera.getViewMatrix();
-			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
+			viewLoc = glGetUniformLocation(BasicShader->get_programID(), "view");
 			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
 			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
-			testLight.pass_parameters_to_shader(&BasicShader);
+			glUniform3fv(glGetUniformLocation(BasicShader->get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
+			directLight.pass_parameters_to_shader(BasicShader);
+			testLight1.pass_parameters_to_shader(BasicShader, 0);
+			testLight2.pass_parameters_to_shader(BasicShader, 1);
 		
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
-			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.specularColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
-			glUniform1f(glGetUniformLocation(BasicShader.get_programID(), "material.shininess"), 32.0);
+			glUniform3fv(glGetUniformLocation(BasicShader->get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
+			glUniform3fv(glGetUniformLocation(BasicShader->get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
+			glUniform3fv(glGetUniformLocation(BasicShader->get_programID(), "material.specularColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
+			glUniform1f(glGetUniformLocation(BasicShader->get_programID(), "material.shininess"), 32.0);
 
 			bolid.draw();
 			floor.draw();

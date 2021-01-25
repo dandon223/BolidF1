@@ -12,7 +12,7 @@
 
 Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* shader) : Model(centerPoint, scaleVector)
 {
-	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector,shader);
+	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	PrzedniSpoiler* przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	TylnySpoiler* tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
 	Kolo* osie[2];

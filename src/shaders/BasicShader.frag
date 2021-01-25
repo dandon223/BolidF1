@@ -1,4 +1,7 @@
 #version 330 core
+
+#define NR_POINT_LIGHTS 8
+
 out vec4 color;
 
 in vec3 fragPos;
@@ -37,8 +40,10 @@ struct PointLight {
     float specularStrength;
 };
 
+uniform int lightCount;
+uniform PointLight pointLights[NR_POINT_LIGHTS];
+uniform DirectLight dirLight;
 uniform MaterialProp material;
-uniform PointLight PLight;
 
 vec3 CalcDirectLight(DirectLight light, vec3 normal, vec3 viewDirection){
     vec3 lightDir = normalize(-light.direction);
@@ -88,16 +93,9 @@ void main()
     // properties
     vec3 normalVec = normalize(normal);
     vec3 viewDir = normalize(viewPos - fragPos);
-
-    vec3 result = CalcPointLight(PLight, normalVec, fragPos, viewDir);
-
-    // phase 1: Directional lighting
-    //vec3 result = CalcDirLight(dirLight, norm, viewDir);
-    // phase 2: Point lights
-    //for(int i = 0; i < NR_POINT_LIGHTS; i++)
-    //    result += CalcPointLight(pointLights[i], norm, FragPos, viewDir);    
-    // phase 3: Spot light
-    //result += CalcSpotLight(spotLight, norm, FragPos, viewDir);  
+    vec3 result = CalcDirectLight(dirLight, normalVec, viewDir);
+    for(int i = 0; i < lightCount; ++i)
+       result += CalcPointLight(pointLights[i], normalVec, fragPos, viewDir);  
 
 	color = texture(Texture0, TexCoord) * vec4(result, 1.0f);
 }

@@ -22,14 +22,18 @@ public:
 		const float = 1.0,
 		const float = 0.5,
 		const float = 1.0,
-		const float = 0.09,
-		const float = 0.032,
+		const float = 0.001,
+		const float = 0.0032,
 		const ShaderProgram* = nullptr);
 
 	virtual void bind_buffers();
 	virtual void draw(glm::mat4& = glm::mat4());
 	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
-	void pass_parameters_to_shader(ShaderProgram*);
+	void pass_parameters_to_shader(ShaderProgram*, int);
+
+private:
+	std::string rights[8] = { "].position" , "].lightColor" , "].ambientStrength" , "].diffuseStrength" , "].specularStrength" ,
+							  "].constant" , "].linear" , "].quadratic" };
 };
 
 class DirectLight : private Object3D {
@@ -39,8 +43,8 @@ public:
 		const glm::vec3 & = glm::vec3(0.0, -1.0, 0.0),
 		const glm::vec3 & = glm::vec3(1.0, 1.0, 1.0),
 		const float = 0.2,
+		const float = 0.5,
 		const float = 1.0,
-		const float = 0.3,
 		const ShaderProgram* = nullptr);
 
 	void pass_parameters_to_shader(ShaderProgram*);
