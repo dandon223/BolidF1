@@ -279,7 +279,6 @@ int main()
 		testLight2.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
 		testLight2.bind_buffers();
 
-
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), BasicShader);
 		testOBJ.set_geometry(vertices_, indices_);
 		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
@@ -384,10 +383,6 @@ int main()
 			testLight2.draw();
 			testLight1.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
 			testLight2.rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
-			//std::cout << "x: " << testLight1.centerPoint_.x << "y: " << testLight1.centerPoint_.y << "z: " << testLight1.centerPoint_.z << std::endl;
-
-
-			
 
 			BasicShader->Use();
 			glUniform1i(glGetUniformLocation(BasicShader->get_programID(), "lightCount"), 2);
