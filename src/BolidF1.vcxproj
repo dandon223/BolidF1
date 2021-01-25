@@ -127,6 +127,7 @@
     <Image Include="..\ResourceFiles\przedniSpoiler2.png" />
     <Image Include="..\ResourceFiles\red.png" />
     <Image Include="..\ResourceFiles\right.png" />
+    <Image Include="..\ResourceFiles\road.png" />
     <Image Include="..\ResourceFiles\spoiler.png" />
     <Image Include="..\ResourceFiles\top.png" />
     <Image Include="bricks.bmp" />
@@ -146,7 +147,7 @@
     <ClInclude Include="include\camera.h" />
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
-    <ClInclude Include="Light.h" />
+    <ClInclude Include="include\Light.h" />
     <ClInclude Include="include\Road.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

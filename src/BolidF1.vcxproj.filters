@@ -132,6 +132,9 @@
     <Image Include="..\ResourceFiles\right.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\road.png">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="..\ResourceFiles\top.png">
       <Filter>Resource Files</Filter>
     </Image>
