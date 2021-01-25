@@ -32,6 +32,9 @@ private:
 	const double STOP_SPEED = 1.01f;
 	const double SPEED_RATE = 1.01f;
 	const double PI =3.14159265;
+	const float MAX_DEGREE = 15.0;
+	const float MIN_DEGREE = -15.0;
+	float current_degree = 0;
 
 public:
 	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram*);

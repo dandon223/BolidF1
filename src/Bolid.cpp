@@ -107,11 +107,14 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
 		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
-		for (int i = 0; i < 3; ++i) {
-			static_cast<Model*>(getChild(5))->getChild(i)->rotate(15, glm::vec3(0.0f, 1.0f, 0.0f));
-			static_cast<Model*>(getChild(7))->getChild(i)->rotate(-15, glm::vec3(0.0f, 1.0f, 0.0f));
-		}
 		rotation_position += 1;
+		if (current_degree < MAX_DEGREE) {
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				current_degree += 1;
+			}
+		}
 		if (rotation_position > 360)
 			rotation_position = 0;
 	}
@@ -119,6 +122,13 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 		rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
 		//this->getChild(5)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f));
 		rotation_position -= 1;
+		if (current_degree > MIN_DEGREE) {
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				current_degree -= 1;
+			}
+		}
 		if (rotation_position < -360)
 			rotation_position = 0;
 	}
