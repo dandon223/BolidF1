@@ -135,6 +135,7 @@
     <Image Include="weiti.png" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Cube.h" />
     <ClInclude Include="include\Bolid.h" />
     <ClInclude Include="include\Floor.h" />
     <ClInclude Include="include\Kadlub.h" />

@@ -2,9 +2,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
-#include <iostream>
-
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -18,57 +15,10 @@
 #include "include/Bolid.h"
 #include "include/Floor.h"
 #include "include/Road.h"
+#include "include/Cube.h"
 
-/*LightSource Test*/
-#include "include/Light.h"
-std::vector<GLfloat>vertices_ = {
-	// positions          
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
-	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-	 1.0f,  1.0f, -1.0f, 1.0f, 1.0f,
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-
-	-1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
-	-1.0f, -1.0f, -1.0f, 0.0f, 0.0f,
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-	-1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
-	-1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
-
-	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-	 1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-	 1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
-	 1.0f,  1.0f,  1.0f, 0.0f, 1.0f,
-	 1.0f,  1.0f, -1.0f, 1.0f, 1.0f,
-	 1.0f, -1.0f, -1.0f, 1.0f, 0.0f,
-
-	-1.0f, -1.0f,  1.0f, 0.0f, 1.0f,
-	-1.0f,  1.0f,  1.0f, 0.0f, 0.0f,
-	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
-	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
-	 1.0f, -1.0f,  1.0f, 1.0f, 1.0f,
-	-1.0f, -1.0f,  1.0f, 0.0f, 1.0f,
-
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-	 1.0f,  1.0f, -1.0f, 0.0f, 0.0f,
-	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
-	 1.0f,  1.0f,  1.0f, 1.0f, 0.0f,
-	-1.0f,  1.0f,  1.0f, 1.0f, 1.0f,
-	-1.0f,  1.0f, -1.0f, 0.0f, 1.0f,
-
-	-1.0f, -1.0f, -1.0f, 0.0f, 1.0f,
-	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-	 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
-	 1.0f, -1.0f, -1.0f, 1.0f, 1.0f,
-	-1.0f, -1.0f,  1.0f, 0.0f, 0.0f,
-	 1.0f, -1.0f,  1.0f, 1.0f, 0.0f,
-};
-std::vector<GLuint>indices_ = {
-		0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
-		21,22,23,24,25,26,27,28,29,30,31,32,33,34,35
-};
+const unsigned int MAX_POINT_LIGHT_NR = 8;
+std::vector<LightSource*> pointLights;
 
 using namespace std;
 
@@ -124,13 +74,26 @@ float skyboxVertices[] = {
 	 1.0f, -1.0f,  1.0f
 };
 
-	// keyboard interaction: close the program
+// keyboard interaction: close the program, brigthen lights, darken lights
 void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode) {
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS) {
 		glfwSetWindowShouldClose(window, GL_TRUE);
+	}
+	else if (key == GLFW_KEY_2 && action == GLFW_PRESS) {
+		for (const auto& p : pointLights) {
+			p->diffuseStrength_ += 0.2;
+			p->specularStrength_ += 0.2;
+		}
+	}
+	else if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
+		for (const auto& p : pointLights) {
+			p->diffuseStrength_ -= 0.2;
+			p->specularStrength_ -= 0.2;
+		}
+	}
 }
 
-	// mouse movement interaction: rotate camera according to user's input
+// mouse movement interaction: rotate camera according to user's input
 void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
 	double x_offset, y_offset;
 	if (first_use == true) {
@@ -146,7 +109,7 @@ void mouseCallback(GLFWwindow* window, double x_pos, double y_pos) {
 	camera.processMouseMovement(x_offset, y_offset);
 }
 
-	// mouse scroll interaction: change FOV, effectively - zoom in/out
+// mouse scroll interaction: change FOV, effectively - zoom in/out
 void scrollCallback(GLFWwindow* window, double x_offset, double y_offset) {
 	camera.processMouseScroll(y_offset);
 }
@@ -233,6 +196,7 @@ int main()
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
+		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 
 		// bolid
@@ -264,16 +228,13 @@ int main()
 		};
 		unsigned int cubemapTexture = loadCubemap(faces);
 
-		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
-
 		/*Light source test*/
-		LightSource testLight(glm::vec3(0.0, 10.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.1, 1.0, 1.0, &LightShader);
-		testLight.set_geometry(vertices_, indices_);
-		testLight.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lightTexture.png"));
-		testLight.bind_buffers();
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
+		create_pointLight(glm::vec3(-5.0, 5.0, 0.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(5.0, 5.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
-		testOBJ.set_geometry(vertices_, indices_);
+		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
 		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
 		testOBJ.set_material();
 		testOBJ.bind_buffers();
@@ -350,11 +311,7 @@ int main()
 			glDepthMask(GL_FALSE);
 			skyboxShader.Use();
 			glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix())); // remove translation from the view matrix
-			//glm::mat4 view = glm::mat4(glm::mat3(glm::lookAt(bolid.centerPoint_,bolid.centerPoint_,glm::vec3(0.0,1.0,0.0))));
-			GLint projLoc = glGetUniformLocation(skyboxShader.get_programID(), "projection");
-			GLint viewLoc = glGetUniformLocation(skyboxShader.get_programID(), "view");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
+			pass_proj_view(projection, view, skyboxShader);
 			// skybox cube
 			glBindVertexArray(skyboxVAO);
 			glActiveTexture(GL_TEXTURE0);
@@ -363,29 +320,22 @@ int main()
 			glBindVertexArray(0);
 			glDepthMask(GL_TRUE);
 
-			LightShader.Use();
-			projLoc = glGetUniformLocation(LightShader.get_programID(), "projection");
-			// setup view matrix - get it from camera object
 			view = camera.getViewMatrix();
-			viewLoc = glGetUniformLocation(LightShader.get_programID(), "view");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-			glUniform3fv(glGetUniformLocation(LightShader.get_programID(), "lightColor"), 1, glm::value_ptr(testLight.lightColor_));
-			testLight.draw();
 
-
-			
+			LightShader.Use();
+			pass_proj_view(projection, view, LightShader);
+			for (const auto& p : pointLights) {
+				p->draw();
+				p->rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
+			}
 
 			BasicShader.Use();
-			projLoc = glGetUniformLocation(BasicShader.get_programID(), "projection");
-			// setup view matrix - get it from camera object
-			view = camera.getViewMatrix();
-			viewLoc = glGetUniformLocation(BasicShader.get_programID(), "view");
-			glUniformMatrix4fv(projLoc, 1, GL_FALSE, glm::value_ptr(projection));
-			glUniformMatrix4fv(viewLoc, 1, GL_FALSE, glm::value_ptr(view));
-
+			glUniform1i(glGetUniformLocation(BasicShader.get_programID(), "lightCount"), 2);
+			pass_proj_view(projection, view, BasicShader);
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
-			testLight.pass_parameters_to_shader(&BasicShader);
+			directLight.pass_parameters_to_shader(BasicShader);
+			for (int i = 0; i < pointLights.size(); ++i) 
+				pointLights[i]->pass_parameters_to_shader(BasicShader, i);
 		
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.ambientColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "material.diffuseColor"), 1, glm::value_ptr(glm::vec3(1.0, 1.0, 1.0)));
@@ -411,5 +361,8 @@ int main()
 	}
 	glfwTerminate();
 
+
+	for (auto p : pointLights)
+		delete p;
 	return 0;
 }
