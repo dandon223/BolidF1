@@ -158,7 +158,7 @@
     <ClInclude Include="include\Model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Light.h">
+    <ClInclude Include="include\Light.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Bolid.h">
@@ -174,6 +174,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\TylnySpoiler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -27,7 +27,7 @@ public:
 	virtual void bind_buffers();
 	virtual void draw(glm::mat4& = glm::mat4());
 	virtual void set_geometry(const std::vector<GLfloat>&, const std::vector<GLuint>&);
-	void pass_parameters_to_shader(ShaderProgram*, int);
+	void pass_parameters_to_shader(const ShaderProgram&, int);
 
 private:
 	std::string rights[8] = { "].position" , "].lightColor" , "].ambientStrength" , "].diffuseStrength" , "].specularStrength" ,
@@ -45,7 +45,7 @@ public:
 		const float = 1.0,
 		const ShaderProgram* = nullptr);
 
-	void pass_parameters_to_shader(ShaderProgram*);
+	void pass_parameters_to_shader(const ShaderProgram&);
 
 private:
 	glm::vec3 direction_;
