@@ -14,7 +14,7 @@
 #include "include/Kadlub.h"
 #include "include/Bolid.h"
 #include "include/Floor.h"
-#include "include/Road.h"
+#include "include/RoadSegment.h"
 #include "include/Cube.h"
 
 const unsigned int MAX_POINT_LIGHT_NR = 8;
@@ -205,7 +205,7 @@ int main()
 		// floor
 		Floor floor = Floor(&BasicShader);
 		// road
-		Road road = Road(&BasicShader);
+		RoadSegment road = RoadSegment(&BasicShader);
 
 		// skybox
 		unsigned int skyboxVAO, skyboxVBO;

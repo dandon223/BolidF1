@@ -54,7 +54,7 @@
     <ClCompile Include="Kolo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Road.cpp">
+    <ClCompile Include="RoadSegment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -182,10 +182,10 @@
     <ClInclude Include="include\TylnySpoiler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Road.h">
+    <ClInclude Include="include\Cube.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\Cube.h">
+    <ClInclude Include="include\RoadSegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

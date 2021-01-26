@@ -95,7 +95,7 @@
     <ClCompile Include="Object3D.cpp" />
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="PrzedniSpoiler.cpp" />
-    <ClCompile Include="Road.cpp" />
+    <ClCompile Include="RoadSegment.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TylnySpoiler.cpp" />
@@ -148,7 +148,7 @@
     <ClInclude Include="include\shprogram.h" />
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\Light.h" />
-    <ClInclude Include="include\Road.h" />
+    <ClInclude Include="include\RoadSegment.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

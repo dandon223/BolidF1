@@ -18,7 +18,7 @@
 #include "include/shprogram.h"
 #include "Object3D.h"
 
-class Road : public Object3D {
+class RoadSegment : public Object3D {
 	const std::vector<GLfloat> VERTICES = {
 		-6.0f, -6.0f, 0.0f,		0.0f,  0.0f, // 0
 		-6.0f,  6.0f, 0.0f,		0.0f,  1.0f, // 1
@@ -35,5 +35,5 @@ class Road : public Object3D {
 	};
 
 public:
-	Road(ShaderProgram*);
+	RoadSegment(ShaderProgram*);
 };
