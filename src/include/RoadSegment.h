@@ -35,5 +35,5 @@ class RoadSegment : public Object3D {
 	};
 
 public:
-	RoadSegment(ShaderProgram*);
+	RoadSegment(GLuint, ShaderProgram*);
 };
