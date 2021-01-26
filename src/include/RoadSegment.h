@@ -1,6 +1,6 @@
 /**
  * Author: Konrad Bratosiewicz
- * Road implementation
+ * Road segment implementation
  **/
 
 #pragma once
@@ -14,8 +14,8 @@
 #include <vector>
 #include <memory>
 
-#include "include/utils.h"
-#include "include/shprogram.h"
+#include "utils.h"
+#include "shprogram.h"
 #include "Object3D.h"
 
 class RoadSegment : public Object3D {

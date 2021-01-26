@@ -14,7 +14,7 @@
 #include "include/Kadlub.h"
 #include "include/Bolid.h"
 #include "include/Floor.h"
-#include "include/RoadSegment.h"
+#include "include/Street.h"
 #include "include/Cube.h"
 
 const unsigned int MAX_POINT_LIGHT_NR = 8;
@@ -205,7 +205,7 @@ int main()
 		// floor
 		Floor floor = Floor(&BasicShader);
 		// road
-		RoadSegment road = RoadSegment(&BasicShader);
+		Street street = Street(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 
 		// skybox
 		unsigned int skyboxVAO, skyboxVBO;
@@ -345,7 +345,7 @@ int main()
 			bolid.draw();
 			floor.draw();
 			testOBJ.draw();
-			road.draw();
+			street.draw();
 
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 

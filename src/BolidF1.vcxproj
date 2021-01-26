@@ -100,6 +100,7 @@
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TylnySpoiler.cpp" />
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Street.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -149,6 +150,7 @@
     <ClInclude Include="include\Model.h" />
     <ClInclude Include="include\Light.h" />
     <ClInclude Include="include\RoadSegment.h" />
+    <ClInclude Include="include\Street.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

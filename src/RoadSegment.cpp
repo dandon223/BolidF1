@@ -1,6 +1,6 @@
 /**
  * Author: Konrad Bratosiewicz
- * Road implementation
+ * Road segment implementation
  **/
 
 #include "include/RoadSegment.h"
