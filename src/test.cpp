@@ -1,10 +1,13 @@
-﻿#define GLEW_STATIC
+﻿#pragma comment(lib, "winmm.lib")
+
+#define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <windows.h>
 
 #include "include/utils.h"
 #include "include/Model.h"
@@ -247,6 +250,9 @@ int main()
 		double curr_frame_time;
 		double delta_time = 0;
 		const double PI = 3.14159265;
+
+		PlaySound(TEXT("sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 		while (!glfwWindowShouldClose(window))
 		{
 			// check for camera movement
