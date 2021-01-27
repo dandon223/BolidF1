@@ -8,7 +8,7 @@
 --model_			- macierz obrotu w globalnym ukladzie wspolrzednych
 --rotationMatrix_	- macierz obrotu w lokalnym ukladzie wspolrzednych*/
 class Model : public BasicObject {
-private:
+protected:
 	std::vector<BasicObject*> objectsVector_;
 	glm::mat4 model_;
 	glm::mat4 rotationMatrix_;

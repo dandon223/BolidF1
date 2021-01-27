@@ -54,6 +54,12 @@
     <ClCompile Include="Kolo.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RoadSegment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Street.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -129,6 +135,9 @@
     <Image Include="..\ResourceFiles\right.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\road.png">
+      <Filter>Resource Files</Filter>
+    </Image>
     <Image Include="..\ResourceFiles\top.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -177,6 +186,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Cube.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RoadSegment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Street.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
