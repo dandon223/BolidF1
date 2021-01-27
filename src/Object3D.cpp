@@ -48,6 +48,12 @@ void Object3D::draw(glm::mat4& compositeModel) {
 	/*Binding texture*/
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->texture_);
+
+	//filtrowanie anizotropowe
+	GLfloat fLargest;
+	glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &fLargest);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY_EXT, fLargest);
+
 	glUniform1i(glGetUniformLocation(this->shader_->get_programID(), "Texture0"), 0);
 
 	glUniformMatrix4fv(glGetUniformLocation(this->shader_->get_programID(), "model"), 1, GL_FALSE, glm::value_ptr(model));
