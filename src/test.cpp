@@ -345,7 +345,7 @@ int main()
 			bolid.draw();
 			floor.draw();
 			testOBJ.draw();
-			street.draw();
+			street.draw(bolid.centerPoint_.z);
 
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 

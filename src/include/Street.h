@@ -20,7 +20,8 @@
 #include "RoadSegment.h"
 
 class Street : public Model {
-
+	int prev_chunk;
 public:
 	Street(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram*);
+	void draw(float bolid_center_z, glm::mat4 & = glm::mat4());
 };
