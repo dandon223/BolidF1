@@ -24,6 +24,7 @@ private:
 	double prev_frame_time = 0.0f;
 	const float MOVEMENT_SPEED = 2.4f;
 	double speed = 0.0f;
+	double wheel_speed = 0.0f;
 	double rotation_angle = 1.0f;
 	int rotation_position = 0;
 	const double MAX_SPEED = 0.5f;
