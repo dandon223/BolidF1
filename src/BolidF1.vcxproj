@@ -101,6 +101,7 @@
     <ClCompile Include="TylnySpoiler.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="Street.cpp" />
+    <ClCompile Include="LampPost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -151,6 +152,7 @@
     <ClInclude Include="include\Light.h" />
     <ClInclude Include="include\RoadSegment.h" />
     <ClInclude Include="include\Street.h" />
+    <ClInclude Include="include\LampPost.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
