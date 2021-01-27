@@ -21,5 +21,12 @@ LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light
 	post_bar->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.png"));
 	add(post_bar);
 
+	Object3D* light_case = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.1, 0.5, 0.25), basic_shader);
+	light_case->rotate(-80.0, glm::vec3(0.0, 0.0, 1.0));
+	light_case->translate(glm::vec3(2.0, 9.18, 0.0));
+	light_case->set_geometry(CUBE_VERTICES, CUBE_INDICES);
+	light_case->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.png"));
+	add(light_case);
+
 	bind_buffers();
 }
