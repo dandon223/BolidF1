@@ -1,5 +1,4 @@
 #include "include/Light.h"
-#include <string>
 #include <iostream>
 
 LightSource::LightSource(
