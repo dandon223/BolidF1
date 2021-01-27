@@ -2,6 +2,7 @@
 #define LIGHT_H
 
 #include "Object3D.h"
+#include <string>
 
 class LightSource : public Object3D {
 public:

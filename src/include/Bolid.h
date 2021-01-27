@@ -24,6 +24,7 @@ private:
 	double prev_frame_time = 0.0f;
 	const float MOVEMENT_SPEED = 2.4f;
 	double speed = 0.0f;
+	double wheel_speed = 0.0f;
 	double rotation_angle = 1.0f;
 	int rotation_position = 0;
 	const double MAX_SPEED = 0.5f;
@@ -32,6 +33,9 @@ private:
 	const double STOP_SPEED = 1.01f;
 	const double SPEED_RATE = 1.01f;
 	const double PI =3.14159265;
+	const float MAX_DEGREE = 15.0;
+	const float MIN_DEGREE = -15.0;
+	float current_degree = 0;
 
 public:
 	Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram*);
