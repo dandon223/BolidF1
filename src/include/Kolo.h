@@ -20,7 +20,7 @@ private:
 	GLint _numOfSides;
 	GLfloat _radius, _width;
 
-	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2, verticesTire;
+	std::vector<GLfloat> vertices = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, vertices2 = { 0.f, 0.f, 0.f, 0.5f, 0.5f }, verticesTire;
 	std::vector<GLuint> indicesCir, indicesTire;
 
 	ShaderProgram *basicShader;
