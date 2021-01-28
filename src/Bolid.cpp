@@ -113,9 +113,11 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 		
 	}
 	
-	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
-		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
-		rotation_position += 1;
+	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+		if (speed != 0) {
+			rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
+			rotation_position += 1;
+		}
 		if (current_degree < MAX_DEGREE) {
 			for (int i = 0; i < 3; ++i) {
 				if (!inReverse) {
@@ -132,9 +134,11 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 		if (rotation_position > 360)
 			rotation_position = 0;
 	}
-	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && speed != 0) {
-		rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
-		rotation_position -= 1;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		if (speed != 0) {
+			rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
+			rotation_position -= 1;
+		}
 		if (current_degree > MIN_DEGREE) {
 			for (int i = 0; i < 3; ++i) {
 				if (!inReverse) {
