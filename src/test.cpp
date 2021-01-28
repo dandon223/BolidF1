@@ -353,7 +353,7 @@ int main()
 			testOBJ.draw();
 			street.draw(bolid.centerPoint_.z);
 
-			street_lamps.draw();
+			street_lamps.draw(bolid.centerPoint_.z);
 
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 

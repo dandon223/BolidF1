@@ -45,7 +45,8 @@ void LampPost::translate(const glm::vec3& translate_vector)
 }
 
 void LampPost::rotate(float angle, const glm::vec3& rotation_axis) {
-	light_->rotate(angle, rotation_axis, centerPoint_);
+	light_->translate(glm::vec3(2*(this->centerPoint_.x - light_->centerPoint_.x), 0.0, 0.0));
+	light_->rotate(angle, rotation_axis);
 	glm::mat4 model;
 	this->rotationMatrix_ = glm::rotate(model, glm::radians(angle), rotation_axis) * rotationMatrix_;
 }
