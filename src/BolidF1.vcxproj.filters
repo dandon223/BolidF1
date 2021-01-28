@@ -60,6 +60,12 @@
     <ClCompile Include="Street.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LampPost.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StreetLamps.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="gl_05.frag" />
@@ -70,16 +76,16 @@
     <None Include="shaders\BasicShader.vert">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="skyboxShader.vert">
+    <None Include="shaders\skyboxShader.vert">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="skyboxShader.frag">
+    <None Include="shaders\skyboxShader.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="LightSourceShader.frag">
+    <None Include="shaders\LightSourceShader.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="LightSourceShader.vert">
+    <None Include="shaders\LightSourceShader.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
@@ -150,6 +156,9 @@
     <Image Include="..\ResourceFiles\opona.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\lamp_post.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shprogram.h">
@@ -192,6 +201,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\Street.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LampPost.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StreetLamps.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
