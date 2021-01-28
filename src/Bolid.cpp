@@ -50,7 +50,7 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	double curr_frame_time = glfwGetTime();
 	delta_time = delta_time +(curr_frame_time - prev_frame_time);
 	prev_frame_time = curr_frame_time;
-	std::cout << delta_time << std::endl;
+	//std::cout << delta_time << std::endl;
 	//float bolidSpeed = MOVEMENT_SPEED * static_cast<float>(delta_time);
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && speed==0 && delta_time > 0.1) {
 		delta_time = 0;
@@ -115,51 +115,61 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
 		if (speed != 0) {
-			rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
-			rotation_position += 1;
+			if (!inReverse) {
+				rotate(rotationAngle, glm::vec3(0.0, 1.0, 0.0));
+				rotation_position += 1;
+			}
+			else {
+				rotate(rotationAngle, glm::vec3(0.0, -1.0, 0.0));
+				rotation_position -= 1;
+			}
 		}
 		if (current_degree < MAX_DEGREE) {
 			for (int i = 0; i < 3; ++i) {
-				if (!inReverse) {
-					static_cast<Model*>(getChild(5))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
-					static_cast<Model*>(getChild(7))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
-				}
-				else {
-					static_cast<Model*>(getChild(5))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
-					static_cast<Model*>(getChild(7))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
-				}
-				current_degree += 1;
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
 			}
+			current_degree += 1;
 		}
-		if (rotation_position > 360)
-			rotation_position = 0;
+		rotation_position = rotation_position % 360;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS) {
 		if (speed != 0) {
-			rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
-			rotation_position -= 1;
+			if (!inReverse) {
+				rotate(rotationAngle, glm::vec3(0.0, -1.0, 0.0));
+				rotation_position -= 1;
+			}
+			else {
+				rotate(rotationAngle, glm::vec3(0.0, 1.0, 0.0));
+				rotation_position += 1;
+			}
+			
 		}
 		if (current_degree > MIN_DEGREE) {
 			for (int i = 0; i < 3; ++i) {
-				if (!inReverse) {
-					static_cast<Model*>(getChild(5))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
-					static_cast<Model*>(getChild(7))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
-				}
-				else {
-					static_cast<Model*>(getChild(5))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
-					static_cast<Model*>(getChild(7))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
-				}
-				current_degree -= 1;
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(-rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(-rotationAngle, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
 			}
+			current_degree -= 1;
 		}
-		if (rotation_position < -360)
-			rotation_position = 0;
+		rotation_position = rotation_position % 360;
 	}
-	double x = sin(rotation_position*PI / 180) * speed;
-	double z = cos(rotation_position*PI / 180)* speed;
+	if (glfwGetKey(window, GLFW_KEY_RIGHT) != GLFW_PRESS && glfwGetKey(window, GLFW_KEY_LEFT) != GLFW_PRESS) {
+		for (int i = 0; i < 3; ++i) {
+			static_cast<Model*>(getChild(5))->getChild(i)->rotate(-current_degree, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+			static_cast<Model*>(getChild(7))->getChild(i)->rotate(-current_degree, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+		}
+		current_degree = 0;
+	}
+
+	float x = sin((float)rotation_position * PI / 180.0) * speed;
+	float z = cos((float)rotation_position * PI / 180.0) * speed;
 	translate(glm::vec3(x, 0.0, z));
 }
 int Bolid::getRotationPosition() {
 	return rotation_position;
+}
+bool Bolid::isInReverse() {
+	return inReverse;
 }
 

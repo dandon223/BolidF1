@@ -250,9 +250,15 @@ int main()
 		unsigned int cubemapTexture = loadCubemap(faces);
 
 		/*Light source test*/
-		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.3, 0.3);
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
 		create_pointLight(glm::vec3(-5.0, 5.0, 0.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
 		create_pointLight(glm::vec3(5.0, 5.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(-5.0, 5.0, 30.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(5.0, 5.0, 30.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(-5.0, 5.0, 60.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(5.0, 5.0, 60.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(-5.0, 5.0, 90.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
+		create_pointLight(glm::vec3(-5.0, 5.0, 90.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
@@ -302,11 +308,10 @@ int main()
 			if (cameraInBolid) {
 				bolid.processKeyboardInput(window);
 				if (cameraThirdPerson) {
-					double x = 5.5 * cos((-bolid.getRotationPosition()-90)*PI / 180);
-					double z = 5.5 * sin((-bolid.getRotationPosition()-90)*PI / 180);
+					double x = -sin(bolid.getRotationPosition() * PI / 180.0)*5;
+					double z = -cos(bolid.getRotationPosition() * PI / 180.0)*5;
+
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(x, 3.0, z));
-					//std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
-					//std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
 				}
 				else
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
@@ -348,11 +353,11 @@ int main()
 			pass_proj_view(projection, view, LightShader);
 			for (const auto& p : pointLights) {
 				p->draw();
-				p->rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
+				//p->rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
 			}
 
 			BasicShader.Use();
-			glUniform1i(glGetUniformLocation(BasicShader.get_programID(), "lightCount"), 2);
+			glUniform1i(glGetUniformLocation(BasicShader.get_programID(), "lightCount"), pointLights.size());
 			pass_proj_view(projection, view, BasicShader);
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
 			directLight.pass_parameters_to_shader(BasicShader);
