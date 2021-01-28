@@ -18,7 +18,7 @@ Floor::Floor(ShaderProgram *sp) :
 	part1->translate(glm::vec3(0.0, -1.0, 0.0));
 	part1->rotate(-90, glm::vec3(1.0, 0.0, 0.0));
 	part1->scale(glm::vec3(10000.0f, 10000.0f, 0.0f));
-	part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/grass.png"));
+	part1->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/floor.png"));
 	model.add(part1);
 	model.bind_buffers();
 
