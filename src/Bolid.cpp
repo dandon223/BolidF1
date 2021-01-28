@@ -61,19 +61,20 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		if (!inReverse) {
-			speed += 0.5*log(SPEED_RATE);
+			speed += 0.3*log(speed/10 + SPEED_RATE);
 			wheel_speed = 10 * speed + 1;
+			if (current_degree == MAX_DEGREE || current_degree == MIN_DEGREE) wheel_speed = 6.0f;
 			for (int i = 0; i < 3; ++i) {
 				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
 				static_cast<Model*>(getChild(5))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
 				static_cast<Model*>(getChild(6))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
 				static_cast<Model*>(getChild(7))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
-	}
+			}
 			if (speed > MAX_SPEED)
 				speed = MAX_SPEED;
 		}
 		else {
-			speed -= 0.5*log(SPEED_RATE);
+			speed -= 0.3*log(speed/10 + SPEED_RATE);
 			wheel_speed = 10 * speed - 1;
 			for (int i = 0; i < 3; ++i) {
 				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -88,12 +89,26 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	}
 	else {
 		if (speed > 0) {
-			speed -= STOP_SPEED;
+			speed -= 2*speed*(STOP_SPEED) + 0.0005f;
+			wheel_speed = 10 * speed + 1.0f;
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(6))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+			}
 			if (speed < 0)
 				speed = 0;
 		}
-		else {
-			speed += STOP_SPEED;
+		else if(speed < 0) {
+			speed += 2*speed*(STOP_SPEED) + 0.0005f;
+			wheel_speed = 10 * speed - 1.0f;
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(6))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+			}
 			if (speed > 0)
 				speed = 0;
 		}
@@ -101,12 +116,12 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	}
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
 		if (!inReverse) {
-			speed -= SPEED_RATE;
+			speed -= 0.6*log(speed/10 + SPEED_RATE);
 			if (speed < 0)
 				speed = 0;
 		}
 		else {
-			speed += SPEED_RATE;
+			speed += log(SPEED_RATE - speed/5);
 			if (speed > 0)
 				speed = 0;
 		}

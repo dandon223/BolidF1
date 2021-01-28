@@ -30,8 +30,8 @@ private:
 	const double MAX_SPEED = 0.5f;
 	const double MAX_SPEED_REVERSE = -0.1f;
 	bool inReverse = false;
-	const double STOP_SPEED = 1.01f;
-	const double SPEED_RATE = 1.01f;
+	const double STOP_SPEED = 0.001f;
+	const double SPEED_RATE = 1.005f;
 	const double PI =3.14159265;
 	const float MAX_DEGREE = 20.0;
 	const float MIN_DEGREE = -20.0;
