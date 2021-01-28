@@ -34,7 +34,7 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 				opona[i]->translate(glm::vec3(0.85f, 1.5f, -1.7f));
 			}
 			else {
-				//opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+				opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
 				opona[i]->translate(glm::vec3(0.85f, 1.35f, 1.3f));
 
@@ -48,7 +48,7 @@ Kolo::Kolo(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderPro
 				opona[i]->translate(glm::vec3(-0.85f, 1.5f, -1.7f));
 			}
 			else {
-				//opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
+				opona[i]->scale(glm::vec3(-0.375f, -0.375f, -0.375f));
 
 				opona[i]->translate(glm::vec3(-0.85f, 1.35f, 1.3f));
 			}
@@ -111,13 +111,7 @@ void Kolo::createCircle()
 
 void Kolo::makeTire()
 {
-	/*vertices2 = vertices;
-	for (GLuint i = 0; i < vertices.size() / 5; ++i) {
-		vertices2[5 * i + 2] += _width;
-	}*/
-
 	GLint verticesSize = vertices.size() / 5 - 1;
-
 
 	for (int i = 0; i < verticesSize; ++i) {
 		indicesTire.push_back((verticesSize - i) % verticesSize);
