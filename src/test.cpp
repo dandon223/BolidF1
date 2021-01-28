@@ -19,9 +19,9 @@
 #include "include/Floor.h"
 #include "include/Street.h"
 #include "include/Cube.h"
+#include "include/StreetLamps.h"
 
-
-const unsigned int MAX_POINT_LIGHT_NR = 8;
+const unsigned int MAX_POINT_LIGHT_NR = 10;
 std::vector<LightSource*> pointLights;
 
 using namespace std;
@@ -227,6 +227,8 @@ int main()
 		Floor floor = Floor(&BasicShader);
 		// road
 		Street street = Street(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
+		// lamp post
+		StreetLamps street_lamps = StreetLamps(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader, &LightShader, pointLights);
 
 		// skybox
 		unsigned int skyboxVAO, skyboxVBO;
@@ -251,14 +253,6 @@ int main()
 
 		/*Light source test*/
 		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
-		create_pointLight(glm::vec3(-5.0, 5.0, 0.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(5.0, 5.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(-5.0, 5.0, 30.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(5.0, 5.0, 30.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(-5.0, 5.0, 60.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(5.0, 5.0, 60.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(-5.0, 5.0, 90.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(-5.0, 5.0, 90.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
@@ -351,7 +345,6 @@ int main()
 			pass_proj_view(projection, view, LightShader);
 			for (const auto& p : pointLights) {
 				p->draw();
-				//p->rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
 			}
 
 			BasicShader.Use();
@@ -372,6 +365,8 @@ int main()
 			testOBJ.draw();
 			street.draw(bolid.centerPoint_.z);
 
+			street_lamps.draw(bolid.centerPoint_.z);
+
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 
 			// Swap the screen buffers
@@ -387,7 +382,5 @@ int main()
 	glfwTerminate();
 
 
-	for (auto p : pointLights)
-		delete p;
 	return 0;
 }
