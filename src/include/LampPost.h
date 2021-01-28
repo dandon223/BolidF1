@@ -21,7 +21,7 @@
 #include "Cube.h"
 
 class LampPost: public Model {
-
+	LightSource* light_;
 public:
 	LampPost(const ShaderProgram *, const ShaderProgram *, std::vector<LightSource *>&);
 };
