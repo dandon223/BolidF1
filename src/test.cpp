@@ -33,6 +33,8 @@ Camera camera;
 double mouse_prev_x;
 double mouse_prev_y;
 bool first_use = true;
+bool soundPlaying = false;
+
 float skyboxVertices[] = {
 	// positions          
 	-1.0f,  1.0f, -1.0f, 
@@ -93,6 +95,16 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 		for (const auto& p : pointLights) {
 			p->diffuseStrength_ -= 0.2;
 			p->specularStrength_ -= 0.2;
+		}
+	}
+	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
+		if (!soundPlaying) {
+			PlaySound(TEXT("sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			soundPlaying = true;
+		}
+		else {
+			PlaySound(NULL, NULL, SND_ASYNC);
+			soundPlaying = false;
 		}
 	}
 }
@@ -196,7 +208,6 @@ int main()
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
 		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
@@ -251,8 +262,6 @@ int main()
 		double curr_frame_time;
 		double delta_time = 0;
 		const double PI = 3.14159265;
-
-		//PlaySound(TEXT("sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
 		while (!glfwWindowShouldClose(window))
 		{
@@ -310,7 +319,7 @@ int main()
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
-			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 100.0f);
+			glm::mat4 projection = glm::perspective(glm::radians(camera.fov_), (GLfloat)WIDTH / (GLfloat)HEIGHT, 0.1f, 1000.0f);
 
 			static GLfloat rotAngle = 0.5f;
 

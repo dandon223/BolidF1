@@ -15,14 +15,17 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	Kadlub* kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	PrzedniSpoiler* przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	TylnySpoiler* tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
-	Kolo* osie[2];
-	osie[0] = new Kolo(centerPoint, scaleVector, shader, 0.25f, 20, 0.2f);
-	osie[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f);
-	osie[0]->translate(glm::vec3(0.0f,-0.15f, 3.f));
+	Kolo* tylnaOs[2];
+	tylnaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'T');
+	tylnaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'T');
+	Kolo* przedniaOs[2];
+	przedniaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'P');
+	przedniaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'P');
+	Zawieszenie* zawieszenie = new Zawieszenie(centerPoint, scaleVector, shader);
 	kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
-	tylnySpoiler->translate(glm::vec3(0.0f, 2.3f, -1.7f));
+	tylnySpoiler->translate(glm::vec3(0.0f, 2.5f, -1.7f));
 	kadlub->scale( glm::vec3(1.0f, 1.0f, 1.0f));
 	kadlub->translate(glm::vec3(0.0f, 1.5f, 0.0f));
 	kadlub->rotate(-90, glm::vec3(1.0f, 0.0f, 0.0f));
@@ -32,8 +35,11 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	this->add(tylnySpoiler);
 	this->add(przedniSpoiler);
 	this->add(kadlub);
-	this->add(osie[0]);
-	this->add(osie[1]);
+	this->add(zawieszenie);
+	for (int i = 0; i < 2; ++i) {
+		this->add(tylnaOs[i]);
+		this->add(przedniaOs[i]);
+	}
 	this->bind_buffers();
 
 }
@@ -56,11 +62,25 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS) {
 		if (!inReverse) {
 			speed += 0.5*log(SPEED_RATE);
+			wheel_speed = 10 * speed + 1;
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(6))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+	}
 			if (speed > MAX_SPEED)
 				speed = MAX_SPEED;
 		}
 		else {
 			speed -= 0.5*log(SPEED_RATE);
+			wheel_speed = 10 * speed - 1;
+			for (int i = 0; i < 3; ++i) {
+				static_cast<Model*>(getChild(4))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(5))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(6))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+				static_cast<Model*>(getChild(7))->getChild(i)->rotate(wheel_speed, glm::vec3(1.0f, 0.0f, 0.0f));
+			}
 			if (speed < MAX_SPEED_REVERSE)
 				speed = MAX_SPEED_REVERSE;
 		}
@@ -96,12 +116,38 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS && speed!=0) {
 		rotate(rotation_angle, glm::vec3(0.0, 1.0, 0.0));
 		rotation_position += 1;
+		if (current_degree < MAX_DEGREE) {
+			for (int i = 0; i < 3; ++i) {
+				if (!inReverse) {
+					static_cast<Model*>(getChild(5))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+					static_cast<Model*>(getChild(7))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				}
+				else {
+					static_cast<Model*>(getChild(5))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+					static_cast<Model*>(getChild(7))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				}
+				current_degree += 1;
+			}
+		}
 		if (rotation_position > 360)
 			rotation_position = 0;
 	}
 	if (glfwGetKey(window, GLFW_KEY_RIGHT) == GLFW_PRESS && speed != 0) {
 		rotate(rotation_angle, glm::vec3(0.0, -1.0, 0.0));
 		rotation_position -= 1;
+		if (current_degree > MIN_DEGREE) {
+			for (int i = 0; i < 3; ++i) {
+				if (!inReverse) {
+					static_cast<Model*>(getChild(5))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+					static_cast<Model*>(getChild(7))->getChild(i)->rotate(-1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				}
+				else {
+					static_cast<Model*>(getChild(5))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(5))->getChild(1)->centerPoint_);
+					static_cast<Model*>(getChild(7))->getChild(i)->rotate(1, glm::vec3(0.0f, 1.0f, 0.0f), static_cast<Model*>(getChild(7))->getChild(1)->centerPoint_);
+				}
+				current_degree -= 1;
+			}
+		}
 		if (rotation_position < -360)
 			rotation_position = 0;
 	}
