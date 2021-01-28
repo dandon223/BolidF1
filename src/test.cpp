@@ -21,7 +21,7 @@
 #include "include/Cube.h"
 #include "include/StreetLamps.h"
 
-const unsigned int MAX_POINT_LIGHT_NR = 8;
+const unsigned int MAX_POINT_LIGHT_NR = 10;
 std::vector<LightSource*> pointLights;
 
 using namespace std;

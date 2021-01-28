@@ -4,7 +4,7 @@ Street::Street(const glm::vec3& center_point, const glm::vec3& scale_vector, Sha
 	Model(center_point, scale_vector) {
 	prev_chunk = 0;
 	GLuint texture_id = LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/road.png");
-	for (int i = -9; i < 10; ++i) {
+	for (int i = -14; i < 15; ++i) {
 		RoadSegment* road_segment = new RoadSegment(texture_id, p_shader);
 		road_segment->translate(glm::vec3(0.0, 0.0, i * 12.0));
 		this->add(road_segment);
