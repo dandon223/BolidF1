@@ -153,6 +153,9 @@
     <Image Include="..\ResourceFiles\opona.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="..\ResourceFiles\lamp_post.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\shprogram.h">

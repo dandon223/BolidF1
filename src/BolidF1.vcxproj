@@ -123,6 +123,7 @@
     <Image Include="..\ResourceFiles\chassis2.png" />
     <Image Include="..\ResourceFiles\front.png" />
     <Image Include="..\ResourceFiles\grass.png" />
+    <Image Include="..\ResourceFiles\lamp_post.png" />
     <Image Include="..\ResourceFiles\left.png" />
     <Image Include="..\ResourceFiles\opona.png" />
     <Image Include="..\ResourceFiles\orange.png" />
