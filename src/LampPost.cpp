@@ -28,5 +28,10 @@ LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light
 	light_case->set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/bricks.png"));
 	add(light_case);
 
+	LightSource *light = create_pointLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.2, 1.0, 1.0, 1.0, 0.009, 0.0032, *light_shader, point_lights);
+	light->rotate(-80.0, glm::vec3(0.0, 0.0, 1.0));
+	light->scale(glm::vec3(-0.96, -0.6, -0.8));
+	light->translate(glm::vec3(-5.95, 9.05, 0.0));
+
 	bind_buffers();
 }

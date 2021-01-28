@@ -106,12 +106,12 @@
   <ItemGroup>
     <None Include="gl_05.frag" />
     <None Include="gl_05.vert" />
-    <None Include="LightSourceShader.frag" />
-    <None Include="LightSourceShader.vert" />
+    <None Include="shaders\LightSourceShader.frag" />
+    <None Include="shaders\LightSourceShader.vert" />
     <None Include="shaders\BasicShader.frag" />
     <None Include="shaders\BasicShader.vert" />
-    <None Include="skyboxShader.frag" />
-    <None Include="skyboxShader.vert" />
+    <None Include="shaders\skyboxShader.frag" />
+    <None Include="shaders\skyboxShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\ResourceFiles\back.png" />

@@ -236,8 +236,6 @@ int main()
 
 		/*Light source test*/
 		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
-		create_pointLight(glm::vec3(-5.0, 5.0, 0.0), glm::vec3(0.0, 0.0, 1.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
-		create_pointLight(glm::vec3(5.0, 5.0, 0.0), glm::vec3(1.0, 0.0, 0.0), 0.1, 1.0, 1.0, 1.0, 0.009, 0.0032, LightShader, pointLights);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
@@ -335,11 +333,10 @@ int main()
 			pass_proj_view(projection, view, LightShader);
 			for (const auto& p : pointLights) {
 				p->draw();
-				p->rotate(rotAngle, glm::vec3(0.0, 1.0, 0.0), glm::vec3(0.0, 0.0, 0.0));
 			}
 
 			BasicShader.Use();
-			glUniform1i(glGetUniformLocation(BasicShader.get_programID(), "lightCount"), 2);
+			glUniform1i(glGetUniformLocation(BasicShader.get_programID(), "lightCount"), pointLights.size());
 			pass_proj_view(projection, view, BasicShader);
 			glUniform3fv(glGetUniformLocation(BasicShader.get_programID(), "viewPos"), 1, glm::value_ptr(camera.position_));
 			directLight.pass_parameters_to_shader(BasicShader);
@@ -373,7 +370,5 @@ int main()
 	glfwTerminate();
 
 
-	for (auto p : pointLights)
-		delete p;
 	return 0;
 }

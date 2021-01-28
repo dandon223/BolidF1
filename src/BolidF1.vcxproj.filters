@@ -73,16 +73,16 @@
     <None Include="shaders\BasicShader.vert">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="skyboxShader.vert">
+    <None Include="shaders\skyboxShader.vert">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="skyboxShader.frag">
+    <None Include="shaders\skyboxShader.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="LightSourceShader.frag">
+    <None Include="shaders\LightSourceShader.frag">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="LightSourceShader.vert">
+    <None Include="shaders\LightSourceShader.vert">
       <Filter>Source Files</Filter>
     </None>
   </ItemGroup>
