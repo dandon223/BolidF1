@@ -61,17 +61,4 @@ public:
 	* skalowania wzgledem podanego wektora*/
 	virtual void scale(const glm::vec3&);
 };
-
-class Cube : public Object3D {
-public:
-
-	Cube(const ShaderProgram*);
-	~Cube();
-};
-
-class Cylinder : public Object3D {
-public:
-	Cylinder(unsigned int, unsigned int, const glm::vec3&, const ShaderProgram*);
-
-};
 #endif

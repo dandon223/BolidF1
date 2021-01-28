@@ -50,8 +50,6 @@ void Bolid::processKeyboardInput(GLFWwindow* window) {
 	double curr_frame_time = glfwGetTime();
 	delta_time = delta_time +(curr_frame_time - prev_frame_time);
 	prev_frame_time = curr_frame_time;
-	//std::cout << delta_time << std::endl;
-	//float bolidSpeed = MOVEMENT_SPEED * static_cast<float>(delta_time);
 	if (glfwGetKey(window, GLFW_KEY_R) == GLFW_PRESS && speed==0 && delta_time > 0.1) {
 		delta_time = 0;
 		if (inReverse)

@@ -99,7 +99,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	}
 	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
 		if (!soundPlaying) {
-			PlaySound(TEXT("sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(TEXT("GKOM_mixdown.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			soundPlaying = true;
 		}
 		else {
@@ -322,8 +322,6 @@ int main()
 				
 				camera.processKeyboardInput(window);
 			}
-			
-			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
