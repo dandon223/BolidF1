@@ -21,7 +21,7 @@
 #include "include/Cube.h"
 #include "include/StreetLamps.h"
 
-const unsigned int MAX_POINT_LIGHT_NR = 10;
+const unsigned int MAX_POINT_LIGHT_NR = 32;
 std::vector<LightSource*> pointLights;
 
 using namespace std;
@@ -99,7 +99,7 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	}
 	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
 		if (!soundPlaying) {
-			PlaySound(TEXT("sound.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+			PlaySound(TEXT("GKOM_mixdown.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 			soundPlaying = true;
 		}
 		else {
@@ -172,6 +172,9 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+	/*Antialiasing*/
+	glfwWindowHint(GLFW_SAMPLES, 4);
+
 	try
 	{
 		GLFWwindow* window = glfwCreateWindow(WIDTH, HEIGHT, "Samochodzik robi wrum", nullptr, nullptr);
@@ -207,6 +210,9 @@ int main()
 		// Set texture filtering parameters
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		/*Antialiasing*/
+		glEnable(GL_MULTISAMPLE);
 
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
@@ -246,7 +252,7 @@ int main()
 		unsigned int cubemapTexture = loadCubemap(faces);
 
 		/*Light source test*/
-		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -0.5, -1.0), glm::vec3(1.0, 1.0, 0.0), 0.0, 0.2, 0.7);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
@@ -296,11 +302,10 @@ int main()
 			if (cameraInBolid) {
 				bolid.processKeyboardInput(window);
 				if (cameraThirdPerson) {
-					double x = 5.5 * cos((-bolid.getRotationPosition()-90)*PI / 180);
-					double z = 5.5 * sin((-bolid.getRotationPosition()-90)*PI / 180);
+					double x = -sin(bolid.getRotationPosition() * PI / 180.0)*5;
+					double z = -cos(bolid.getRotationPosition() * PI / 180.0)*5;
+
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(x, 3.0, z));
-					//std::cout << "Bolid Pos = " << bolid.centerPoint_.x << " " << bolid.centerPoint_.z << endl;
-					//std::cout << "Rotation Pos = " << bolid.getRotationPosition() << " x = " << x << " z = " << z << endl;
 				}
 				else
 					camera.setPosition(bolid.centerPoint_ + glm::vec3(0.0, 1.8, 0.0));
@@ -311,8 +316,6 @@ int main()
 				
 				camera.processKeyboardInput(window);
 			}
-			
-			//cout << bolid.centerPoint_.x << " " << bolid.centerPoint_.y << " " << bolid.centerPoint_.z << endl; ;
 
 			// Clear color and depth buffer
 			glClearColor(0.1f, 0.2f, 0.3f, 1.0f);
