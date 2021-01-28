@@ -25,4 +25,5 @@ class LampPost: public Model {
 public:
 	LampPost(const ShaderProgram *, const ShaderProgram *, std::vector<LightSource *>&);
 	virtual void translate(const glm::vec3&);
+	virtual void rotate(float, const glm::vec3&);
 };
