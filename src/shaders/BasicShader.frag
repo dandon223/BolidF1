@@ -1,6 +1,6 @@
 #version 330 core
 
-#define NR_POINT_LIGHTS 10
+#define NR_POINT_LIGHTS 32
 
 out vec4 color;
 

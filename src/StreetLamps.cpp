@@ -4,7 +4,7 @@ StreetLamps::StreetLamps(const glm::vec3& center_point, const glm::vec3& scale_v
 	Model(center_point, scale_vector) {
 	prev_chunk_ = 0;
 	LampPost* lamp_post;
-	for (int i = -2; i <= 2; ++i) {
+	for (int i = -7; i <= 8; ++i) {
 		lamp_post = new LampPost(basic_shader, light_shader, point_lights);
 		lamp_post->translate(glm::vec3(-8.0, 0.0, 60.0 * i));
 		add(lamp_post);

@@ -21,7 +21,7 @@
 #include "include/Cube.h"
 #include "include/StreetLamps.h"
 
-const unsigned int MAX_POINT_LIGHT_NR = 10;
+const unsigned int MAX_POINT_LIGHT_NR = 32;
 std::vector<LightSource*> pointLights;
 
 using namespace std;
@@ -252,7 +252,7 @@ int main()
 		unsigned int cubemapTexture = loadCubemap(faces);
 
 		/*Light source test*/
-		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0), 0.0, 0.1, 0.1);
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -0.5, -1.0), glm::vec3(1.0, 1.0, 0.0), 0.0, 0.2, 0.7);
 
 		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
