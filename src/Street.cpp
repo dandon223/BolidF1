@@ -1,7 +1,7 @@
 #include "include\Street.h"
 
-Street::Street(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderProgram* p_shader):
-	Model(centerPoint, scaleVector) {
+Street::Street(const glm::vec3& center_point, const glm::vec3& scale_vector, ShaderProgram* p_shader):
+	Model(center_point, scale_vector) {
 	prev_chunk = 0;
 	GLuint texture_id = LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/road.png");
 	for (int i = -9; i < 10; ++i) {
@@ -11,7 +11,7 @@ Street::Street(const glm::vec3& centerPoint, const glm::vec3& scaleVector, Shade
 	}
 }
 
-void Street::draw(float bolid_center_z, glm::mat4& compositeModel)
+void Street::draw(float bolid_center_z, glm::mat4& composite_model)
 {
 	int curr_chunk = static_cast<int>(bolid_center_z / 12);
 	if (prev_chunk != curr_chunk) {
@@ -19,7 +19,7 @@ void Street::draw(float bolid_center_z, glm::mat4& compositeModel)
 		prev_chunk = curr_chunk;
 	}
 	glm::mat4 model;
-	model = compositeModel * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
+	model = composite_model * glm::translate(this->model_, this->centerPoint_) * rotationMatrix_;
 
 	for (auto& object : this->objectsVector_) {
 		object->draw(model);

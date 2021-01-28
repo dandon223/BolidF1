@@ -96,6 +96,7 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="PrzedniSpoiler.cpp" />
     <ClCompile Include="RoadSegment.cpp" />
+    <ClCompile Include="StreetLamps.cpp" />
     <ClCompile Include="test.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TylnySpoiler.cpp" />
@@ -145,6 +146,7 @@
     <ClInclude Include="include\Kadlub.h" />
     <ClInclude Include="include\Object3D.h" />
     <ClInclude Include="include\PrzedniSpoiler.h" />
+    <ClInclude Include="include\StreetLamps.h" />
     <ClInclude Include="include\TylnySpoiler.h" />
     <ClInclude Include="include\utils.h" />
     <ClInclude Include="include\camera.h" />

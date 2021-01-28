@@ -6,9 +6,10 @@
 #include "include\LampPost.h"
 
 LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light_shader, std::vector<LightSource*>& point_lights):
-	Model(glm::vec3(-8.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0))
+	Model(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0))
 {
 	GLuint texture_id = LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/lamp_post.png");
+	
 	Object3D* base = new Object3D(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.1, 5.0, 0.1), basic_shader);
 	base->translate(glm::vec3(0.0, 4.0, 0.0));
 	base->set_geometry(CUBE_VERTICES, CUBE_INDICES);
@@ -32,7 +33,7 @@ LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light
 	light_ = create_pointLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), 0.2, 1.0, 1.0, 1.0, 0.009, 0.0032, *light_shader, point_lights);
 	light_->rotate(-80.0, glm::vec3(0.0, 0.0, 1.0));
 	light_->scale(glm::vec3(-0.96, -0.6, -0.8));
-	light_->translate(glm::vec3(-5.95, 9.05, 0.0));
+	light_->translate(glm::vec3(2.05, 9.05, 0.0));
 
 	bind_buffers();
 }

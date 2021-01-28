@@ -1,6 +1,6 @@
 /**
  * Author: Konrad Bratosiewicz
- * Street implementation
+ * Street lights implementation
  **/
 
 #pragma once
@@ -17,11 +17,11 @@
 #include "utils.h"
 #include "shprogram.h"
 #include "Model.h"
-#include "RoadSegment.h"
+#include "LampPost.h"
 
-class Street : public Model {
-	int prev_chunk;
+class StreetLamps : public Model {
+
 public:
-	Street(const glm::vec3& center_point, const glm::vec3& scale_vector, ShaderProgram*);
+	StreetLamps(const glm::vec3&, const glm::vec3&, const ShaderProgram*, const ShaderProgram*, std::vector<LightSource*>&);
 	void draw(float bolid_center_z, glm::mat4 & = glm::mat4());
 };
