@@ -19,7 +19,7 @@
 #include "include/Floor.h"
 #include "include/Street.h"
 #include "include/Cube.h"
-#include "include/LampPost.h"
+#include "include/StreetLamps.h"
 
 const unsigned int MAX_POINT_LIGHT_NR = 8;
 std::vector<LightSource*> pointLights;
@@ -211,7 +211,7 @@ int main()
 		// road
 		Street street = Street(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
 		// lamp post
-		LampPost lamp_post = LampPost(&BasicShader, &LightShader, pointLights);
+		StreetLamps street_lamps = StreetLamps(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader, &LightShader, pointLights);
 
 		// skybox
 		unsigned int skyboxVAO, skyboxVBO;
@@ -353,7 +353,7 @@ int main()
 			testOBJ.draw();
 			street.draw(bolid.centerPoint_.z);
 
-			lamp_post.draw();
+			street_lamps.draw();
 
 			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 

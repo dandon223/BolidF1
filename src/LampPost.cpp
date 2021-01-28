@@ -37,3 +37,9 @@ LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light
 
 	bind_buffers();
 }
+
+void LampPost::translate(const glm::vec3& translate_vector)
+{
+	this->centerPoint_ += translate_vector;
+	light_->translate(translate_vector);
+}

@@ -23,5 +23,5 @@ class StreetLamps : public Model {
 
 public:
 	StreetLamps(const glm::vec3&, const glm::vec3&, const ShaderProgram*, const ShaderProgram*, std::vector<LightSource*>&);
-	void draw(float bolid_center_z, glm::mat4 & = glm::mat4());
+	//void draw(float bolid_center_z, glm::mat4 & = glm::mat4());
 };
