@@ -71,7 +71,7 @@ void Kolo::createCircle()
 {
 	GLfloat doublePi = 2.0f * 3.14159265358979323846;
 
-	for (int i = 0; i < _numOfSides; i++) {
+	for (int i = _numOfSides - 1; i >= 0; --i) {
 		/*vertices.push_back(0.f + (_radius * cos(i * doublePi / _numOfSides)));
 		vertices.push_back(0.f + (_radius * sin(i * doublePi / _numOfSides)));*/
 		GLfloat tempX = 0.f + (_radius * cos(i * doublePi / _numOfSides));
@@ -93,25 +93,40 @@ void Kolo::createCircle()
 		indicesCir.push_back(i + 1);
 	}
 
+	vertices2[2] += _width;
+	for (int i = 0; i < _numOfSides; ++i) {
+		/*vertices.push_back(0.f + (_radius * cos(i * doublePi / _numOfSides)));
+		vertices.push_back(0.f + (_radius * sin(i * doublePi / _numOfSides)));*/
+		GLfloat tempX = 0.f + (_radius * cos(i * doublePi / _numOfSides));
+		GLfloat tempY = 0.f + (_radius * sin(i * doublePi / _numOfSides));
+
+		vertices2.push_back(tempX);
+		vertices2.push_back(tempY);
+		vertices2.push_back(_width);
+		vertices2.push_back((tempX + _radius) / (2 * _radius));
+		vertices2.push_back((tempY + _radius) / (2 * _radius));
+	}
+
 }
 
 void Kolo::makeTire()
 {
-	vertices2 = vertices;
+	/*vertices2 = vertices;
 	for (GLuint i = 0; i < vertices.size() / 5; ++i) {
 		vertices2[5 * i + 2] += _width;
-	}
+	}*/
 
 	GLint verticesSize = vertices.size() / 5 - 1;
 
+
 	for (int i = 0; i < verticesSize; ++i) {
-		indicesTire.push_back(i);
+		indicesTire.push_back((verticesSize - i) % verticesSize);
 		indicesTire.push_back(((i + 1) % verticesSize) + verticesSize);
 		indicesTire.push_back(i + verticesSize);
 
-		indicesTire.push_back((i + 1) % verticesSize);
+		indicesTire.push_back((verticesSize - i - 1));
 		indicesTire.push_back(((i + 1) % verticesSize) + verticesSize);
-		indicesTire.push_back(i);
+		indicesTire.push_back((verticesSize - i) % verticesSize);
 	}
 	verticesTire.insert(verticesTire.end(), vertices.begin() + 5, vertices.end());
 	verticesTire.insert(verticesTire.end(), vertices2.begin() + 5, vertices2.end());
