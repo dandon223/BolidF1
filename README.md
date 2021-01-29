@@ -16,17 +16,17 @@ Temat: Bolid F1 na torze
 
 | Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
 |--------------------------------------------|:------------------:|:--------------:|:------:|:-------------------------------:|
-|0. Konfiguracja środowiska i repozytorium	| 	   	N/A			|       9h       |  Done  | KB, BŚ, JM, DG                  |
-|1. Utworzenie środowiska roboczego	         | 	   	N/A			|      6,5h      |  Done  | KB,                             |
-|2. Modelowanie bolidu				            | 	   	N/A			|       21h      |  Done  | JM, DG                          |
-|3. Tekstury bolidu					            | 	   	N/A			|       10h       |  Done  | JM, DG                          |
+|0. Konfiguracja środowiska i repozytorium	| 	   	N/A			|       9h       |  Done  | BŚ, JM, KB, DG                  |
+|1. Utworzenie środowiska roboczego	         | 	   	N/A			|       6,5      |  Done  | KB,                             |
+|2. Modelowanie bolidu				            | 	   	N/A			|       21h      |  Done  | DG, JM                          |
+|3. Tekstury bolidu					            | 	   	N/A			|       11h      |  Done  | DG, JM                          |
 |4. Model fragmentu toru			            | 	   	N/A			|      15,5h     |  Done  | KB                              |
 |5. Tekstury toru					               | 	   	N/A			|       2h       |  Done  | KB                              |
-|6. Kamera śledząca bolid      		         | 	   	N/A			|       2h       |  Done  | DG                                |
+|6. Kamera śledząca bolid      		         | 	   	N/A			|       2h       |  Done  | DG                              |
 |7. Oświetlenie 					               | 	   	N/A			|       20h      |  Done  | BŚ                              |
 |8. Interaktywne oświetlenie sceny	         | 	   	N/A			|       15m      |  Done  | BŚ                              |
-|9. Animacja                       	         | 	   	N/A			|       7h       |  Done  | DG                              |
-|10. Interakcja z użytkownikiem		         | 	   	N/A			|                |  Done  |                                 |
+|9. Animacja                       	         | 	   	N/A			|       7h       |  Done  | DG, JM                          |
+|10. Interakcja z użytkownikiem		         | 	   	N/A			|       4h       |  Done  | BŚ, DG                          |
 
 ## **Aktualna wersja programu**
 <img src="Schematy/Current.png" alt="Obecna wersja"
