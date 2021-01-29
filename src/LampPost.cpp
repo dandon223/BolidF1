@@ -30,7 +30,7 @@ LampPost::LampPost(const ShaderProgram *basic_shader, const ShaderProgram *light
 	light_case->set_texture(texture_id);
 	add(light_case);
 
-	light_ = create_pointLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 0.0, 1.0), 0.0, 0.8, 1.0, 1.0, 0.009, 0.0032, *light_shader, point_lights);
+	light_ = create_pointLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(1.0, 0.0, 1.0), 0.0, 0.8, 1.0, 1.0, 0.027, 0.0028, *light_shader, point_lights);
 	light_->rotate(-80.0, glm::vec3(0.0, 0.0, 1.0));
 	light_->scale(glm::vec3(-0.96, -0.6, -0.8));
 	light_->translate(glm::vec3(2.05, 9.05, 0.0));

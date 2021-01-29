@@ -16,11 +16,11 @@ Bolid::Bolid(const glm::vec3& centerPoint, const glm::vec3& scaleVector, ShaderP
 	PrzedniSpoiler* przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);
 	TylnySpoiler* tylnySpoiler = new TylnySpoiler(centerPoint, scaleVector, shader);
 	Kolo* tylnaOs[2];
-	tylnaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'T');
-	tylnaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'T');
+	tylnaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 36, 0.3f, 'L', 'T');
+	tylnaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 36, 0.3f, 'P', 'T');
 	Kolo* przedniaOs[2];
-	przedniaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'L', 'P');
-	przedniaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 20, 0.3f, 'P', 'P');
+	przedniaOs[0] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 36, 0.3f, 'L', 'P');
+	przedniaOs[1] = new Kolo(centerPoint, scaleVector, shader, 0.4f, 36, 0.3f, 'P', 'P');
 	Zawieszenie* zawieszenie = new Zawieszenie(centerPoint, scaleVector, shader);
 	kadlub = new Kadlub(centerPoint, scaleVector, shader);
 	przedniSpoiler = new PrzedniSpoiler(centerPoint, scaleVector, shader);

@@ -93,8 +93,8 @@ void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mode
 	}
 	else if (key == GLFW_KEY_1 && action == GLFW_PRESS) {
 		for (const auto& p : pointLights) {
-			p->diffuseStrength_ -= 0.2;
-			p->specularStrength_ -= 0.2;
+			if(p->diffuseStrength_ > 0) p->diffuseStrength_ -= 0.2;
+			if(p->specularStrength_ > 0)p->specularStrength_ -= 0.2;
 		}
 	}
 	else if (key == GLFW_KEY_P && action == GLFW_PRESS) {
@@ -216,7 +216,7 @@ int main()
 
 		// Build, compile and link shader program
 		ShaderProgram CubeShader("shaders/CubeShader.vert", "shaders/CubeShader.frag");
-		ShaderProgram skyboxShader("skyboxShader.vert", "skyboxShader.frag");
+		ShaderProgram skyboxShader("shaders/skyboxShader.vert", "shaders/skyboxShader.frag");
 		ShaderProgram LightShader("shaders/LightSourceShader.vert", "shaders/LightSourceShader.frag");
 		ShaderProgram BasicShader("shaders/BasicShader.vert", "shaders/BasicShader.frag");
 
@@ -252,13 +252,7 @@ int main()
 		unsigned int cubemapTexture = loadCubemap(faces);
 
 		/*Light source test*/
-		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -0.5, -1.0), glm::vec3(1.0, 1.0, 0.0), 0.0, 0.2, 0.7);
-
-		Object3D testOBJ = Object3D(glm::vec3(-2.0, 3.0, 1.0), glm::vec3(1.0, 1.0, 1.0), &BasicShader);
-		testOBJ.set_geometry(CUBE_VERTICES, CUBE_INDICES);
-		testOBJ.set_texture(LoadMipmapTexture(GL_TEXTURE0, "../ResourceFiles/carbon.png"));
-		testOBJ.set_material();
-		testOBJ.bind_buffers();
+		DirectLight directLight(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, -0.5, -1.0), glm::vec3(1.0, 1.0, 0.0), 0.0, 0.1, 0.5);
 
 		// main event loop
 		bool cameraInBolid = false;
@@ -362,12 +356,9 @@ int main()
 
 			bolid.draw();
 			floor.draw();
-			testOBJ.draw();
 			street.draw(bolid.centerPoint_.z);
 
 			street_lamps.draw(bolid.centerPoint_.z);
-
-			testOBJ.rotate(rotAngle, glm::vec3(0.0, 0.0, 1.0));
 
 			// Swap the screen buffers
 			glfwSwapBuffers(window);

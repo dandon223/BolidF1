@@ -2,12 +2,10 @@
 
 | Imię i Nazwisko    |       Funkcja      |
 |--------------------|--------------------|
-|Daniel Górniak		|      3D artis      |
-|Jakub Marczuk 		|                    |
-|Konrad Bratosiewicz |                    |
+|Daniel Górniak		|    3D artist/UX    |
+|Jakub Marczuk 		|     3D artist      |
+|Konrad Bratosiewicz |     3D artist      |
 |Bartosz Świrta		|Framework/Engine dev|
-
-
 
 # **Temat projektu**  
 Temat: Bolid F1 na torze
@@ -18,17 +16,17 @@ Temat: Bolid F1 na torze
 
 | Etap projektu         			            |  Przewidywany czas | Faktyczny czas | Status |Wykonano                         |
 |--------------------------------------------|:------------------:|:--------------:|:------:|:-------------------------------:|
-|0. Konfiguracja środowiska i repozystorium	| 	   	N/A			|       9h       |  Done  |                                 |
-|1. Utworzenie środowiska roboczego	         | 	   				   |                |  Done  |                                 |
-|2. Modelowanie bolidu				            | 	   				   |                |  Doing |                                 |
-|3. Tekstury bolidu					            |                    |                |  Done  |                                 |
-|4. Model fragmentu toru			            |                    |                |  Doing |                                 |
-|5. Tekstury toru					               |	                  |                |  Doing |                                 |
-|6. Kamera śledząca bolid      		         |                    |                |  Done  |                                 |
-|7. Oświetlenie 					               |                    |                |  Done  |                                 |
-|8. Interaktywne oświetlenie sceny	         |                    |                |  Done  |                                 |
-|9. Animacja                       	         |                    |                |  Doing |                                 |
-|10. Interakcja z użytkownikiem		         |                    |                |  Done  |                                 |
+|0. Konfiguracja środowiska i repozytorium	| 	   	N/A			|       9h       |  Done  | KB, BŚ, JM, DG                  |
+|1. Utworzenie środowiska roboczego	         | 	   	N/A			|      6,5h      |  Done  | KB,                             |
+|2. Modelowanie bolidu				            | 	   	N/A			|       21h      |  Done  | JM, DG                          |
+|3. Tekstury bolidu					            | 	   	N/A			|       10h       |  Done  | JM, DG                          |
+|4. Model fragmentu toru			            | 	   	N/A			|      15,5h     |  Done  | KB                              |
+|5. Tekstury toru					               | 	   	N/A			|       2h       |  Done  | KB                              |
+|6. Kamera śledząca bolid      		         | 	   	N/A			|       2h       |  Done  | DG                                |
+|7. Oświetlenie 					               | 	   	N/A			|       20h      |  Done  | BŚ                              |
+|8. Interaktywne oświetlenie sceny	         | 	   	N/A			|       15m      |  Done  | BŚ                              |
+|9. Animacja                       	         | 	   	N/A			|       7h       |  Done  | DG                              |
+|10. Interakcja z użytkownikiem		         | 	   	N/A			|                |  Done  |                                 |
 
 ## **Aktualna wersja programu**
 <img src="Schematy/Current.png" alt="Obecna wersja"
@@ -86,17 +84,17 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
     - [x] Modele spoilerów  
 	 - [x] Model nadwozia  
  3. Tekstury bolidu
-    - [ ] Tekstury kół
+    - [x] Tekstury kół
     - [x] Tekstura nadwozia
     - [x] Tekstury elementów aerodynamicznych
  4. Model fragmentu toru 
-    - [ ] Jezdnia
-    - [ ] Trybuny
-    - [ ] Bandy (opcjonalnie)
-    - [ ] Elementy dekoracyjne (opcjonalnie)
+    - [x] Jezdnia
+    - [ ] <s>Trybuny</s>
+    - [ ] <s>Bandy (opcjonalnie)</s>
+    - [x] Elementy dekoracyjne (opcjonalnie)
  5. Tekstury toru
-    - [ ] Tekstura jezdni
-    - [ ] Tekstury elementów dekoracyjnych (opcjonalnie)
+    - [x] Tekstura jezdni
+    - [x] Tekstury elementów dekoracyjnych (opcjonalnie)
  6. Kamera śledząca bolid 
     - [x] Ruch kamery zgodnie z ruchem myszy
 	 - [x] Przybliżanie i oddalanie kamery 
@@ -105,7 +103,7 @@ W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zd
     - [x] Oświetlenie punktowe (lampy)
  8. Interaktywne oświetlenie sceny
  9. Animacja
-    - [ ] Animacja kół 
+    - [x] Animacja kół 
  10. Interakcja z użytkownikiem 
 	
 
