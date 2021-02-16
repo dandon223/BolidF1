@@ -31,27 +31,12 @@ Temat: Bolid F1 na torze
 ## **Aktualna wersja programu**
 <img src="Schematy/Current.png" alt="Obecna wersja"
 	title="FRONT" width="600" height="400" />
-
-# **Schemat modeli**
-
-## **Model referencyjny**
-W trakcie projektowania modelu bolidu będziemy wzorować się na poniższych zdjęciach.
-### FRONT  
-<img src="Schematy/FRONT.png" alt="FRONT"
-	title="FRONT" width="480" height="270" />
-### BACK  
-<img src="Schematy/BACK.png" alt="BACK"
-	title="BACK" width="480" height="270" />
-### LEFT
-<img src="Schematy/LEFT.png" alt="LEFT"
-	title="LEFT" width="480" height="270" />
-### RIGHT
-<img src="Schematy/RIGHT.png" alt="RIGHT"
-	title="RIGHT" width="480" height="270" />
-### TOP
-<img src="Schematy/TOP.png" alt="TOP"
-	title="TOP" width="480" height="270" />
-
+	
+<img src="Schematy/inside.png" alt="Obecna wersja"
+	title="FRONT" width="600" height="400" />
+	
+<img src="Schematy/thirdPerson.png" alt="Obecna wersja"
+	title="FRONT" width="600" height="400" />
 
 # **Milestones**
 0. Konfiguracja środowiska i repozytorium GitLab
