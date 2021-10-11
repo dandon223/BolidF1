@@ -2,10 +2,10 @@
 
 | Imię i Nazwisko    |       Funkcja      |
 |--------------------|--------------------|
-|Daniel Górniak		|    3D artist/UX    |
-|Jakub Marczuk 		|     3D artist      |
-|Konrad Bratosiewicz |     3D artist      |
-|Bartosz Świrta		|Framework/Engine dev|
+|DG		|    3D artist/UX    |
+|JM 		|     3D artist      |
+|KB |     3D artist      |
+|BŚ		|Framework/Engine dev|
 
 # **Temat projektu**  
 Temat: Bolid F1 na torze
